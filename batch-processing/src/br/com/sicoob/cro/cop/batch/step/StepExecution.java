@@ -12,8 +12,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 
 /**
+ * Classe responsavel por obter o tasklet do step e coloca-lo no contexto de
+ * execucao do {@code executor}.
  *
- * @author rogerioalves21
+ * @author Rogerio Alves Rodrigues
  */
 public class StepExecution implements CoreExecution<Step, FutureTask<Result>> {
 

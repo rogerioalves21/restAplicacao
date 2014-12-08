@@ -25,10 +25,10 @@ import java.util.logging.Logger;
  *
  * @author Rogerio Alves Rodrigues
  */
-public class BatchConfigurationResolver {
+public class BatchConfigurations {
 
     // log
-    private static final Logger LOG = Logger.getLogger(BatchConfigurationResolver.class.getName());
+    private static final Logger LOG = Logger.getLogger(BatchConfigurations.class.getName());
 
     // objeto a ser resolvido
     private final Object configuration;
@@ -38,7 +38,7 @@ public class BatchConfigurationResolver {
      *
      * @param configuration Classe de configuracao de batch.
      */
-    public BatchConfigurationResolver(Object configuration) {
+    public BatchConfigurations(Object configuration) {
         this.configuration = configuration;
     }
 

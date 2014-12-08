@@ -5,7 +5,7 @@
  */
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
-import br.com.sicoob.cro.cop.batch.configuration.BatchConfigurationResolver;
+import br.com.sicoob.cro.cop.batch.configuration.BatchConfigurations;
 import br.com.sicoob.cro.cop.batch.configuration.JobFactoryInjector;
 import br.com.sicoob.cro.cop.batch.configuration.StepFactoryInjector;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
@@ -85,10 +85,10 @@ public class LauncherExecutor implements Callable<Boolean> {
     /**
      * Obtem a classe de configuracao.
      *
-     * @return um {@link BatchConfigurationResolver}.
+     * @return um {@link BatchConfigurations}.
      */
-    private BatchConfigurationResolver getConfiguration() {
-        return new BatchConfigurationResolver(this.config);
+    private BatchConfigurations getConfiguration() {
+        return new BatchConfigurations(this.config);
     }
 
     /**
