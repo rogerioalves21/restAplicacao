@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Implementacoes de Launcher.
+ * Metodos utilitarios para trabalhar com launchers.
  *
  * @author Rogerio Alves Rodrigues
  */
