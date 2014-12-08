@@ -7,7 +7,7 @@ package br.com.sicoob.cro.cop.util;
 
 /**
  *
- * @author rogerioalves21
+ * @author Rogerio Alves Rodrigues
  */
 public class ItemError {
     
