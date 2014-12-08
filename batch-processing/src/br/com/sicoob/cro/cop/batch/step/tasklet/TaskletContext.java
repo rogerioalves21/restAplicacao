@@ -15,7 +15,9 @@ import br.com.sicoob.cro.cop.util.ObjectDomainsUtil;
  */
 public class TaskletContext {
 
+    // parametros para os steps
     private StepParameters parameters;
+    // instancia vazia
     private static final StepParameters EMPTY = new StepParameters();
 
     /**
