@@ -25,7 +25,7 @@ public class ExemploUmTest extends TestCase {
         IExecution execution = launcher.start();
 
         System.out.println(execution.toString());
-        while (execution.getStatus() == Status.RUNNING) {
+        while (execution.getStatus() != Status.COMPLETED) {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {
@@ -43,7 +43,7 @@ public class ExemploUmTest extends TestCase {
         IExecution execution = launcher.start();
 
         System.out.println(execution.toString());
-        while (execution.getStatus() == Status.RUNNING) {
+        while (execution.getStatus() != Status.COMPLETED) {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException ex) {

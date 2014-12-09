@@ -5,9 +5,9 @@
  */
 package batch.processing.usage;
 
-import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Context;
 import br.com.sicoob.cro.cop.batch.core.Result;
+import br.com.sicoob.cro.cop.batch.step.tasklet.AbstractTasklet;
 import br.com.sicoob.cro.cop.batch.step.tasklet.TaskletContext;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author rogerioalves21
  */
-public class ProcessarArquivoTasklet implements Tasklet {
+public class ProcessarArquivoTasklet extends AbstractTasklet {
 
     private static final Logger LOG = Logger.getLogger(ProcessarArquivoTasklet.class.getName());
 

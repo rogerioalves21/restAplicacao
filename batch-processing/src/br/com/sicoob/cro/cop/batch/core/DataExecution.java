@@ -15,7 +15,7 @@ import br.com.sicoob.cro.cop.util.ItemError;
  */
 public class DataExecution implements IExecution {
 
-    private Status status = Status.STARTED;
+    private Status status = Status.STARTING;
     private Job runningJob;
     private Result result;
     private ItemError itemError;

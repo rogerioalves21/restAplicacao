@@ -54,7 +54,7 @@ public class LauncherExecutor implements Callable<Boolean> {
     @Override
     public Boolean call() {
         LOG.log(Level.INFO, "#### Iniciando o processamento ####");
-        ((DataExecution) this.execution).setStatus(Status.RUNNING);
+        ((DataExecution) this.execution).setStatus(Status.STARTED);
         try {
             // injetando as dependencias de factory
             injectDependencies();
@@ -83,7 +83,7 @@ public class LauncherExecutor implements Callable<Boolean> {
             ((DataExecution) this.execution).addErrorMessage(erro.getCause().getMessage());
             LOG.log(Level.SEVERE, erro.getMessage());
         } finally {
-            ((DataExecution) this.execution).setStatus(Status.FINISHED);
+            ((DataExecution) this.execution).setStatus(Status.COMPLETED);
             LOG.log(Level.INFO, "\n#### Finalizando o processamento ####");
         }
         return null;
