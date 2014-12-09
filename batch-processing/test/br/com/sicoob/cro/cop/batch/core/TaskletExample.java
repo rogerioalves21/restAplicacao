@@ -5,7 +5,6 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
-import br.com.sicoob.cro.cop.batch.core.launcher.BatchProcess;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static junit.framework.Assert.assertEquals;
@@ -43,7 +42,7 @@ public class TaskletExample {
     @Test
     public void taskletExample() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(ProcessarArquivoBatchConfig.class);
-        IExecution execution = launcher.run();
+        IExecution execution = launcher.start();
         
         System.out.println(execution.toString());
         while (execution.getStatus() == Status.RUNNING) {

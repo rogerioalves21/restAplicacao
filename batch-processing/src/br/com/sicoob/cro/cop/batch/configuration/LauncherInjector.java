@@ -7,7 +7,7 @@ package br.com.sicoob.cro.cop.batch.configuration;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
 import br.com.sicoob.cro.cop.batch.core.IExecution;
-import br.com.sicoob.cro.cop.batch.core.launcher.BatchProcess;
+import br.com.sicoob.cro.cop.batch.core.BatchProcess;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launcher;
 import br.com.sicoob.cro.cop.batch.core.launcher.SimpleJobLauncher;
 import java.lang.reflect.Field;

@@ -8,7 +8,7 @@ package batch.processing.usage;
 import br.com.sicoob.cro.cop.batch.core.BatchApplication;
 import br.com.sicoob.cro.cop.batch.core.IExecution;
 import br.com.sicoob.cro.cop.batch.core.Status;
-import br.com.sicoob.cro.cop.batch.core.launcher.BatchProcess;
+import br.com.sicoob.cro.cop.batch.core.BatchProcess;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,7 +23,7 @@ public class BatchProcessingUsage {
      */
     public static void main(String[] args) {
         BatchProcess launcher = BatchApplication.createExecutionProcess(ProcessarArquivoBatchConfig.class);
-        IExecution execution = launcher.run();
+        IExecution execution = launcher.start();
         
         System.out.println(execution.toString());
         while (execution.getStatus() != Status.FINISHED) {

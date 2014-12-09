@@ -6,7 +6,6 @@
 package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.BatchConfiguration;
-import br.com.sicoob.cro.cop.batch.core.launcher.BatchProcess;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launchers;
 import java.util.logging.Level;
 import java.util.logging.Logger;

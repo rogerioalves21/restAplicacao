@@ -10,7 +10,6 @@ import br.com.sicoob.cro.cop.batch.core.IExecution;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launchers;
 import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.core.Status;
-import br.com.sicoob.cro.cop.batch.core.launcher.BatchProcess;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.TestCase;
@@ -23,7 +22,7 @@ public class ExemploUmTest extends TestCase {
 
     public void testUmJobUmStep() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(ExemploBatchConfig.class);
-        IExecution execution = launcher.run();
+        IExecution execution = launcher.start();
 
         System.out.println(execution.toString());
         while (execution.getStatus() == Status.RUNNING) {
@@ -41,7 +40,7 @@ public class ExemploUmTest extends TestCase {
 
     public void testSemTasklet() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(BatchConfigSemTasklet.class);
-        IExecution execution = launcher.run();
+        IExecution execution = launcher.start();
 
         System.out.println(execution.toString());
         while (execution.getStatus() == Status.RUNNING) {

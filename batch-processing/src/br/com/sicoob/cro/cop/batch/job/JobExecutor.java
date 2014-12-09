@@ -72,9 +72,7 @@ public class JobExecutor implements IJobExecutor {
         executor.shutdown();
 
         // verifica o resultado dos steps rodados
-        Boolean result = successOnSteps(asyncResults);
-
-        if (result) {
+        if (successOnSteps(asyncResults)) {
             this.job.setStatus(Job.Status.FINISHED);
         } else {
             this.job.setStatus(Job.Status.FAIL);
