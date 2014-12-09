@@ -5,9 +5,9 @@
  */
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
-import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
 import br.com.sicoob.cro.cop.batch.core.Result;
-import br.com.sicoob.cro.cop.batch.core.IExecution;
+import br.com.sicoob.cro.cop.batch.core.BatchExecution;
+import com.google.inject.Inject;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,33 +31,24 @@ import java.util.concurrent.FutureTask;
  *
  * @author Rogerio Alves Rodrigues
  */
-public class SimpleJobLauncher implements Launcher<IExecution> {
+public class SimpleJobLauncher implements Launcher {
 
-    // Configuracao do Processamento Batch.
-    private final Object config;
-    // Classe que contera os dados da execucao.
-    @Inject
-    private IExecution execution;
+    // Classe para o acompanhamento de execucao
+    private final BatchExecution execution;
 
     /**
-     * Constroi um {@link JobLauncher}.
+     * Construtor.
      *
-     * @param config Dados de configuracao.
+     * @param execution Retorno da execucao do Batch.
      */
-    public SimpleJobLauncher(Object config) {
-        this.config = config;
+    @Inject
+    public SimpleJobLauncher(BatchExecution execution) {
+        this.execution = execution;
     }
 
-    /**
-     * Implementa o metodo run da interface {@link Laucnher}.
-     *
-     * @return um {@link IExecution}. Sera o resultado do processamento como um
-     * todo.
-     */
-    @Override
-    public IExecution run() {
+    public BatchExecution run(Object configurationObject) {
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        Callable<Boolean> launcherExecutor = new LauncherExecutor(this.execution, this.config);
+        Callable<Boolean> launcherExecutor = new LauncherExecutor(this.execution, configurationObject);
 
         // cria uma thread para a execucao assincrona do processo
         FutureTask<Boolean> processTask = new FutureTask<>(launcherExecutor);

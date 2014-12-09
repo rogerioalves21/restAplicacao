@@ -5,12 +5,11 @@
  */
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
-import br.com.sicoob.cro.cop.batch.configuration.LauncherInjector;
+import br.com.sicoob.cro.cop.batch.configuration.BatchProcessModule;
 import br.com.sicoob.cro.cop.batch.core.BatchProcess;
 import br.com.sicoob.cro.cop.batch.factory.Factory;
-import br.com.sicoob.cro.cop.util.ObjectDomainsUtil;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * Metodos utilitarios para trabalhar com launchers.
@@ -20,25 +19,25 @@ import java.util.logging.Logger;
 public class Launchers implements Factory<BatchProcess> {
 
     // configuracao do batch
-    private final Object configuration;
+    private final Object configurationObject;
 
     /**
      * Construtor privado.
      *
-     * @param Object Configuracao do batch.
+     * @param configurationObject Configuracao do batch.
      */
-    private Launchers(Object configuration) {
-        this.configuration = configuration;
+    private Launchers(Object configurationObject) {
+        this.configurationObject = configurationObject;
     }
 
     /**
      * Retorna uma nota instancia do launcher factory.
      *
-     * @param configuration Configuracao do batch.
+     * @param configurationObject Configuracao do batch.
      * @return um {@link Launchers}.
      */
-    public static Launchers get(Object configuration) {
-        return new Launchers(configuration);
+    public static Launchers get(Object configurationObject) {
+        return new Launchers(configurationObject);
     }
 
     /**
@@ -47,18 +46,11 @@ public class Launchers implements Factory<BatchProcess> {
      * @return um {@link BatchProcess}.
      */
     @Override
-    public BatchProcess create() {
-        BatchProcess process = new BatchProcess();
-        try {
-            new LauncherInjector(process, this.configuration).inject();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(Launchers.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Launchers.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex);
-        }
-        return ObjectDomainsUtil.nullSafe(process, BatchProcess.EMPTY);
+    public BatchProcess create() {        
+        Injector injector = Guice.createInjector(new BatchProcessModule());
+        BatchProcess process = injector.getInstance(BatchProcess.class);
+        process.addConfigurationObject(this.configurationObject);
+        return process;
     }
 
 }

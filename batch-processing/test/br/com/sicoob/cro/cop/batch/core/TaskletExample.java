@@ -42,7 +42,7 @@ public class TaskletExample {
     @Test
     public void taskletExample() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(ProcessarArquivoBatchConfig.class);
-        IExecution execution = launcher.start();
+        BatchExecution execution = launcher.start();
         
         System.out.println(execution.toString());
         while (execution.getStatus() != Status.COMPLETED) {

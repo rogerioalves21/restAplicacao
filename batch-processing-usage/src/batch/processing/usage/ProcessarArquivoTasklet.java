@@ -34,11 +34,6 @@ public class ProcessarArquivoTasklet extends AbstractTasklet {
         InputStream source = this.getClass().getResourceAsStream(this.context.getParameters().get("nomeArquivo").toString()/*"OpLm.csv"*/);
         Scanner scan = new Scanner(source);
         while (scan.hasNext()) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ProcessarArquivoTasklet.class.getName()).log(Level.SEVERE, null, ex);
-            }
             String[] dados = scan.next().split(";");
             Operacao operacao = new Operacao(dados[0],
                     new BigDecimal(dados[1]), dados[2], new BigDecimal(dados[3]));

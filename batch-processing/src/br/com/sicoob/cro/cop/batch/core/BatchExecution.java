@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Rogerio Alves Rodrigues
  */
-public interface IExecution {
+public interface BatchExecution {
 
     /**
      * Retorna o status do processamento.
@@ -35,7 +35,7 @@ public interface IExecution {
      *
      * @return um {@link Job},
      */
-    Job getRunningJob();
+    JobExecution getRunningJob();
 
     /**
      * Retorna todos os erros que ocorreram na execucao.

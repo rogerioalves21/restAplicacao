@@ -5,21 +5,23 @@
  */
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
+import br.com.sicoob.cro.cop.batch.core.BatchExecution;
+
 /**
  * Define o comportamento de um launcher.
  *
  * Padrao Command. Apenas recebe a requisicao e executa.
  *
  * @author Rogerio Alves Rodrigues
- * @param <T> Tipo de retorno do launcher.
  */
-public interface Launcher<T> {
+public interface Launcher {
 
     /**
      * Executa a logica de lancamento.
      *
-     * @return um Tipo.
+     * @param configurationObject Objeto de configuracao do batch.
+     * @return um {@link BatchExecution}.
      */
-    T run();
+    BatchExecution run(Object configurationObject);
 
 }

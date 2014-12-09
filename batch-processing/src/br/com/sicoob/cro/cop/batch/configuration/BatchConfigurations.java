@@ -31,15 +31,15 @@ public class BatchConfigurations {
     private static final Logger LOG = Logger.getLogger(BatchConfigurations.class.getName());
 
     // objeto a ser resolvido
-    private final Object configuration;
+    private final Object configurationObject;
 
     /**
      * Constroi um resolvedor.
      *
-     * @param configuration Classe de configuracao de batch.
+     * @param configurationObject Classe de configuracao de batch.
      */
-    public BatchConfigurations(Object configuration) {
-        this.configuration = configuration;
+    public BatchConfigurations(Object configurationObject) {
+        this.configurationObject = configurationObject;
     }
 
     /**
@@ -58,19 +58,19 @@ public class BatchConfigurations {
             InvocationTargetException, NoConfigurationClassException, NoJobsFoundException, MandatoryFieldException {
 
         LOG.log(Level.INFO, "Verifica se existe a anotacao [@BatchConfiguration] para classe ["
-                .concat(configuration.getClass().getName()).concat("]"));
+                .concat(this.configurationObject.getClass().getName()).concat("]"));
 
         List<Job> jobs = new ArrayList<>();
         // verifica se contem a annotation @BatchConfiguration
-        if (configuration.getClass().isAnnotationPresent(BatchConfiguration.class)) {
+        if (this.configurationObject.getClass().isAnnotationPresent(BatchConfiguration.class)) {
             // encontra o metodo que retorna os jobs
-            Method[] methods = configuration.getClass().getDeclaredMethods();
+            Method[] methods = this.configurationObject.getClass().getDeclaredMethods();
             for (Method method : methods) {
                 if (method.isAnnotationPresent(Jobs.class)) {
                     LOG.log(Level.INFO, "Obtendo os jobs do metodo que contem a anotacao [@Jobs] o metodo ["
                             .concat(method.getName()).concat("]"));
                     method.setAccessible(Boolean.TRUE);
-                    jobs.addAll((List<Job>) method.invoke(configuration, new Object[0]));
+                    jobs.addAll((List<Job>) method.invoke(this.configurationObject, null));
                 }
             }
         } else {

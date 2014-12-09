@@ -41,7 +41,6 @@ public class JobExecutor implements IJobExecutor {
         this.job = job;
     }
 
-    @Override
     public void start() throws Exception {
         this.job.setStatus(Job.Status.RUNNING);
 
@@ -110,7 +109,6 @@ public class JobExecutor implements IJobExecutor {
         return Boolean.TRUE;
     }
 
-    @Override
     public Job.Status getStatus() {
         return this.job.getStatus();
     }

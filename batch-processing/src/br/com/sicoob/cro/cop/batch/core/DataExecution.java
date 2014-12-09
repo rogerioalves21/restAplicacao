@@ -5,27 +5,24 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
-import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.util.ItemError;
 
 /**
- * Implementacao da interface {@link IExecution}.
+ * Implementacao da interface {@link BatchExecution}.
  *
  * @author Rogerio Alves Rodrigues
  */
-public class DataExecution implements IExecution {
+public class DataExecution implements BatchExecution {
 
     private Status status = Status.STARTING;
-    private Job runningJob;
+    private JobExecution runningJob;
     private Result result;
     private ItemError itemError;
 
-    @Override
     public Status getStatus() {
         return this.status;
     }
 
-    @Override
     public ItemError getItemError() {
         return this.itemError;
     }
@@ -40,19 +37,17 @@ public class DataExecution implements IExecution {
     /**
      * @return the runningJob
      */
-    @Override
-    public Job getRunningJob() {
+    public JobExecution getRunningJob() {
         return runningJob;
     }
 
     /**
      * @param runningJob the runningJob to set
      */
-    public void setRunningJob(Job runningJob) {
+    public void setRunningJob(JobExecution runningJob) {
         this.runningJob = runningJob;
     }
 
-    @Override
     public Result getResult() {
         return this.result;
     }
@@ -68,13 +63,12 @@ public class DataExecution implements IExecution {
         this.itemError = new ItemError(error);
     }
 
-    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("\n#########################");
         builder.append("\nStatus: ".concat(this.status.name()));
         builder.append("\nResult: ".concat(this.result != null ? this.result.getType().name() : "Nenhum"));
-        builder.append("\nRunning Job: ".concat(this.runningJob != null ? this.runningJob.getNome() : "Nenhum"));
+        builder.append("\nRunning Job: ".concat(this.runningJob != null ? this.runningJob.getName() : "Nenhum"));
         builder.append("\nRunning Job Status: ".concat(this.runningJob != null ? this.runningJob.getStatus().name() : "Nenhum"));
         builder.append("\nError: ".concat(this.itemError != null ? this.itemError.getMessage() : "Nenhum"));
         return builder.toString();

@@ -6,7 +6,7 @@
 package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.batch.core.BatchApplication;
-import br.com.sicoob.cro.cop.batch.core.IExecution;
+import br.com.sicoob.cro.cop.batch.core.BatchExecution;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launchers;
 import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.core.Status;
@@ -22,7 +22,7 @@ public class ExemploUmTest extends TestCase {
 
     public void testUmJobUmStep() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(ExemploBatchConfig.class);
-        IExecution execution = launcher.start();
+        BatchExecution execution = launcher.start();
 
         System.out.println(execution.toString());
         while (execution.getStatus() != Status.COMPLETED) {
@@ -40,7 +40,7 @@ public class ExemploUmTest extends TestCase {
 
     public void testSemTasklet() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(BatchConfigSemTasklet.class);
-        IExecution execution = launcher.start();
+        BatchExecution execution = launcher.start();
 
         System.out.println(execution.toString());
         while (execution.getStatus() != Status.COMPLETED) {

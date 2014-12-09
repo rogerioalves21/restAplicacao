@@ -5,8 +5,8 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
-import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launcher;
+import com.google.inject.Inject;
 
 /**
  * Classe que sera retornada para o cliente.
@@ -16,18 +16,36 @@ import br.com.sicoob.cro.cop.batch.core.launcher.Launcher;
 public class BatchProcess {
 
     // Classe executora
+    private final Launcher execution;
+    // Objeto de configuracao do batch
+    private Object configurationObject;
+
+    /**
+     * Construtor.
+     *
+     * @param execution Classe o lancamento da execucao.
+     */
     @Inject
-    private Launcher<IExecution> execution;
-    // instancia vazia
-    public static final BatchProcess EMPTY = new BatchProcess();
+    public BatchProcess(Launcher execution) {
+        this.execution = execution;
+    }
+
+    /**
+     * Adiciona o objeto de configuracao do batch.
+     *
+     * @param configurationObject Objeto de configuracao.
+     */
+    public void addConfigurationObject(Object configurationObject) {
+        this.configurationObject = configurationObject;
+    }
 
     /**
      * Executa o processamento.
      *
-     * @return um {@link IExecution}.
+     * @return um {@link BatchExecution}.
      */
-    public IExecution start() {
-        return this.execution.run();
+    public BatchExecution start() {
+        return this.execution.run(this.configurationObject);
     }
 
 }
