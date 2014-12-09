@@ -6,7 +6,7 @@
 package br.com.sicoob.cro.cop.batch.configuration;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
-import br.com.sicoob.cro.cop.batch.core.Execution;
+import br.com.sicoob.cro.cop.batch.core.IExecution;
 import br.com.sicoob.cro.cop.batch.core.launcher.BatchProcess;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launcher;
 import br.com.sicoob.cro.cop.batch.core.launcher.SimpleJobLauncher;
@@ -61,8 +61,8 @@ public class LauncherInjector implements Injector {
      * @throws IllegalArgumentException Erro.
      * @throws IllegalAccessException Erro.
      */
-    private Launcher<Execution> createJobLauncher() throws IllegalArgumentException, IllegalAccessException {
-        Launcher<Execution> simpleJob = new SimpleJobLauncher(this.launcherConfiguration);
+    private Launcher<IExecution> createJobLauncher() throws IllegalArgumentException, IllegalAccessException {
+        Launcher<IExecution> simpleJob = new SimpleJobLauncher(this.launcherConfiguration);
         new ExecutorInjector(simpleJob).inject();
         return simpleJob;
     }

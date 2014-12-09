@@ -5,16 +5,13 @@
  */
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
-import br.com.sicoob.cro.cop.batch.configuration.LauncherExecutorInjector;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
 import br.com.sicoob.cro.cop.batch.core.Result;
-import br.com.sicoob.cro.cop.batch.core.Execution;
+import br.com.sicoob.cro.cop.batch.core.IExecution;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Launcher.
@@ -34,13 +31,13 @@ import java.util.logging.Logger;
  *
  * @author Rogerio Alves Rodrigues
  */
-public class SimpleJobLauncher implements Launcher<Execution> {
+public class SimpleJobLauncher implements Launcher<IExecution> {
 
     // Configuracao do Processamento Batch.
     private final Object config;
     // Classe que contera os dados da execucao.
     @Inject
-    private Execution execution;
+    private IExecution execution;
 
     /**
      * Constroi um {@link JobLauncher}.
@@ -54,35 +51,21 @@ public class SimpleJobLauncher implements Launcher<Execution> {
     /**
      * Implementa o metodo run da interface {@link Laucnher}.
      *
-     * @return um {@link Execution}. Sera o resultado do processamento como um
+     * @return um {@link IExecution}. Sera o resultado do processamento como um
      * todo.
      */
     @Override
-    public Execution run() {
+    public IExecution run() {
         ExecutorService executor = Executors.newFixedThreadPool(1);
         Callable<Boolean> launcherExecutor = new LauncherExecutor(this.execution, this.config);
 
-        // injetando as dependencias
-        injectDependencies(launcherExecutor);
+        // cria uma thread para a execucao assincrona do processo
+        FutureTask<Boolean> processTask = new FutureTask<>(launcherExecutor);
+        executor.execute(processTask);
 
-        FutureTask<Boolean> task = new FutureTask<>(launcherExecutor);
-        executor.execute(task);
+        // finaliza o executor
+        executor.shutdown();
         return this.execution;
-    }
-
-    /**
-     * Injetor de dependencias.
-     *
-     * @param launcherExecutor Executor.
-     */
-    private void injectDependencies(Callable<Boolean> launcherExecutor) {
-        try {
-            new LauncherExecutorInjector((LauncherExecutor) launcherExecutor).inject();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(SimpleJobLauncher.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(SimpleJobLauncher.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
 }

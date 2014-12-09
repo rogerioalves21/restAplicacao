@@ -5,19 +5,27 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
-import java.util.concurrent.ExecutorService;
+import br.com.sicoob.cro.cop.batch.job.Job;
 
 /**
  * Define o comportamento de uma execucao de item.
  *
  * @author Rogerio Alves Rodrigues
- * @param <T> Parametro.
- * @param <R> Retorno.
  */
-public interface CoreExecution<T, R> {
+public interface IJobExecutor {
 
-    R execute(T item) throws Exception;
+    /**
+     * Inicia a execucao do job.
+     *
+     * @throws Exception para qualquer erro.
+     */
+    void start() throws Exception;
 
-    R execute(T item, ExecutorService executor) throws Exception;
+    /**
+     * Retorna o resultado do job.
+     *
+     * @return
+     */
+    Job.Status getStatus();
 
 }

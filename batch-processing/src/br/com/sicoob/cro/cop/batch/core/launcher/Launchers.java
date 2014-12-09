@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sicoob.cro.cop.batch.factory;
+package br.com.sicoob.cro.cop.batch.core.launcher;
 
 import br.com.sicoob.cro.cop.batch.configuration.LauncherInjector;
 import br.com.sicoob.cro.cop.batch.core.launcher.BatchProcess;
+import br.com.sicoob.cro.cop.batch.factory.Factory;
 import br.com.sicoob.cro.cop.util.ObjectDomainsUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;

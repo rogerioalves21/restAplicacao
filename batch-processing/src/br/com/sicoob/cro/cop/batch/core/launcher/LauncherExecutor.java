@@ -8,13 +8,13 @@ package br.com.sicoob.cro.cop.batch.core.launcher;
 import br.com.sicoob.cro.cop.batch.configuration.BatchConfigurations;
 import br.com.sicoob.cro.cop.batch.configuration.JobFactoryInjector;
 import br.com.sicoob.cro.cop.batch.configuration.StepFactoryInjector;
-import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
-import br.com.sicoob.cro.cop.batch.core.CoreExecution;
-import br.com.sicoob.cro.cop.batch.core.Execution;
+import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
+import br.com.sicoob.cro.cop.batch.core.IExecution;
 import br.com.sicoob.cro.cop.batch.core.DataExecution;
 import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.core.Status;
 import br.com.sicoob.cro.cop.batch.job.Job;
+import br.com.sicoob.cro.cop.batch.job.JobExecutor;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,10 +31,9 @@ public class LauncherExecutor implements Callable<Boolean> {
     // Configuracao do Processamento Batch.
     private final Object config;
     // Classe que contera os dados da execucao.
-    private final Execution execution;
+    private final IExecution execution;
     // Classe que executa o job.
-    @Inject
-    private CoreExecution<Job, Boolean> jobExecution;
+    private IJobExecutor jobExecution;
 
     /**
      * Construtor.
@@ -42,7 +41,7 @@ public class LauncherExecutor implements Callable<Boolean> {
      * @param execution Contexto de execucao.
      * @param config Dados de configuracao.
      */
-    public LauncherExecutor(Execution execution, Object config) {
+    public LauncherExecutor(IExecution execution, Object config) {
         this.execution = execution;
         this.config = config;
     }
@@ -56,7 +55,6 @@ public class LauncherExecutor implements Callable<Boolean> {
     public Boolean call() {
         LOG.log(Level.INFO, "#### Iniciando o processamento ####");
         ((DataExecution) this.execution).setStatus(Status.RUNNING);
-        ((DataExecution) this.execution).setResult(Result.SUCCESS);
         try {
             // injetando as dependencias de factory
             injectDependencies();
@@ -64,12 +62,21 @@ public class LauncherExecutor implements Callable<Boolean> {
             // processa os jobs
             for (Job job : getConfiguration().getJobs()) {
                 ((DataExecution) this.execution).setRunningJob(job);
-                if (!this.jobExecution.execute(job)) {
+
+                // cria um Job Executor
+                this.jobExecution = new JobExecutor(job);
+
+                // inicia a execucao do job
+                this.jobExecution.start();
+
+                // verifica o resultado do job
+                if (this.jobExecution.getStatus().equals(Job.Status.FAIL)) {
                     ((DataExecution) this.execution).setRunningJob(null);
                     ((DataExecution) this.execution).setResult(Result.FAIL);
                     break;
                 }
             }
+            ((DataExecution) this.execution).setResult(Result.SUCCESS);
         } catch (Exception erro) {
             LOG.log(Level.INFO, "\n#### Finalizando o processamento com erro ####");
             ((DataExecution) this.execution).setResult(Result.FAIL);

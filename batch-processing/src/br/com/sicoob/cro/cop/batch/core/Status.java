@@ -11,6 +11,6 @@ package br.com.sicoob.cro.cop.batch.core;
  */
 public enum Status {
     
-    RUNNING, FINISHED;
+    STARTED, RUNNING, FINISHED;
     
 }

@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Rogerio Alves Rodrigues
  */
-public interface Execution {
+public interface IExecution {
 
     /**
      * Retorna o status do processamento.
@@ -35,12 +35,12 @@ public interface Execution {
      *
      * @return um {@link Job},
      */
-    Job runningJob();
+    Job getRunningJob();
 
     /**
      * Retorna todos os erros que ocorreram na execucao.
      *
      * @return uma lista {@link List}.
      */
-    ItemError getError();
+    ItemError getItemError();
 }

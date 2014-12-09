@@ -43,7 +43,7 @@ public class TaskletExample {
     @Test
     public void taskletExample() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(ProcessarArquivoBatchConfig.class);
-        Execution execution = launcher.run();
+        IExecution execution = launcher.run();
         
         System.out.println(execution.toString());
         while (execution.getStatus() == Status.RUNNING) {
@@ -57,6 +57,6 @@ public class TaskletExample {
         System.out.println(execution.toString());
 
         assertEquals(Result.Type.SUCCESS, execution.getResult().getType());
-                
+        
     }
 }

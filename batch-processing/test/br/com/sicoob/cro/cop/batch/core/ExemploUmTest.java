@@ -6,8 +6,8 @@
 package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.batch.core.BatchApplication;
-import br.com.sicoob.cro.cop.batch.core.Execution;
-import br.com.sicoob.cro.cop.batch.factory.Launchers;
+import br.com.sicoob.cro.cop.batch.core.IExecution;
+import br.com.sicoob.cro.cop.batch.core.launcher.Launchers;
 import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.core.Status;
 import br.com.sicoob.cro.cop.batch.core.launcher.BatchProcess;
@@ -23,7 +23,7 @@ public class ExemploUmTest extends TestCase {
 
     public void testUmJobUmStep() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(ExemploBatchConfig.class);
-        Execution execution = launcher.run();
+        IExecution execution = launcher.run();
 
         System.out.println(execution.toString());
         while (execution.getStatus() == Status.RUNNING) {
@@ -41,7 +41,7 @@ public class ExemploUmTest extends TestCase {
 
     public void testSemTasklet() {
         BatchProcess launcher = BatchApplication.createExecutionProcess(BatchConfigSemTasklet.class);
-        Execution execution = launcher.run();
+        IExecution execution = launcher.run();
 
         System.out.println(execution.toString());
         while (execution.getStatus() == Status.RUNNING) {
@@ -54,7 +54,7 @@ public class ExemploUmTest extends TestCase {
         }
         System.out.println(execution.toString());
 
-        System.out.println(execution.getError().getMessage());
+        System.out.println(execution.getItemError().getMessage());
 
         assertEquals(Result.Type.FAIL, execution.getResult().getType());
     }

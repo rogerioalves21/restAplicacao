@@ -9,13 +9,13 @@ import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.util.ItemError;
 
 /**
- * Implementacao da interface {@link Execution}.
+ * Implementacao da interface {@link IExecution}.
  *
  * @author Rogerio Alves Rodrigues
  */
-public class DataExecution implements Execution {
+public class DataExecution implements IExecution {
 
-    private Status status = Status.RUNNING;
+    private Status status = Status.STARTED;
     private Job runningJob;
     private Result result;
     private ItemError itemError;
@@ -26,12 +26,7 @@ public class DataExecution implements Execution {
     }
 
     @Override
-    public Job runningJob() {
-        return this.runningJob;
-    }
-
-    @Override
-    public ItemError getError() {
+    public ItemError getItemError() {
         return this.itemError;
     }
 
@@ -45,6 +40,7 @@ public class DataExecution implements Execution {
     /**
      * @return the runningJob
      */
+    @Override
     public Job getRunningJob() {
         return runningJob;
     }

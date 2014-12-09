@@ -6,7 +6,7 @@
 package br.com.sicoob.cro.cop.batch.configuration;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
-import br.com.sicoob.cro.cop.batch.core.Execution;
+import br.com.sicoob.cro.cop.batch.core.IExecution;
 import br.com.sicoob.cro.cop.batch.core.DataExecution;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launcher;
 import java.lang.reflect.Field;
@@ -23,14 +23,14 @@ public class ExecutorInjector implements Injector {
     // log
     private static final Logger LOG = Logger.getLogger(ExecutorInjector.class.getName());
     // injetavel
-    private final Launcher<Execution> launcher;
+    private final Launcher<IExecution> launcher;
 
     /**
      * Construtor.
      *
      * @param launcher Injetavel.
      */
-    public ExecutorInjector(Launcher<Execution> launcher) {
+    public ExecutorInjector(Launcher<IExecution> launcher) {
         this.launcher = launcher;
     }
 

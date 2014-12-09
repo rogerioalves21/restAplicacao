@@ -6,7 +6,7 @@
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Inject;
-import br.com.sicoob.cro.cop.batch.core.Execution;
+import br.com.sicoob.cro.cop.batch.core.IExecution;
 
 /**
  * Classe que sera retornada para o cliente.
@@ -17,16 +17,16 @@ public class BatchProcess {
 
     // Classe executora
     @Inject
-    private Launcher<Execution> execution;
+    private Launcher<IExecution> execution;
     // instancia vazia
     public static final BatchProcess EMPTY = new BatchProcess();
 
     /**
      * Executa o processamento.
      *
-     * @return um {@link Execution}.
+     * @return um {@link IExecution}.
      */
-    public Execution run() {
+    public IExecution run() {
         return this.execution.run();
     }
 
