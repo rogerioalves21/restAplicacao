@@ -9,7 +9,8 @@ import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.step.Step;
-import br.com.sicoob.cro.cop.batch.step.StepExecutor;
+import br.com.sicoob.cro.cop.batch.step.StepChunkExecutor;
+import br.com.sicoob.cro.cop.batch.step.StepTaskletExecutor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -62,7 +63,7 @@ public class JobExecutor implements IJobExecutor {
 
         // executa os steps e os adiciona na lista para verificacao posterior
         for (Step step : steps) {
-            IStepExecutor stepExecutor = new StepExecutor(step, executor);
+            IStepExecutor stepExecutor = getStepExecutorByExecutionType(step, executor);
             stepExecutor.start();
             asyncResults.add(stepExecutor.getResult());
         }
@@ -78,6 +79,22 @@ public class JobExecutor implements IJobExecutor {
         }
 
         LOG.log(Level.INFO, "Job ".concat(job.getNome()).concat(" finalizado"));
+    }
+
+    /**
+     *
+     * @param step Step para ser executado.
+     * @param executorService Servico de execucao.
+     * @return a implementacao de acordo com o tipo de step.
+     */
+    private IStepExecutor getStepExecutorByExecutionType(Step step, ExecutorService executorService) {
+        IStepExecutor stepExecutor = null;
+        if (step.getType().equals(Step.Type.TASKLET)) {
+            return new StepTaskletExecutor(step, executorService);
+        } else if (step.getType().equals(Step.Type.CHUNK)) {
+            return new StepChunkExecutor(step, executorService);
+        }
+        return stepExecutor;
     }
 
     /**
