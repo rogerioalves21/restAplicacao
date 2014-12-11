@@ -5,10 +5,10 @@
  */
 package br.com.sicoob.cro.cop.batch.step;
 
+import br.com.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.configuration.TaskletInjector;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.Result;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -20,7 +20,7 @@ import java.util.concurrent.FutureTask;
 public class StepTaskletExecutor implements IStepExecutor {
 
     private final Step step;
-    private final ExecutorService service;
+    private final BatchExecutorService service;
     private FutureTask<Result> task;
 
     /**
@@ -29,7 +29,7 @@ public class StepTaskletExecutor implements IStepExecutor {
      * @param step Step a ser executado.
      * @param service Servico de execucao.
      */
-    public StepTaskletExecutor(Step step, ExecutorService service) {
+    public StepTaskletExecutor(Step step, BatchExecutorService service) {
         this.step = step;
         this.service = service;
     }

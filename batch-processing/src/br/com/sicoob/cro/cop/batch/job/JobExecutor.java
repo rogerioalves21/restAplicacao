@@ -5,17 +5,19 @@
  */
 package br.com.sicoob.cro.cop.batch.job;
 
+import br.com.cro.cop.batch.service.BatchExecutorService;
+import br.com.cro.cop.batch.service.BatchExecutors;
+import br.com.sicoob.cro.cop.batch.configuration.annotation.FactoryStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.Result;
+import br.com.sicoob.cro.cop.batch.factory.Factory;
+import br.com.sicoob.cro.cop.batch.factory.StepExecutorFactory;
 import br.com.sicoob.cro.cop.batch.step.Step;
-import br.com.sicoob.cro.cop.batch.step.StepChunkExecutor;
-import br.com.sicoob.cro.cop.batch.step.StepTaskletExecutor;
+import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,39 +33,55 @@ public class JobExecutor implements IJobExecutor {
     private static final Logger LOG = Logger.getLogger(JobExecutor.class.getName());
 
     // Job
-    private final Job job;
+    private Job job;
+
+    // Executor do step (Fabrica)
+    @Inject
+    @FactoryStepExecutor
+    private Factory stepExecutorFactory;
 
     /**
      * Construtor.
-     *
-     * @param job Job a ser executado.
      */
-    public JobExecutor(Job job) {
+    public JobExecutor() {
+        
+    }
+    
+    /**
+     * Recebe um Job.
+     * @param job Job a ser executado.
+     * @return a propria instancia.Ï
+     */
+    public JobExecutor of(Job job) {
         this.job = job;
+        return this;
+    }
+    
+    /**
+     * Printa os dados do logÏ
+     */
+    private void logJobData() {
+        LOG.log(Level.INFO, "Job: ".concat(this.job.getNome()));
+        LOG.log(Level.INFO, "Quantidade de steps: ".concat(String.valueOf(this.job.getSteps().size())));
+        LOG.log(Level.INFO, "Modo de execucao do Job: ".concat(this.job.getMode().name()));
     }
 
     public void start() throws Exception {
         this.job.setStatus(Job.Status.RUNNING);
-
+        logJobData();
         List<FutureTask<Result>> asyncResults = new ArrayList();
-
-        // Cria um pool de threads do tamanho da lista de steps
-        ExecutorService executor = Executors.newSingleThreadExecutor();;
-
+        BatchExecutorService executor = BatchExecutors.newSingleThreadExecutor();
+        
         if (this.job.getMode().equals(Job.Mode.ASYNC)) {
-            executor = Executors.newFixedThreadPool(this.job.getSteps().size());
+            executor = BatchExecutors.newFixedThreadPool(this.job.getSteps().size());
         }
 
-        LOG.log(Level.INFO, "Job: ".concat(this.job.getNome()));
-        LOG.log(Level.INFO, "Quantidade de steps: ".concat(String.valueOf(this.job.getSteps().size())));
-        LOG.log(Level.INFO, "Modo de execucao do Job: ".concat(this.job.getMode().name()));
-
-        // obtem os steps
-        List<Step> steps = this.job.getSteps();
-
         // executa os steps e os adiciona na lista para verificacao posterior
-        for (Step step : steps) {
-            IStepExecutor stepExecutor = getStepExecutorByExecutionType(step, executor);
+        for (Step step : this.job.getSteps()) {
+            IStepExecutor stepExecutor = ((StepExecutorFactory) this.stepExecutorFactory)
+                    .of(step)
+                    .and(executor)
+                    .create();
             stepExecutor.start();
             asyncResults.add(stepExecutor.getResult());
         }
@@ -79,22 +97,6 @@ public class JobExecutor implements IJobExecutor {
         }
 
         LOG.log(Level.INFO, "Job ".concat(job.getNome()).concat(" finalizado"));
-    }
-
-    /**
-     *
-     * @param step Step para ser executado.
-     * @param executorService Servico de execucao.
-     * @return a implementacao de acordo com o tipo de step.
-     */
-    private IStepExecutor getStepExecutorByExecutionType(Step step, ExecutorService executorService) {
-        IStepExecutor stepExecutor = null;
-        if (step.getType().equals(Step.Type.TASKLET)) {
-            return new StepTaskletExecutor(step, executorService);
-        } else if (step.getType().equals(Step.Type.CHUNK)) {
-            return new StepChunkExecutor(step, executorService);
-        }
-        return stepExecutor;
     }
 
     /**

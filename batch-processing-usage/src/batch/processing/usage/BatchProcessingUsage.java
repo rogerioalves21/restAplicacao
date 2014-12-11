@@ -6,11 +6,7 @@
 package batch.processing.usage;
 
 import br.com.sicoob.cro.cop.batch.core.BatchApplication;
-import br.com.sicoob.cro.cop.batch.core.BatchExecution;
-import br.com.sicoob.cro.cop.batch.core.Status;
 import br.com.sicoob.cro.cop.batch.core.BatchProcess;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

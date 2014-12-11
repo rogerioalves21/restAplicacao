@@ -5,10 +5,13 @@
  */
 package br.com.sicoob.cro.cop.batch.configuration;
 
+import br.com.sicoob.cro.cop.batch.configuration.annotation.FactoryStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.DataExecution;
 import br.com.sicoob.cro.cop.batch.core.BatchExecution;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launcher;
 import br.com.sicoob.cro.cop.batch.core.launcher.SimpleJobLauncher;
+import br.com.sicoob.cro.cop.batch.factory.Factory;
+import br.com.sicoob.cro.cop.batch.factory.StepExecutorFactory;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 
@@ -21,6 +24,7 @@ public class BatchProcessModule implements Module {
     public void configure(Binder binder) {
         binder.bind(Launcher.class).to(SimpleJobLauncher.class);
         binder.bind(BatchExecution.class).to(DataExecution.class);
+        binder.bind(Factory.class).annotatedWith(FactoryStepExecutor.class).to(StepExecutorFactory.class);
     }
 
 }
