@@ -5,7 +5,7 @@
  */
 package br.com.sicoob.cro.cop.batch.step;
 
-import br.com.cro.cop.batch.service.BatchExecutorService;
+import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.configuration.TaskletInjector;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.Result;

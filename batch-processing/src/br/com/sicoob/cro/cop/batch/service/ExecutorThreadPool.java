@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.cro.cop.batch.service;
+package br.com.sicoob.cro.cop.batch.service;
 
 import java.util.concurrent.ExecutorService;
 

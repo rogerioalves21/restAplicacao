@@ -5,8 +5,8 @@
  */
 package br.com.sicoob.cro.cop.batch.job;
 
-import br.com.cro.cop.batch.service.BatchExecutorService;
-import br.com.cro.cop.batch.service.BatchExecutors;
+import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
+import br.com.sicoob.cro.cop.batch.service.BatchExecutors;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.FactoryStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;

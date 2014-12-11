@@ -5,7 +5,7 @@
  */
 package br.com.sicoob.cro.cop.batch.factory;
 
-import br.com.cro.cop.batch.service.BatchExecutorService;
+import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.step.StepChunkExecutor;
