@@ -6,13 +6,13 @@
 package br.com.sicoob.cro.cop.batch.core;
 
 /**
+ * Define o comporamento de um processamento de item.
  *
- * @author rogerioalves21
- * @param <O> Istancia de Origem.
- * @param <R> Instanciade Retorno.
+ * @author Rogerio Alves Rodrigues
+ *
  */
-public interface Processor<O, R> {
+public interface ItemProcessor {
 
-    R process(O item);
+    Object processItem(Object item);
 
 }

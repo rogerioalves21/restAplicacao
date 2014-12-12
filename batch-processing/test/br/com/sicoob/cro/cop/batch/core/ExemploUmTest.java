@@ -5,11 +5,6 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
-import br.com.sicoob.cro.cop.batch.core.BatchApplication;
-import br.com.sicoob.cro.cop.batch.core.BatchExecution;
-import br.com.sicoob.cro.cop.batch.core.launcher.Launchers;
-import br.com.sicoob.cro.cop.batch.core.Result;
-import br.com.sicoob.cro.cop.batch.core.Status;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.TestCase;

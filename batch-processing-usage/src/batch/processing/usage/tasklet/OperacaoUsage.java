@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package batch.processing.usage;
+package batch.processing.usage.tasklet;
 
 import java.math.BigDecimal;
 
@@ -11,15 +11,16 @@ import java.math.BigDecimal;
  *
  * @author rogerioalves21
  */
-public class Operacao {
+public class OperacaoUsage {
     
     private String identificador;
     private BigDecimal saldoDevedor;
     private String rating;
     private BigDecimal percRating;
     private BigDecimal percProvisao;
+    private BigDecimal calculoProvisao;
 
-    public Operacao(String identificador, BigDecimal saldoDevedor, String rating, BigDecimal percRating) {
+    public OperacaoUsage(String identificador, BigDecimal saldoDevedor, String rating, BigDecimal percRating) {
         this.identificador = identificador;
         this.saldoDevedor = saldoDevedor;
         this.rating = rating;
@@ -86,15 +87,24 @@ public class Operacao {
         return this.saldoDevedor.multiply(this.percRating.divide(new BigDecimal(100.0)));
     }
     
+    public void setCalculoProvisao(BigDecimal calculoProvisao) {
+        this.calculoProvisao = calculoProvisao;
+    }
+    
+    public BigDecimal getCalculoProvisao() {
+        return this.calculoProvisao != null ? this.calculoProvisao : BigDecimal.ZERO;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n####################");
-        sb.append("\nOperacao: " + this.getIdentificador());
-        sb.append("\nSaldo Devedor: " + this.getSaldoDevedor().toString());
-        sb.append("\nRating: " + this.getRating());
-        sb.append("\nPercentual de Provisao: " + this.getPercRating() + "%");
-        sb.append("\nCalculo da Provisao: " + this.calcularProvisao().toString() + "%");
+        sb.append("\nOperacao: ").append(this.getIdentificador());
+        sb.append("\nSaldo Devedor: ").append(this.getSaldoDevedor().toString());
+        sb.append("\nRating: ").append(this.getRating());
+        sb.append("\nPercentual de Provisao: ").append(this.getPercRating()).append("%");
+        sb.append("\nCalculo da Provisao: ").append(this.calcularProvisao().toString()).append("%");
+        sb.append("\nCalculo da Provisao Salvo: ").append(this.getCalculoProvisao().toString()).append("%");
         sb.append("\n####################");
         return sb.toString();
     }

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Rogerio Alves Rodrigues
  */
-public class JobFactoryInjector implements Injector {
+public class JobFactoryInjector implements BatchInjector {
 
     // log
     private static final Logger LOG = Logger.getLogger(JobFactoryInjector.class.getName());
@@ -33,13 +33,11 @@ public class JobFactoryInjector implements Injector {
         this.configuration = configuration;
     }
 
-    @Override
     public void inject() throws IllegalArgumentException, IllegalAccessException {
-        // obtem os campos do tasklet
         Field[] fields = this.configuration.getClass().getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(JobBuilderFactory.class)) {
-                LOG.log(Level.INFO, "Injetando a depencia [@JobBuilderFactory] para o atributo [".concat(field.getName()).concat("]"));
+                LOG.log(Level.INFO, "Injetando a dependêcia [@JobBuilderFactory] para o atributo [".concat(field.getName()).concat("]"));
                 field.setAccessible(Boolean.TRUE);
                 field.set(this.configuration, JobFactory.get());
             }

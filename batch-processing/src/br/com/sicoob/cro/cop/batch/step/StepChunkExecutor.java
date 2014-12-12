@@ -8,6 +8,8 @@ package br.com.sicoob.cro.cop.batch.step;
 import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.Result;
+import br.com.sicoob.cro.cop.batch.step.chunk.IChunkExecutor;
+import com.google.inject.Inject;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -19,6 +21,9 @@ public class StepChunkExecutor implements IStepExecutor {
 
     private final Step step;
     private final BatchExecutorService service;
+    private FutureTask<Result> task;
+    @Inject
+    private IChunkExecutor chunkExecutor;
 
     /**
      * Constri um StepExecutor.
@@ -32,11 +37,13 @@ public class StepChunkExecutor implements IStepExecutor {
     }
 
     public void start() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.chunkExecutor.setStep(this.step);
+        this.task = new FutureTask(this.chunkExecutor);
+        this.service.execute(task);
     }
 
     public FutureTask<Result> getResult() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.task;
     }
 
 }

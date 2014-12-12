@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sicoob.cro.cop.batch.step.tasklet;
+package br.com.sicoob.cro.cop.batch.step.chunk;
 
 import br.com.sicoob.cro.cop.batch.core.Result;
+import br.com.sicoob.cro.cop.batch.step.Step;
 import java.util.concurrent.Callable;
 
 /**
- * Define o comportamento de uma tarefa simples;
- *
- * Contem um metodo que executa e retorna o resultado da execucao.
  *
  * @author Rogerio Alves Rodrigues
  */
-public interface Tasklet extends Callable<Result> {
+public interface IChunkExecutor extends Callable<Result> {
+
+    void setStep(Step step);
     
+    Result execute() throws Exception;
+
 }

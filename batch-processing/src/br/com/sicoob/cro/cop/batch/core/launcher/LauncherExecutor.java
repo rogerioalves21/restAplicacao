@@ -74,6 +74,7 @@ public class LauncherExecutor implements Callable<Boolean> {
 
     /**
      * Itera e executa os jobs.
+     *
      * @throws Exception quando houver algum erro.Ï
      */
     private void executeJobs() throws Exception {
@@ -109,6 +110,7 @@ public class LauncherExecutor implements Callable<Boolean> {
     private void injectDependencies() throws IllegalArgumentException, IllegalAccessException {
         new JobFactoryInjector(this.configurationObject).inject();
         new StepFactoryInjector(this.configurationObject).inject();
+
     }
 
 }

@@ -5,6 +5,10 @@
  */
 package br.com.sicoob.cro.cop.batch.step;
 
+import br.com.sicoob.cro.cop.batch.configuration.AbstractItemProcessor;
+import br.com.sicoob.cro.cop.batch.configuration.AbstractItemReader;
+import br.com.sicoob.cro.cop.batch.configuration.AbstractItemWriter;
+import br.com.sicoob.cro.cop.batch.step.tasklet.AbstractTasklet;
 import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
 import static br.com.sicoob.cro.cop.util.Validation.checkNull;
 
@@ -18,9 +22,29 @@ import static br.com.sicoob.cro.cop.util.Validation.checkNull;
  */
 public class Step {
 
-    private Tasklet tasklet;
+    private AbstractTasklet tasklet;
+    private AbstractItemReader reader;
+    private AbstractItemProcessor processor;
+    private AbstractItemWriter writer;
     private Type type;
     private StepParameters parameters;
+
+    /**
+     * Constroi uma instancia de step.
+     *
+     * @param reader ItemReader.
+     * @param processor ItemProcessor.
+     * @param writer ItemWriter.
+     * @param type Tipo de Step.
+     * @param parameters Parametros do step.
+     */
+    public Step(AbstractItemReader reader, AbstractItemProcessor processor, AbstractItemWriter writer, Type type, StepParameters parameters) {
+        this.reader = reader;
+        this.processor = processor;
+        this.writer = writer;
+        this.type = type;
+        this.parameters = parameters;
+    }
 
     /**
      * Constroi uma instancia de step.
@@ -29,7 +53,7 @@ public class Step {
      * @param type Tipo do Step.
      * @param parameters Parametros do step.
      */
-    public Step(Tasklet tasklet, Type type, StepParameters parameters) {
+    public Step(AbstractTasklet tasklet, Type type, StepParameters parameters) {
         checkNull(tasklet, "tasklet");
         checkNull(type, "type");
         this.tasklet = tasklet;
@@ -40,14 +64,14 @@ public class Step {
     /**
      * @return the tasklet
      */
-    public Tasklet getTasklet() {
+    public AbstractTasklet getTasklet() {
         return tasklet;
     }
 
     /**
      * @param tasklet the tasklet to set
      */
-    public void setTasklet(Tasklet tasklet) {
+    public void setTasklet(AbstractTasklet tasklet) {
         this.tasklet = tasklet;
     }
 
@@ -77,6 +101,48 @@ public class Step {
      */
     public void setParameters(StepParameters parameters) {
         this.parameters = parameters;
+    }
+
+    /**
+     * @return the reader
+     */
+    public AbstractItemReader getReader() {
+        return reader;
+    }
+
+    /**
+     * @param reader the reader to set
+     */
+    public void setReader(AbstractItemReader reader) {
+        this.reader = reader;
+    }
+
+    /**
+     * @return the processor
+     */
+    public AbstractItemProcessor getProcessor() {
+        return processor;
+    }
+
+    /**
+     * @param processor the processor to set
+     */
+    public void setProcessor(AbstractItemProcessor processor) {
+        this.processor = processor;
+    }
+
+    /**
+     * @return the writer
+     */
+    public AbstractItemWriter getWriter() {
+        return writer;
+    }
+
+    /**
+     * @param writer the writer to set
+     */
+    public void setWriter(AbstractItemWriter writer) {
+        this.writer = writer;
     }
 
     /**

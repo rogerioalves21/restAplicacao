@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package batch.processing.usage;
+package batch.processing.usage.tasklet;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.BatchConfiguration;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.JobBuilderFactory;
@@ -14,7 +14,6 @@ import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.factory.JobFactory;
 import br.com.sicoob.cro.cop.batch.factory.StepFactory;
 import br.com.sicoob.cro.cop.batch.step.StepParameters;
-import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +32,8 @@ public class ProcessarArquivoBatchConfig {
 
     @Jobs
     public List<Job> getJobsAD() {
-        Tasklet taskLm = new ProcessarArquivoTasklet();
-        Tasklet taskLm2 = new ProcessarArquivoTasklet();
+        ProcessarArquivoTasklet taskLm = new ProcessarArquivoTasklet();
+        ProcessarArquivoTasklet taskLm2 = new ProcessarArquivoTasklet();
 
         StepParameters param1 = new StepParameters();
         param1.add("nomeArquivo", "OpLm.csv");
@@ -69,7 +68,7 @@ public class ProcessarArquivoBatchConfig {
     
     @Jobs
     public List<Job> getJobsLM() {
-        Tasklet taskLm = new ProcessarArquivoTasklet();
+        ProcessarArquivoTasklet taskLm = new ProcessarArquivoTasklet();
         List<Step> steps = new ArrayList<>();
         StepParameters param = new StepParameters();
         param.add("nomeArquivo", "OpLm.csv");

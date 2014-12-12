@@ -10,7 +10,7 @@ package br.com.sicoob.cro.cop.batch.configuration;
  *
  * @author Rogerio Alves Rodrigues
  */
-public interface Injector {
+public interface BatchInjector {
 
     /**
      * Injeta as dependencias necessarias.

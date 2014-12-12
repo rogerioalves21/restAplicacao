@@ -5,9 +5,12 @@
  */
 package br.com.sicoob.cro.cop.batch.factory;
 
+import br.com.sicoob.cro.cop.batch.configuration.AbstractItemProcessor;
+import br.com.sicoob.cro.cop.batch.configuration.AbstractItemReader;
+import br.com.sicoob.cro.cop.batch.configuration.AbstractItemWriter;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.step.StepParameters;
-import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
+import br.com.sicoob.cro.cop.batch.step.tasklet.AbstractTasklet;
 
 /**
  * Fabrica de Steps.
@@ -18,10 +21,28 @@ import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
  */
 public final class StepFactory implements Factory<Step> {
 
-    private Tasklet tasklet;
+    private AbstractTasklet tasklet;
+    private AbstractItemReader reader;
+    private AbstractItemProcessor processor;
+    private AbstractItemWriter writer;
     private final Step.Type type;
     private StepParameters parameters;
 
+    public StepFactory reader(AbstractItemReader reader) {
+        this.reader = reader;
+        return this;
+    }
+    
+    public StepFactory processor(AbstractItemProcessor processor) {
+        this.processor = processor;
+        return this;
+    }
+    
+    public StepFactory writer(AbstractItemWriter writer) {
+        this.writer = writer;
+        return this;
+    }
+    
     /**
      * Cria uma nova instancia da fabrica.
      *
@@ -47,7 +68,7 @@ public final class StepFactory implements Factory<Step> {
      * @param tasklet Tasklet.
      * @return Fabrica de Steps.
      */
-    public StepFactory tasklet(Tasklet tasklet) {
+    public StepFactory tasklet(AbstractTasklet tasklet) {
         this.tasklet = tasklet;
         return this;
     }
@@ -68,9 +89,13 @@ public final class StepFactory implements Factory<Step> {
      *
      * @return um {@link Step}.
      */
-    @Override
     public Step create() {
-        return new Step(this.tasklet, this.type, this.parameters);
+        if (this.type.equals(Step.Type.TASKLET)) {
+            return new Step(this.tasklet, this.type, this.parameters);
+        } else if (this.type.equals(Step.Type.CHUNK)) {
+            return new Step(this.reader, this.processor, this.writer, this.type, this.parameters);
+        }
+        return null;
     }
 
 }

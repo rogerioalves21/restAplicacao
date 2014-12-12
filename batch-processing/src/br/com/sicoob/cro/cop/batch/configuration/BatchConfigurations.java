@@ -70,7 +70,7 @@ public class BatchConfigurations {
                     LOG.log(Level.INFO, "Obtendo os jobs do metodo que contem a anotacao [@Jobs] o metodo ["
                             .concat(method.getName()).concat("]"));
                     method.setAccessible(Boolean.TRUE);
-                    jobs.addAll((List<Job>) method.invoke(this.configurationObject, null));
+                    jobs.addAll((List<Job>) method.invoke(this.configurationObject, new Object[0]));
                 }
             }
         } else {

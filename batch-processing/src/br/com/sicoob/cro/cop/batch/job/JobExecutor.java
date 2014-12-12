@@ -38,7 +38,7 @@ public class JobExecutor implements IJobExecutor {
     // Executor do step (Fabrica)
     @Inject
     @FactoryStepExecutor
-    private Factory stepExecutorFactory;
+    private Factory<IStepExecutor> stepExecutorFactory;
 
     /**
      * Construtor.

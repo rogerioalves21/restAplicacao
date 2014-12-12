@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.sicoob.cro.cop.batch.core;
+package batch.processing.usage.chunk;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.BatchConfiguration;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.JobBuilderFactory;
@@ -22,37 +22,44 @@ import java.util.List;
  * @author rogerioalves21
  */
 @BatchConfiguration
-public class ExemploBatchConfig {
+public class ProcessarArquivoChunkBatchConfig {
 
     @JobBuilderFactory
     private JobFactory jobFactory;
 
-    @StepBuilderFactory(type = Step.Type.TASKLET)
+    @StepBuilderFactory(type = Step.Type.CHUNK)
     private StepFactory stepFactory;
 
     @Jobs
-    public List<Job> getJobs() {
-        StepParameters parameters = new StepParameters();
-        parameters.add("exemplo", "Exemplo de parametro passado pelo contexto do tasklet");
+    public List<Job> getJobsChunkStyle() {
+        MyItemReader myReader = new MyItemReader();
+        MyItemProcessor myProcessor = new MyItemProcessor();
+        MyItemWriter myWriter = new MyItemWriter();
 
-        ExemploTasklet task = new ExemploTasklet();
+        StepParameters params = new StepParameters();
+        params.add("nomeArquivo", "OpLm.csv");
         List<Step> steps = new ArrayList<>();
+
         Step step = stepFactory
-                .tasklet(task)
-                .parameters(parameters)
+                .reader(myReader)
+                .processor(myProcessor)
+                .writer(myWriter)
+                .parameters(params)
                 .create();
+
         steps.add(step);
 
         Job job = jobFactory
-                .job("job test")
-                .mode(Job.Mode.SYNC)
+                .job("PROCESSA ESTILO CHUNK - LEITURA DE ARQUIVOS")
+                .mode(Job.Mode.ASYNC)
                 .steps(steps)
                 .create();
 
-        List<Job> jobs = new ArrayList<>();
+        List<Job> jobs;
+        jobs = new ArrayList<>();
         jobs.add(job);
 
         return jobs;
     }
-
+    
 }

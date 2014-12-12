@@ -5,12 +5,15 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
+import java.io.Serializable;
+
 /**
+ * Define o comportamento de um Leitor de item.
  *
- * @author rogerioalves21
+ * @author Rogerio Alves Rodrigues
  */
-public interface Writer<T> {
-    
-    void wriet(T item);
-    
+public interface ItemReader {
+
+    Object readItem(Serializable recordNumber) throws Exception;
+
 }

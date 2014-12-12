@@ -5,13 +5,15 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
+import java.util.List;
+
 /**
+ * Define o comportamento de um gravador de items.
  *
- * @author rogerioalves21
- * @param <T>
+ * @author Rogerio Alves Rodrigues
  */
-public interface Reader<T> {
-    
-    T read();
-    
+public interface ItemWriter {
+
+    void writeItems(List<Object> items);
+
 }

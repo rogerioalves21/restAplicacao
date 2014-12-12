@@ -15,7 +15,10 @@ import br.com.sicoob.cro.cop.batch.core.Result;
  */
 public abstract class AbstractTasklet implements Tasklet {
 
-    @Override
-    public abstract Result call() throws Exception;
+    public Result call() throws Exception {
+        return this.execute();
+    }
+    
+    public abstract Result execute() throws Exception;
 
 }

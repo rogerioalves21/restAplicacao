@@ -36,7 +36,7 @@ public class StepTaskletExecutor implements IStepExecutor {
 
     public void start() throws Exception {
         new TaskletInjector(this.step).inject();
-        this.task = new FutureTask<>(this.step.getTasklet());
+        this.task = new FutureTask(this.step.getTasklet());
         this.service.execute(task);
     }
 

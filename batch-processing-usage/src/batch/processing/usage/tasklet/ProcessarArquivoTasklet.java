@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package batch.processing.usage;
+package batch.processing.usage.tasklet;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Context;
 import br.com.sicoob.cro.cop.batch.core.Result;
@@ -28,22 +28,23 @@ public class ProcessarArquivoTasklet extends AbstractTasklet {
     private TaskletContext context;
 
     @Override
-    public Result call() {
-        List<Operacao> operacoes = new ArrayList<>();
-        InputStream source = this.getClass().getResourceAsStream(this.context.getParameters().get("nomeArquivo").toString()/*"OpLm.csv"*/);
-        Scanner scan = new Scanner(source);
-        while (scan.hasNext()) {
-            String[] dados = scan.next().split(";");
-            Operacao operacao = new Operacao(dados[0],
-                    new BigDecimal(dados[1]), dados[2], new BigDecimal(dados[3]));
-            operacoes.add(operacao);
+    @SuppressWarnings("empty-statement")
+    public Result execute() {
+        List<OperacaoUsage> operacoes = new ArrayList<>();
+        InputStream source = this.getClass().getResourceAsStream(this.context.getParameters().get("nomeArquivo").toString());
+        try (Scanner scan = new Scanner(source)) {
+            while (scan.hasNext()) {
+                String[] dados = scan.next().split(";");
+                OperacaoUsage operacao = new OperacaoUsage(dados[0],
+                        new BigDecimal(dados[1]), dados[2], new BigDecimal(dados[3]));
+                operacoes.add(operacao);
+            }
+            
+            // calcula o percentual de provisionamento
+            for (OperacaoUsage operacao : operacoes) {
+                LOG.info(operacao.toString());
+            }
         }
-
-        // calcula o percentual de provisionamento
-        for (Operacao operacao : operacoes) {
-            LOG.info(operacao.toString());
-        }
-
         return Result.SUCCESS;
     }
 

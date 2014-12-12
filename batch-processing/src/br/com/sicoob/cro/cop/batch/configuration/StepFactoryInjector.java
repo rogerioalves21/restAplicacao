@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Rogerio Alves Rodrigues
  */
-public class StepFactoryInjector implements Injector {
+public class StepFactoryInjector implements BatchInjector {
 
     // log
     private static final Logger LOG = Logger.getLogger(StepFactoryInjector.class.getName());
@@ -40,7 +40,7 @@ public class StepFactoryInjector implements Injector {
         for (Field field : fields) {
             if (field.isAnnotationPresent(StepBuilderFactory.class)) {
                 StepBuilderFactory annotation = field.getAnnotation(StepBuilderFactory.class);
-                LOG.log(Level.INFO, "Injetando a depencia [@StepBuilderFactory] para o atributo [".concat(field.getName()).concat("]"));
+                LOG.log(Level.INFO, "Injetando a dependêcia [@StepBuilderFactory] para o atributo [".concat(field.getName()).concat("]"));
                 field.setAccessible(Boolean.TRUE);
                 field.set(this.configuration, StepFactory.get(annotation.type()));
             }
