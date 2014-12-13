@@ -50,7 +50,7 @@ public class ProcessarArquivoChunkBatchConfig {
         steps.add(step);
 
         Job job = jobFactory
-                .job("PROCESSA ESTILO CHUNK - LEITURA DE ARQUIVOS")
+                .id("PROCESSA ESTILO CHUNK - LEITURA DE ARQUIVOS")
                 .mode(Job.Mode.ASYNC)
                 .steps(steps)
                 .create();

@@ -55,7 +55,7 @@ public class ProcessarArquivoBatchConfig {
         steps.add(stepLm);
 
         Job job = jobFactory
-                .job("PROCESSA 2 STEPS - LEITURA DE ARQUIVOS")
+                .id("PROCESSA 2 STEPS - LEITURA DE ARQUIVOS")
                 .mode(Job.Mode.ASYNC)
                 .steps(steps)
                 .create();
@@ -81,7 +81,7 @@ public class ProcessarArquivoBatchConfig {
         steps.add(stepLm);
 
         Job job = jobFactory
-                .job("PROCESSA 1 STEP - LE UM ARQUIVO")
+                .id("PROCESSA 1 STEP - LE UM ARQUIVO")
                 .mode(Job.Mode.ASYNC)
                 .steps(steps)
                 .create();
