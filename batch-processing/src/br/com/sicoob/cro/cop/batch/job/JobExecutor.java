@@ -14,13 +14,14 @@ import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.factory.Factory;
 import br.com.sicoob.cro.cop.batch.factory.StepExecutorFactory;
 import br.com.sicoob.cro.cop.batch.step.Step;
+import br.com.sicoob.cro.cop.util.JobFailsException;
 import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Classe responsavel por executar um job especifico.
@@ -30,7 +31,7 @@ import java.util.logging.Logger;
 public class JobExecutor implements IJobExecutor {
 
     // Logger
-    private static final Logger LOG = Logger.getLogger(JobExecutor.class.getName());
+    private static final Log LOG = LogFactory.getLog(JobExecutor.class.getName());
 
     // Job
     private Job job;
@@ -44,11 +45,12 @@ public class JobExecutor implements IJobExecutor {
      * Construtor.
      */
     public JobExecutor() {
-        
+
     }
-    
+
     /**
      * Recebe um Job.
+     *
      * @param job Job a ser executado.
      * @return a propria instancia.Ï
      */
@@ -56,28 +58,57 @@ public class JobExecutor implements IJobExecutor {
         this.job = job;
         return this;
     }
-    
+
     /**
-     * Printa os dados do logÏ
+     * Printa os dados do log
      */
     private void logJobData() {
-        LOG.log(Level.INFO, "Job: ".concat(this.job.getId()));
-        LOG.log(Level.INFO, "Quantidade de steps: ".concat(String.valueOf(this.job.getSteps().size())));
-        LOG.log(Level.INFO, "Modo de execucao do Job: ".concat(this.job.getMode().name()));
+        LOG.info("Job: ".concat(this.job.getId()));
+        LOG.info("Quantidade de steps: ".concat(String.valueOf(this.job.getSteps().size())));
+        LOG.info("Modo de execucao do Job: ".concat(this.job.getMode().name()));
     }
 
     public void start() throws Exception {
         this.job.setStatus(Job.Status.RUNNING);
         logJobData();
-        List<FutureTask<Result>> asyncResults = new ArrayList();
+        List<FutureTask<Boolean>> asyncResults = new ArrayList();
         BatchExecutorService executor = BatchExecutors.newSingleThreadExecutor();
-        
+
         if (this.job.getMode().equals(Job.Mode.ASYNC)) {
             executor = BatchExecutors.newFixedThreadPool(this.job.getSteps().size());
         }
 
         // executa os steps e os adiciona na lista para verificacao posterior
+        executeSteps(asyncResults, executor);
+
+        // finaliza o executor
+        executor.shutdown();
+
+        try {
+            // verifica o resultado dos steps rodados
+            if (successOnSteps(asyncResults)) {
+                this.job.setStatus(Job.Status.FINISHED);
+            } else {
+                this.job.setStatus(Job.Status.FAIL);
+            }
+        } catch (Exception excecao) {
+            this.job.setStatus(Job.Status.FAIL);
+            throw new JobFailsException("O Job [" + this.job.getId() + "] falhou em sua execucao", excecao);
+        } finally {
+            LOG.info("Job ".concat(job.getId()).concat(" finalizado"));
+        }
+    }
+
+    /**
+     * Realiza a execucao dos steps.
+     *
+     * @param asyncResults Lista para os resultados.
+     * @param executor Servico de execucao.
+     * @throws Exception para algum erro.
+     */
+    private void executeSteps(List<FutureTask<Boolean>> asyncResults, BatchExecutorService executor) throws Exception {
         for (Step step : this.job.getSteps()) {
+            step.setJob(this.job);
             IStepExecutor stepExecutor = ((StepExecutorFactory) this.stepExecutorFactory)
                     .of(step)
                     .and(executor)
@@ -85,18 +116,6 @@ public class JobExecutor implements IJobExecutor {
             stepExecutor.start();
             asyncResults.add(stepExecutor.getResult());
         }
-
-        // finaliza o executor
-        executor.shutdown();
-
-        // verifica o resultado dos steps rodados
-        if (successOnSteps(asyncResults)) {
-            this.job.setStatus(Job.Status.FINISHED);
-        } else {
-            this.job.setStatus(Job.Status.FAIL);
-        }
-
-        LOG.log(Level.INFO, "Job ".concat(job.getId()).concat(" finalizado"));
     }
 
     /**
@@ -108,30 +127,33 @@ public class JobExecutor implements IJobExecutor {
      * @throws InterruptedException Erro de interrupcao de thread.
      * @throws ExecutionException Erro de execucao de thread.
      */
-    private Boolean successOnSteps(List<FutureTask<Result>> asyncResults) throws InterruptedException, ExecutionException {
+    private Boolean successOnSteps(List<FutureTask<Boolean>> asyncResults) throws InterruptedException, ExecutionException {
         Boolean isRunning = Boolean.TRUE;
         while (isRunning) {
             isRunning = Boolean.FALSE;
-            for (FutureTask<Result> task : asyncResults) {
+            for (FutureTask<Boolean> task : asyncResults) {
                 if (!task.isDone()) {
                     isRunning = Boolean.TRUE;
                 }
             }
         }
-
-        for (FutureTask<Result> task : asyncResults) {
-            if (task.get().getType().equals(Result.Type.FAIL)) {
-                return Boolean.FALSE;
-            }
-        }
-
         return Boolean.TRUE;
     }
 
+    /**
+     * Devolve o status do job.
+     *
+     * @return um {@link Job.Status}.
+     */
     public Job.Status getStatus() {
         return this.job.getStatus();
     }
 
+    /**
+     * Verifica se a execucoa do job falhou.
+     *
+     * @return Boolean.
+     */
     public Boolean fails() {
         return this.getStatus().equals(Job.Status.FAIL);
     }

@@ -6,7 +6,9 @@
 package batch.processing.usage.tasklet;
 
 import br.com.sicoob.cro.cop.batch.core.BatchApplication;
+import br.com.sicoob.cro.cop.batch.core.BatchExecution;
 import br.com.sicoob.cro.cop.batch.core.BatchProcess;
+import br.com.sicoob.cro.cop.batch.core.Status;
 
 /**
  *
@@ -19,7 +21,17 @@ public class BatchProcessingUsage {
      */
     public static void main(String[] args) {
         BatchProcess launcher = BatchApplication.createExecutionProcess(ProcessarArquivoBatchConfig.class);
-        launcher.start();
+        BatchExecution execution = launcher.start();
+        
+        while (execution.getStatus() != Status.COMPLETED) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                
+            }
+            
+        }
+        System.out.println(execution.toString());
     }
 
 }

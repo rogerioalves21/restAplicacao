@@ -45,6 +45,7 @@ public class ProcessarArquivoChunkBatchConfig {
                 .processor(myProcessor)
                 .writer(myWriter)
                 .parameters(params)
+                .commitInterval(2)
                 .create();
 
         steps.add(step);

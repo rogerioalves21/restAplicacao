@@ -27,9 +27,15 @@ public final class StepFactory implements Factory<Step> {
     private AbstractItemWriter writer;
     private final Step.Type type;
     private StepParameters parameters;
+    private Integer commitInterval;
 
     public StepFactory reader(AbstractItemReader reader) {
         this.reader = reader;
+        return this;
+    }
+    
+    public StepFactory commitInterval(Integer commitInterval) {
+        this.commitInterval = commitInterval;
         return this;
     }
     
@@ -93,7 +99,7 @@ public final class StepFactory implements Factory<Step> {
         if (this.type.equals(Step.Type.TASKLET)) {
             return new Step(this.tasklet, this.type, this.parameters);
         } else if (this.type.equals(Step.Type.CHUNK)) {
-            return new Step(this.reader, this.processor, this.writer, this.type, this.parameters);
+            return new Step(this.reader, this.processor, this.writer, this.type, this.parameters, this.commitInterval);
         }
         return null;
     }

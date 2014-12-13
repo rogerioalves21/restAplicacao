@@ -15,10 +15,11 @@ import br.com.sicoob.cro.cop.batch.core.Result;
  */
 public abstract class AbstractTasklet implements Tasklet {
 
-    public Result call() throws Exception {
-        return this.execute();
+    public Boolean call() throws Exception {
+        this.execute();
+        return Boolean.TRUE;
     }
     
-    public abstract Result execute() throws Exception;
+    public abstract void execute() throws Exception;
 
 }

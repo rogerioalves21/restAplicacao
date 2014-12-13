@@ -26,5 +26,5 @@ public interface IStepExecutor {
      *
      * @return um {@link FutureTask}.
      */
-    FutureTask<Result> getResult();
+    FutureTask<Boolean> getResult();
 }

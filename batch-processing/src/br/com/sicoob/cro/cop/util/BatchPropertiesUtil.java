@@ -5,51 +5,101 @@
  */
 package br.com.sicoob.cro.cop.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Classe responsavel por obter e fazer o tratamento de mensagens.
  *
- * @author rogerioalves21
+ * @author Rogerio Alve Rodrigues
  */
-public class BatchPropertiesUtil {
-    
+public final class BatchPropertiesUtil {
+
     private static final Log LOG = LogFactory.getLog(BatchPropertiesUtil.class.getName());
-    private static Properties properties;
-    
+    private Properties properties;
+    private static BatchPropertiesUtil INSTANCE;
+    private static final String FILE = "/batch_messages.properties";
+
+    /**
+     * Obtem uma nova instancia Singleton.
+     *
+     * @return um {@link BatchPropertiesUtil).
+     */
     public static BatchPropertiesUtil getInstance() {
-        return new BatchPropertiesUtil();
-    }
-    
-    private BatchPropertiesUtil() {
-        try {
-            String userDir = System.getProperty("user.dir").concat(File.separator).concat("src").concat(File.separator);
-            new FileInputStream(userDir.concat("cop_batch_messages.properties"));
-            //ResourceBundle.getBundle(userDir.concat("cop_batch_messages.properties"));
-            properties.load(getClass().getResourceAsStream("/cop_batch_messages.properties"));
-        } catch (IOException excecao) {
-            LOG.fatal("Erro ao ler o arquivo de propriedades", excecao);
-        }
-    }
-    
-    public String getMessage(String key) {
-        return (String) properties.get(key);
-    }
-    
-    public String getMessage(String key, String... replace) {
-        String message = (String) properties.get(key);
-        if (replace != null) {
-            int contador = 0;
-            for (String obj : replace) {
-                message = message.replaceAll("{" + contador + "}", obj);
+        if (Validation.isNull(INSTANCE)) {
+            synchronized (BatchPropertiesUtil.class) {
+                INSTANCE = new BatchPropertiesUtil();
             }
         }
-        return message;
+        return INSTANCE;
     }
-    
+
+    /**
+     * Construtor.
+     */
+    private BatchPropertiesUtil() {
+
+    }
+
+    /**
+     * Carrega o arquivo properties na variavel {@code properties}.
+     */
+    private void loadProperties() {
+        try {
+            InputStream input = BatchPropertiesUtil.class.getResourceAsStream(FILE);
+            this.properties.load(input);
+        } catch (Exception ex) {
+            LOG.fatal(ex);
+        }
+    }
+
+    /**
+     * Obtem uma mensagem pela chave.
+     *
+     * @param key chave.
+     * @return Mensagem.
+     */
+    public String getMessage(String key) {
+        initialize();
+        return (String) properties.get(key);
+    }
+
+    /**
+     * Obtem uma mensagem com a passagem de argumentos.
+     *
+     * @param key Chave.
+     * @param replace Argumentos.
+     * @return Mensagem formatada.
+     */
+    public String getMessage(String key, String... replace) {
+        initialize();
+        return applyArguments(key, replace);
+    }
+
+    /**
+     * Inicializa o arquivo de properties/
+     */
+    private void initialize() {
+        if (Validation.isNull(this.properties)) {
+            this.properties = new Properties();
+            loadProperties();
+        }
+    }
+
+    /**
+     * Passa os argumentos para a string da mensagem.
+     *
+     * @param key Chave.
+     * @param replace Argumentos.
+     * @return String formatada.
+     */
+    private String applyArguments(String key, String... replace) {
+        MessageFormat format = new MessageFormat("");
+        format.applyPattern((String) properties.get(key));
+        return format.format(replace);
+    }
+
 }

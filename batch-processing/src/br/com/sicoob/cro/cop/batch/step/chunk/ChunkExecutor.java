@@ -8,11 +8,8 @@ package br.com.sicoob.cro.cop.batch.step.chunk;
 import br.com.sicoob.cro.cop.batch.configuration.ItemProcessorInjector;
 import br.com.sicoob.cro.cop.batch.configuration.ItemReaderInjector;
 import br.com.sicoob.cro.cop.batch.configuration.ItemWriterInjector;
-import br.com.sicoob.cro.cop.batch.core.ItemProcessor;
-import br.com.sicoob.cro.cop.batch.core.ItemReader;
-import br.com.sicoob.cro.cop.batch.core.ItemWriter;
-import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.step.Step;
+import br.com.sicoob.cro.cop.util.Validation;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.beanutils.ConstructorUtils;
@@ -24,7 +21,9 @@ import org.apache.commons.beanutils.ConstructorUtils;
  */
 public class ChunkExecutor implements IChunkExecutor {
 
-    public Step step;
+    private Step step;
+    private List<Object> objectsToWrite;
+    private Integer commitIntervalCounter = 0;
 
     /**
      * Construtor.
@@ -37,15 +36,31 @@ public class ChunkExecutor implements IChunkExecutor {
         this.step = step;
     }
 
+    private Step getStep() {
+        return this.step;
+    }
+
     /**
      * Chama o processo terceirizado.
      *
      * @return o resultado do processo.
      * @throws Exception ao ocorrer algum erro.
      */
-    public Result execute() throws Exception {
+    public Boolean execute() throws Exception {
         return this.call();
 
+    }
+
+    /**
+     * Adiciona um item ja processado para a lista de writable.
+     *
+     * @param item Objeto processado.
+     */
+    private void addWritable(Object item) {
+        if (Validation.isNull(this.objectsToWrite)) {
+            this.objectsToWrite = new ArrayList();
+        }
+        this.objectsToWrite.add(item);
     }
 
     /**
@@ -54,54 +69,57 @@ public class ChunkExecutor implements IChunkExecutor {
      * @return um Resultado.
      * @throws Exception ao ocorrer algum erro
      */
-    public Result call() throws Exception {
-        // cria uma lista de items lidos
-        List<Object> items = new ArrayList();
-
-        // faz a iteracao de dados do ItemReader
-        Integer recordNumber = 0;
-
-        // injeta as dependencias
+    public Boolean call() throws Exception {
         injectDependencies();
+        runChunkProcess();
+        callWriter();
+        return Boolean.TRUE;
+    }
 
-        // obtem os itens
-        ItemReader reader = this.step.getReader();
-        ItemProcessor processor = this.step.getProcessor();
-        ItemWriter writer = this.step.getWriter();
-
-        Object item = reader.readItem(recordNumber);
-        if (item != null) {
-            item = processor.processItem(item);
+    /**
+     * Faz o processo de execucao do modo chunk.
+     *
+     * @throws Exception para algum erro.
+     */
+    private void runChunkProcess() throws Exception {
+        Integer recordNumber = 1;
+        this.commitIntervalCounter = 0;
+        Object item = getStep().getReader().readItem(recordNumber);
+        if (Validation.notNull(item)) {
+            addWritable(getStep().getProcessor().processItem(item));
         }
-        Boolean keepRunning = item != null;
-
-        // logica para rodar enquanto houver itens para processar
-        if (keepRunning) {
-            items.add(item);
-            while (keepRunning) {
-                recordNumber++;
-                Object itemId = reader.readItem(recordNumber);
-                keepRunning = itemId != null;
-                if (itemId != null) {
-                    itemId = processor.processItem(itemId);
-                    items.add(itemId);
-                }
+        Boolean keepRunning = Validation.notNull(item);
+        while (keepRunning) {
+            this.commitIntervalCounter++;
+            recordNumber++;
+            Object itemId = getStep().getReader().readItem(recordNumber);
+            keepRunning = Validation.notNull(itemId);
+            if (keepRunning) {
+                addWritable(getStep().getProcessor().processItem(itemId));
             }
+            checkCommitInterval(this.commitIntervalCounter);
         }
+    }
 
-        // chama o item writer
-        callWriter(writer, items);
-        return Result.SUCCESS;
+    /**
+     * Verifica se o intervalo de commit foi alcancado, se sim chama o writer e
+     * zera o contado de commits novamente.
+     *
+     * @param commitIntervalCounter Contador de itens para commit.
+     */
+    private void checkCommitInterval(Integer commitIntervalCounter) {
+        if (Validation.notNullAndSameAs(commitIntervalCounter, getStep().getCommitInterval())) {
+            callWriter();
+            this.commitIntervalCounter = 0;
+        }
     }
 
     /**
      * Chama o writer e passa a lista para a escrita.
-     *
-     * @param writer Objeto writer.
-     * @param items Lista de dados.
      */
-    private void callWriter(ItemWriter writer, List<Object> items) {
-        writer.writeItems(items);
+    private void callWriter() {
+        getStep().getWriter().writeItems(this.objectsToWrite);
+        this.objectsToWrite.clear();
     }
 
     /**
@@ -110,9 +128,9 @@ public class ChunkExecutor implements IChunkExecutor {
      * @throws Exception para algum erro.
      */
     private void injectDependencies() throws Exception {
-        ConstructorUtils.invokeConstructor(ItemReaderInjector.class, this.step).inject();
-        ConstructorUtils.invokeConstructor(ItemProcessorInjector.class, this.step).inject();
-        ConstructorUtils.invokeConstructor(ItemWriterInjector.class, this.step).inject();
+        ConstructorUtils.invokeConstructor(ItemReaderInjector.class, getStep()).inject();
+        ConstructorUtils.invokeConstructor(ItemProcessorInjector.class, getStep()).inject();
+        ConstructorUtils.invokeConstructor(ItemWriterInjector.class, getStep()).inject();
     }
 
 }

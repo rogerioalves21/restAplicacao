@@ -6,7 +6,6 @@
 package batch.processing.usage.tasklet;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Context;
-import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.step.tasklet.AbstractTasklet;
 import br.com.sicoob.cro.cop.batch.step.tasklet.TaskletContext;
 import java.io.InputStream;
@@ -28,8 +27,7 @@ public class ProcessarArquivoTasklet extends AbstractTasklet {
     private TaskletContext context;
 
     @Override
-    @SuppressWarnings("empty-statement")
-    public Result execute() {
+    public void execute() {
         List<OperacaoUsage> operacoes = new ArrayList<>();
         InputStream source = this.getClass().getResourceAsStream(this.context.getParameters().get("nomeArquivo").toString());
         try (Scanner scan = new Scanner(source)) {
@@ -45,7 +43,6 @@ public class ProcessarArquivoTasklet extends AbstractTasklet {
                 LOG.info(operacao.toString());
             }
         }
-        return Result.SUCCESS;
     }
 
 }

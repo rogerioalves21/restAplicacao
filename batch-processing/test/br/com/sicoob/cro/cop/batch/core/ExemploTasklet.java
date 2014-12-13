@@ -21,10 +21,9 @@ public class ExemploTasklet extends AbstractTasklet {
     @Context
     private TaskletContext context;
     
-    public Result execute() {
+    public void execute() {
         LOG.info("Tasklet");
         LOG.info(context.getParameters().get("exemplo").toString());
-        return Result.SUCCESS;
     }
 
 }

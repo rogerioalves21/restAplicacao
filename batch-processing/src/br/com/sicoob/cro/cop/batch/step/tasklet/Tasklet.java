@@ -5,7 +5,6 @@
  */
 package br.com.sicoob.cro.cop.batch.step.tasklet;
 
-import br.com.sicoob.cro.cop.batch.core.Result;
 import java.util.concurrent.Callable;
 
 /**
@@ -15,6 +14,6 @@ import java.util.concurrent.Callable;
  *
  * @author Rogerio Alves Rodrigues
  */
-public interface Tasklet extends Callable<Result> {
+public interface Tasklet extends Callable<Boolean> {
     
 }

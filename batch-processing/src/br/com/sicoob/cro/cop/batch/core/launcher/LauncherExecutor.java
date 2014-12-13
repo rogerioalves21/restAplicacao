@@ -19,6 +19,9 @@ import br.com.sicoob.cro.cop.batch.core.Status;
 import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.job.JobExecutor;
 import br.com.sicoob.cro.cop.util.BatchKeys;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
+import br.com.sicoob.cro.cop.util.JobFailsException;
+import br.com.sicoob.cro.cop.util.Validation;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.util.concurrent.Callable;
@@ -58,21 +61,27 @@ public class LauncherExecutor implements Callable<Boolean> {
      * @return TRUE - para compilacao.
      */
     public Boolean call() throws Exception {
-        LOG.info("#### Iniciando o processamento ####");
+        LOG.info(BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.BATCH_LAUNCHER_INITIALIZING.getKey()));
         try {
             setProperty(this.execution, BatchKeys.STATUS.getKey(), Status.STARTED);
             injectDependencies();
             executeJobs();
             setProperty(this.execution, BatchKeys.RESULT.getKey(), Result.SUCCESS);
+            LOG.info(BatchPropertiesUtil.getInstance().getMessage(
+                    BatchKeys.BATCH_LAUNCHER_ENDING.getKey()));
         } catch (Exception excecao) {
-            LOG.error(excecao.getCause() != null
-                    ? excecao.getCause().getMessage() : excecao.getMessage(), excecao);
-            LOG.info("\n#### Finalizando o processamento com erro ####");
+            LOG.fatal(Validation.getOr(excecao.getCause(),
+                    excecao).getMessage(), excecao);
+            LOG.info(BatchPropertiesUtil.getInstance().getMessage(
+                    BatchKeys.BATCH_LAUNCHER_ERROR_ENDING.getKey()));
+            setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(), null);
             setProperty(this.execution, BatchKeys.RESULT.getKey(), Result.FAIL);
-            MethodUtils.invokeMethod(this.execution, BatchKeys.ADD_ERROR_MESSAGE.getKey(), excecao);
+            MethodUtils.invokeMethod(this.execution,
+                    BatchKeys.ADD_ERROR_MESSAGE.getKey(), excecao);
         } finally {
-            setProperty(this.execution, BatchKeys.STATUS.getKey(), Status.COMPLETED);
-            LOG.info("\n#### Finalizando o processamento ####");
+            setProperty(this.execution,
+                    BatchKeys.STATUS.getKey(), Status.COMPLETED);
         }
         return Boolean.TRUE;
     }
@@ -85,14 +94,16 @@ public class LauncherExecutor implements Callable<Boolean> {
     private void executeJobs() throws Exception {
         Injector injector = Guice.createInjector(new BatchProcessModule());
         for (Job job : getConfiguration().getJobs()) {
-            setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(), new JobDataExecution(job));
+            setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(),
+                    new JobDataExecution(job));
             IJobExecutor jobExecutor = injector.getInstance(JobExecutor.class);
             ((JobExecutor) jobExecutor).of(job).start();
             // verifica o resultado do job
             if (jobExecutor.fails()) {
-                setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(), null);
-                setProperty(this.execution, BatchKeys.RESULT.getKey(), Result.FAIL);
-                break;
+                throw new JobFailsException(
+                        BatchPropertiesUtil.getInstance().getMessage(
+                                BatchKeys.BATCH_LAUNCHER_JOB_ERROR_ENDING.getKey(),
+                                job.getId()));
             }
         }
     }

@@ -27,7 +27,7 @@ public class ProcessarArquivoTasklet extends AbstractTasklet {
     @Context
     private TaskletContext context;
 
-    public Result execute() {
+    public void execute() {
         List<Operacao> operacoes = new ArrayList<>();
         InputStream source = this.getClass().getResourceAsStream(this.context.getParameters().get("nomeArquivo").toString()/*"OpLm.csv"*/);
         Scanner scan = new Scanner(source);
@@ -47,8 +47,6 @@ public class ProcessarArquivoTasklet extends AbstractTasklet {
         for (Operacao operacao : operacoes) {
             LOG.info(operacao.toString());
         }
-
-        return Result.SUCCESS;
     }
 
 }

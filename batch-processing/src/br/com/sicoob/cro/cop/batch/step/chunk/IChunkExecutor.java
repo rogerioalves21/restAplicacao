@@ -5,7 +5,6 @@
  */
 package br.com.sicoob.cro.cop.batch.step.chunk;
 
-import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import java.util.concurrent.Callable;
 
@@ -13,10 +12,10 @@ import java.util.concurrent.Callable;
  *
  * @author Rogerio Alves Rodrigues
  */
-public interface IChunkExecutor extends Callable<Result> {
+public interface IChunkExecutor extends Callable<Boolean> {
 
     void setStep(Step step);
     
-    Result execute() throws Exception;
+    Boolean execute() throws Exception;
 
 }

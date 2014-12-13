@@ -8,6 +8,7 @@ package br.com.sicoob.cro.cop.batch.step;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemProcessor;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemReader;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemWriter;
+import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.step.tasklet.AbstractTasklet;
 import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
 import static br.com.sicoob.cro.cop.util.Validation.checkNull;
@@ -28,6 +29,8 @@ public class Step {
     private AbstractItemWriter writer;
     private Type type;
     private StepParameters parameters;
+    private Integer commitInterval;
+    private Job job;
 
     /**
      * Constroi uma instancia de step.
@@ -37,13 +40,17 @@ public class Step {
      * @param writer ItemWriter.
      * @param type Tipo de Step.
      * @param parameters Parametros do step.
+     * @param commitInterval Intervalo para commit.
      */
-    public Step(AbstractItemReader reader, AbstractItemProcessor processor, AbstractItemWriter writer, Type type, StepParameters parameters) {
+    public Step(AbstractItemReader reader, AbstractItemProcessor processor,
+            AbstractItemWriter writer, Type type, StepParameters parameters,
+            Integer commitInterval) {
         this.reader = reader;
         this.processor = processor;
         this.writer = writer;
         this.type = type;
         this.parameters = parameters;
+        this.commitInterval = commitInterval;
     }
 
     /**
@@ -143,6 +150,34 @@ public class Step {
      */
     public void setWriter(AbstractItemWriter writer) {
         this.writer = writer;
+    }
+
+    /**
+     * @return the commitInterval
+     */
+    public Integer getCommitInterval() {
+        return commitInterval;
+    }
+
+    /**
+     * @param commitInterval the commitInterval to set
+     */
+    public void setCommitInterval(Integer commitInterval) {
+        this.commitInterval = commitInterval;
+    }
+
+    /**
+     * @return the job
+     */
+    public Job getJob() {
+        return job;
+    }
+
+    /**
+     * @param job the job to set
+     */
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     /**

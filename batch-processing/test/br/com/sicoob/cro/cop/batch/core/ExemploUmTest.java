@@ -48,7 +48,7 @@ public class ExemploUmTest extends TestCase {
         }
         System.out.println(execution.toString());
 
-        System.out.println(execution.getItemError().getMessage());
+        //System.out.println(execution.getItemError().getMessage());
 
         assertEquals(Result.Type.FAIL, execution.getResult().getType());
     }

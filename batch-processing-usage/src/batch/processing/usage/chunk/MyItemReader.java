@@ -9,6 +9,7 @@ import batch.processing.usage.tasklet.OperacaoUsage;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemReader;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Context;
 import br.com.sicoob.cro.cop.batch.step.chunk.ChunkContext;
+import br.com.sicoob.cro.cop.util.Validation;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,11 +29,11 @@ public class MyItemReader extends AbstractItemReader {
         InputStream source = this.getClass().getResourceAsStream(this.context.getParameters().get("nomeArquivo").toString());
         OperacaoUsage operacao;
         try (Scanner scan = new Scanner(source)) {
-            Integer contador = 0;
-            Integer rn = (Integer) recordNumber;
+            Integer contador = 1;
+            Integer recNumber = (Integer) recordNumber;
             operacao = null;
             while (scan.hasNext()) {
-                if (contador.compareTo(rn) == 0) {
+                if (Validation.sameAs(contador, recNumber)) {
                     String[] dados = scan.next().split(";");
                     operacao = new OperacaoUsage(dados[0],
                             new BigDecimal(dados[1]), dados[2], new BigDecimal(dados[3]));

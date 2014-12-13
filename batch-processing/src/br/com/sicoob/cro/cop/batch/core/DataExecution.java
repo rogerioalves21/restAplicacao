@@ -6,6 +6,7 @@
 package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.util.ItemError;
+import br.com.sicoob.cro.cop.util.Validation;
 
 /**
  * Implementacao da interface {@link BatchExecution}.
@@ -60,10 +61,10 @@ public class DataExecution implements BatchExecution {
     }
 
     public void addErrorMessage(Throwable excecao) {
-        this.itemError = new ItemError(excecao.getCause() != null
-                ? excecao.getCause().getMessage() : excecao.getMessage());
+        this.itemError = new ItemError(Validation.getOr(excecao.getCause(), excecao).getMessage());
     }
 
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("\n#########################");
