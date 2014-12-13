@@ -15,9 +15,8 @@ public interface BatchInjector {
     /**
      * Injeta as dependencias necessarias.
      *
-     * @throws IllegalArgumentException para argumento ilegal.
-     * @throws IllegalAccessException para acesso ilegal.
+     * @throws Exception para algum erro ocorrido.
      */
-    void inject() throws IllegalArgumentException, IllegalAccessException;
+    void inject() throws Exception;
 
 }

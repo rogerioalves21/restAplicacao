@@ -59,8 +59,9 @@ public class DataExecution implements BatchExecution {
         this.result = result;
     }
 
-    public void addErrorMessage(String error) {
-        this.itemError = new ItemError(error);
+    public void addErrorMessage(Throwable excecao) {
+        this.itemError = new ItemError(excecao.getCause() != null
+                ? excecao.getCause().getMessage() : excecao.getMessage());
     }
 
     public String toString() {
@@ -68,7 +69,7 @@ public class DataExecution implements BatchExecution {
         builder.append("\n#########################");
         builder.append("\nStatus: ".concat(this.status.name()));
         builder.append("\nResult: ".concat(this.result != null ? this.result.getType().name() : "Nenhum"));
-        builder.append("\nRunning Job: ".concat(this.runningJob != null ? this.runningJob.getName() : "Nenhum"));
+        builder.append("\nRunning Job: ".concat(this.runningJob != null ? this.runningJob.getId() : "Nenhum"));
         builder.append("\nRunning Job Status: ".concat(this.runningJob != null ? this.runningJob.getStatus().name() : "Nenhum"));
         builder.append("\nError: ".concat(this.itemError != null ? this.itemError.getMessage() : "Nenhum"));
         return builder.toString();

@@ -7,10 +7,13 @@ package br.com.sicoob.cro.cop.batch.configuration;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Context;
 import br.com.sicoob.cro.cop.batch.step.Step;
+import br.com.sicoob.cro.cop.batch.step.StepParameters;
 import br.com.sicoob.cro.cop.batch.step.tasklet.TaskletContext;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * Injecao de dependencias para o tasklet.
@@ -21,7 +24,7 @@ public class TaskletInjector implements BatchInjector {
 
     // log
     private static final Logger LOG = Logger.getLogger(TaskletInjector.class.getName());
-    
+
     // step
     private final Step step;
 
@@ -41,7 +44,7 @@ public class TaskletInjector implements BatchInjector {
      * @throws IllegalAccessException para acesso ilegal.
      */
     @Override
-    public void inject() throws IllegalArgumentException, IllegalAccessException {
+    public void inject() throws Exception {
         Field[] fields = this.step.getTasklet().getClass().getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(Context.class)) {
@@ -57,10 +60,9 @@ public class TaskletInjector implements BatchInjector {
      *
      * @return um {@link TaskletContext}.
      */
-    private TaskletContext createContext() {
-        TaskletContext context = new TaskletContext();
-        context.setParameters(this.step.getParameters());
-        return context;
+    private TaskletContext createContext() throws Exception {
+        return ConstructorUtils.invokeConstructor(TaskletContext.class,
+                (StepParameters) PropertyUtils.getProperty(this.step, "parameters"));
     }
 
 }

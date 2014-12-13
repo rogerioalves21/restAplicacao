@@ -8,17 +8,17 @@ package br.com.sicoob.cro.cop.batch.configuration;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.BatchConfiguration;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Jobs;
 import br.com.sicoob.cro.cop.batch.job.Job;
-import br.com.sicoob.cro.cop.util.MandatoryFieldException;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.NoConfigurationClassException;
 import br.com.sicoob.cro.cop.util.NoJobsFoundException;
 import br.com.sicoob.cro.cop.util.ObjectDomainsUtil;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.beanutils.MethodUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Resolve a obtencao dos dados de uma classe de configuracao de batch.
@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 public class BatchConfigurations {
 
     // log
-    private static final Logger LOG = Logger.getLogger(BatchConfigurations.class.getName());
+    private static final Log LOG = LogFactory.getLog(BatchConfigurations.class.getName());
 
     // objeto a ser resolvido
     private final Object configurationObject;
@@ -47,30 +47,20 @@ public class BatchConfigurations {
      * configuracao.
      *
      * @return Lista de Jobs.
-     * @throws IllegalAccessException Erro.
-     * @throws IllegalArgumentException Erro.
-     * @throws InvocationTargetException Erro.
-     * @throws NoConfigurationClassException Erro.
-     * @throws NoJobsFoundException Erro.
-     * @throws br.com.sicoob.cro.cop.util.MandatoryFieldException Erro.
+     * @throws Exception Erro.
      */
-    public List<Job> getJobs() throws IllegalAccessException, IllegalArgumentException,
-            InvocationTargetException, NoConfigurationClassException, NoJobsFoundException, MandatoryFieldException {
-
-        LOG.log(Level.INFO, "Verifica se existe a anotacao [@BatchConfiguration] para classe ["
-                .concat(this.configurationObject.getClass().getName()).concat("]"));
-
-        List<Job> jobs = new ArrayList<>();
-        // verifica se contem a annotation @BatchConfiguration
+    public List<Job> getJobs() throws Exception {
+        LOG.info(BatchPropertiesUtil.getInstance().getMessage("batch.configurations.verificacao",
+                this.configurationObject.getClass().getName()));
+        List<Job> jobs = new ArrayList();
         if (this.configurationObject.getClass().isAnnotationPresent(BatchConfiguration.class)) {
-            // encontra o metodo que retorna os jobs
             Method[] methods = this.configurationObject.getClass().getDeclaredMethods();
             for (Method method : methods) {
                 if (method.isAnnotationPresent(Jobs.class)) {
-                    LOG.log(Level.INFO, "Obtendo os jobs do metodo que contem a anotacao [@Jobs] o metodo ["
+                    LOG.info("Obtendo os jobs do metodo que contem a anotacao [@Jobs] o metodo ["
                             .concat(method.getName()).concat("]"));
                     method.setAccessible(Boolean.TRUE);
-                    jobs.addAll((List<Job>) method.invoke(this.configurationObject, new Object[0]));
+                    jobs.addAll((List<Job>) MethodUtils.invokeExactMethod(this.configurationObject, method.getName(), new Object[0]));
                 }
             }
         } else {

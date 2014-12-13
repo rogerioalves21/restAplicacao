@@ -20,8 +20,8 @@ public class JobDataExecution implements JobExecution {
         this.job = job;
     }
     
-    public String getName() {
-        return this.job.getNome();
+    public String getId()  {
+        return this.job.getId();
     }
 
     public Integer getNumberOfSteps() {

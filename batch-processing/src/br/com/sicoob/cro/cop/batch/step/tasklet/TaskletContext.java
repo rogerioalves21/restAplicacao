@@ -21,6 +21,15 @@ public class TaskletContext {
     private static final StepParameters EMPTY = new StepParameters();
 
     /**
+     * Construtor
+     *
+     * @param parameters Parametros para o step.
+     */
+    public TaskletContext(StepParameters parameters) {
+        this.parameters = parameters;
+    }
+
+    /**
      * @return the parameters
      */
     public StepParameters getParameters() {

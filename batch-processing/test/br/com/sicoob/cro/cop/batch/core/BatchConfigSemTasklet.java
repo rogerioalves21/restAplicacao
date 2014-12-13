@@ -37,7 +37,7 @@ public class BatchConfigSemTasklet {
                 .create();
         steps.add(step);
         Job job = jobFactory
-                .job("job test")
+                .id("job test")
                 .steps(steps)
                 .create();
 

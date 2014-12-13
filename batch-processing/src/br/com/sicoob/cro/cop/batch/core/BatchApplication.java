@@ -7,8 +7,10 @@ package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.BatchConfiguration;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launchers;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.beanutils.ConstructorUtils;
 
 /**
  * A porta de entrada para o processamento-batch. Cria um {@link DataExecution}
@@ -64,11 +66,17 @@ public final class BatchApplication {
      */
     private static <T> Object createNewInstance(Class<T> type) {
         try {
-            return type.newInstance();
+            return ConstructorUtils.invokeConstructor(type, new Object[0]);
         } catch (InstantiationException ex) {
             Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex);
         } catch (IllegalAccessException ex) {
+            Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
+        } catch (InvocationTargetException ex) {
             Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex);
         }

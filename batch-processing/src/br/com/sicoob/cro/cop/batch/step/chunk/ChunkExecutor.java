@@ -15,6 +15,7 @@ import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.beanutils.ConstructorUtils;
 
 /**
  * Esta classe eh reponsavel por executar no estilo chunk o processo.
@@ -60,12 +61,8 @@ public class ChunkExecutor implements IChunkExecutor {
         // faz a iteracao de dados do ItemReader
         Integer recordNumber = 0;
 
-        // Injeta as dependencias do item reader
-        new ItemReaderInjector(this.step).inject();
-        // Injeta as dependencias do item processor
-        new ItemProcessorInjector(this.step).inject();
-        // Injeta as dependencias do item writer
-        new ItemWriterInjector(this.step).inject();
+        // injeta as dependencias
+        injectDependencies();
 
         // obtem os itens
         ItemReader reader = this.step.getReader();
@@ -93,8 +90,29 @@ public class ChunkExecutor implements IChunkExecutor {
         }
 
         // chama o item writer
-        writer.writeItems(items);
+        callWriter(writer, items);
         return Result.SUCCESS;
+    }
+
+    /**
+     * Chama o writer e passa a lista para a escrita.
+     *
+     * @param writer Objeto writer.
+     * @param items Lista de dados.
+     */
+    private void callWriter(ItemWriter writer, List<Object> items) {
+        writer.writeItems(items);
+    }
+
+    /**
+     * Injeta as dependencias do reader, processor e writer.
+     *
+     * @throws Exception para algum erro.
+     */
+    private void injectDependencies() throws Exception {
+        ConstructorUtils.invokeConstructor(ItemReaderInjector.class, this.step).inject();
+        ConstructorUtils.invokeConstructor(ItemProcessorInjector.class, this.step).inject();
+        ConstructorUtils.invokeConstructor(ItemWriterInjector.class, this.step).inject();
     }
 
 }

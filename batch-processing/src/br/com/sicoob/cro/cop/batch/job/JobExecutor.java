@@ -61,7 +61,7 @@ public class JobExecutor implements IJobExecutor {
      * Printa os dados do logÏ
      */
     private void logJobData() {
-        LOG.log(Level.INFO, "Job: ".concat(this.job.getNome()));
+        LOG.log(Level.INFO, "Job: ".concat(this.job.getId()));
         LOG.log(Level.INFO, "Quantidade de steps: ".concat(String.valueOf(this.job.getSteps().size())));
         LOG.log(Level.INFO, "Modo de execucao do Job: ".concat(this.job.getMode().name()));
     }
@@ -96,7 +96,7 @@ public class JobExecutor implements IJobExecutor {
             this.job.setStatus(Job.Status.FAIL);
         }
 
-        LOG.log(Level.INFO, "Job ".concat(job.getNome()).concat(" finalizado"));
+        LOG.log(Level.INFO, "Job ".concat(job.getId()).concat(" finalizado"));
     }
 
     /**
@@ -130,6 +130,10 @@ public class JobExecutor implements IJobExecutor {
 
     public Job.Status getStatus() {
         return this.job.getStatus();
+    }
+
+    public Boolean fails() {
+        return this.getStatus().equals(Job.Status.FAIL);
     }
 
 }

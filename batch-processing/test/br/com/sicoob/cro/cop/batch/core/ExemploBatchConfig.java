@@ -44,7 +44,7 @@ public class ExemploBatchConfig {
         steps.add(step);
 
         Job job = jobFactory
-                .job("job test")
+                .id("job test")
                 .mode(Job.Mode.SYNC)
                 .steps(steps)
                 .create();

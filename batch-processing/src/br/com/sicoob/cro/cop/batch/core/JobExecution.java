@@ -19,7 +19,7 @@ public interface JobExecution {
      *
      * @return o nome do job.
      */
-    String getName();
+    String getId();
 
     /**
      *

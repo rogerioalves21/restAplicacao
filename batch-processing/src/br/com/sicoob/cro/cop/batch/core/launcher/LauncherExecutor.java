@@ -5,23 +5,27 @@
  */
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
+import static org.apache.commons.beanutils.PropertyUtils.setProperty;
+
 import br.com.sicoob.cro.cop.batch.configuration.BatchConfigurations;
 import br.com.sicoob.cro.cop.batch.configuration.BatchProcessModule;
 import br.com.sicoob.cro.cop.batch.configuration.JobFactoryInjector;
 import br.com.sicoob.cro.cop.batch.configuration.StepFactoryInjector;
 import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
 import br.com.sicoob.cro.cop.batch.core.BatchExecution;
-import br.com.sicoob.cro.cop.batch.core.DataExecution;
 import br.com.sicoob.cro.cop.batch.core.JobDataExecution;
 import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.core.Status;
 import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.job.JobExecutor;
+import br.com.sicoob.cro.cop.util.BatchKeys;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.beanutils.MethodUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Classe responsavel por iniciar o processo de execucao dos jobs.
@@ -31,7 +35,7 @@ import java.util.logging.Logger;
 public class LauncherExecutor implements Callable<Boolean> {
 
     // Logger
-    private static final Logger LOG = Logger.getLogger(LauncherExecutor.class.getName());
+    private static final Log LOG = LogFactory.getLog(LauncherExecutor.class.getName());
     // Configuracao do Processamento Batch.
     private final Object configurationObject;
     // Classe que contera os dados da execucao.
@@ -51,25 +55,26 @@ public class LauncherExecutor implements Callable<Boolean> {
     /**
      * Executa o processamento.
      *
-     * @return Nulo - para compilacao.
+     * @return TRUE - para compilacao.
      */
-    public Boolean call() {
-        LOG.log(Level.INFO, "#### Iniciando o processamento ####");
-        ((DataExecution) this.execution).setStatus(Status.STARTED);
+    public Boolean call() throws Exception {
+        LOG.info("#### Iniciando o processamento ####");
         try {
+            setProperty(this.execution, BatchKeys.STATUS.getKey(), Status.STARTED);
             injectDependencies();
             executeJobs();
-            ((DataExecution) this.execution).setResult(Result.SUCCESS);
-        } catch (Exception erro) {
-            LOG.log(Level.INFO, "\n#### Finalizando o processamento com erro ####");
-            ((DataExecution) this.execution).setResult(Result.FAIL);
-            ((DataExecution) this.execution).addErrorMessage(erro.getCause().getMessage());
-            LOG.log(Level.SEVERE, erro.getCause().getMessage());
+            setProperty(this.execution, BatchKeys.RESULT.getKey(), Result.SUCCESS);
+        } catch (Exception excecao) {
+            LOG.error(excecao.getCause() != null
+                    ? excecao.getCause().getMessage() : excecao.getMessage(), excecao);
+            LOG.info("\n#### Finalizando o processamento com erro ####");
+            setProperty(this.execution, BatchKeys.RESULT.getKey(), Result.FAIL);
+            MethodUtils.invokeMethod(this.execution, BatchKeys.ADD_ERROR_MESSAGE.getKey(), excecao);
         } finally {
-            ((DataExecution) this.execution).setStatus(Status.COMPLETED);
-            LOG.log(Level.INFO, "\n#### Finalizando o processamento ####");
+            setProperty(this.execution, BatchKeys.STATUS.getKey(), Status.COMPLETED);
+            LOG.info("\n#### Finalizando o processamento ####");
         }
-        return null;
+        return Boolean.TRUE;
     }
 
     /**
@@ -80,13 +85,13 @@ public class LauncherExecutor implements Callable<Boolean> {
     private void executeJobs() throws Exception {
         Injector injector = Guice.createInjector(new BatchProcessModule());
         for (Job job : getConfiguration().getJobs()) {
-            ((DataExecution) this.execution).setRunningJob(new JobDataExecution(job));
+            setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(), new JobDataExecution(job));
             IJobExecutor jobExecutor = injector.getInstance(JobExecutor.class);
             ((JobExecutor) jobExecutor).of(job).start();
             // verifica o resultado do job
-            if (jobExecutor.getStatus().equals(Job.Status.FAIL)) {
-                ((DataExecution) this.execution).setRunningJob(null);
-                ((DataExecution) this.execution).setResult(Result.FAIL);
+            if (jobExecutor.fails()) {
+                setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(), null);
+                setProperty(this.execution, BatchKeys.RESULT.getKey(), Result.FAIL);
                 break;
             }
         }
@@ -104,13 +109,11 @@ public class LauncherExecutor implements Callable<Boolean> {
     /**
      * Injeta as dependencias das factories.
      *
-     * @throws IllegalArgumentException Erro.
-     * @throws IllegalAccessException Erro.
+     * @throws Exception Erro.
      */
-    private void injectDependencies() throws IllegalArgumentException, IllegalAccessException {
-        new JobFactoryInjector(this.configurationObject).inject();
-        new StepFactoryInjector(this.configurationObject).inject();
-
+    private void injectDependencies() throws Exception {
+        ConstructorUtils.invokeConstructor(JobFactoryInjector.class, this.configurationObject).inject();
+        ConstructorUtils.invokeConstructor(StepFactoryInjector.class, this.configurationObject).inject();
     }
 
 }

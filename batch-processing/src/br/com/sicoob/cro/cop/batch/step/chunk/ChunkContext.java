@@ -18,6 +18,10 @@ public class ChunkContext {
     private StepParameters parameters;
     // instancia vazia
     private static final StepParameters EMPTY = new StepParameters();
+    
+    public ChunkContext(StepParameters parameters) {
+        this.parameters = parameters;
+    }
 
     /**
      * @return the parameters

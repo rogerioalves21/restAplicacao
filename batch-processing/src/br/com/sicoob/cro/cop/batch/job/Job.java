@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class Job {
 
-    private String nome;
+    private String id;
     private List<Step> steps;
     private Mode mode;
     private Status status = Status.TO_PROCESS;
@@ -26,15 +26,15 @@ public class Job {
     /**
      * Constroi um Job.
      *
-     * @param nome Nome do Job.
+     * @param id id do Job.
      * @param steps Lista de Steps do Job.
      * @param mode Modo de execucao do Job.
      */
-    public Job(String nome, List<Step> steps, Mode mode) {
-        checkNull(nome, "Nome");
+    public Job(String id, List<Step> steps, Mode mode) {
+        checkNull(id, "Nome");
         checkNull(steps, "Steps");
         checkNull(mode, "Mode");
-        this.nome = nome;
+        this.id = id;
         this.steps = steps;
         this.mode = mode;
     }
@@ -42,15 +42,15 @@ public class Job {
     /**
      * @return the nome
      */
-    public String getNome() {
-        return nome;
+    public String getId() {
+        return id;
     }
 
     /**
-     * @param nome the nome to set
+     * @param id the nome to set
      */
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

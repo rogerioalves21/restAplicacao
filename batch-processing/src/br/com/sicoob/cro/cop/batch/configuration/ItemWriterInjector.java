@@ -7,11 +7,14 @@ package br.com.sicoob.cro.cop.batch.configuration;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Context;
 import br.com.sicoob.cro.cop.batch.step.Step;
+import br.com.sicoob.cro.cop.batch.step.StepParameters;
 import br.com.sicoob.cro.cop.batch.step.chunk.ChunkContext;
 import br.com.sicoob.cro.cop.batch.step.tasklet.TaskletContext;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  *
@@ -34,7 +37,7 @@ public class ItemWriterInjector implements BatchInjector {
         this.step = step;
     }
     
-    public void inject() throws IllegalArgumentException, IllegalAccessException {
+    public void inject() throws Exception {
         Field[] fields = this.step.getWriter().getClass().getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(Context.class)) {
@@ -50,10 +53,9 @@ public class ItemWriterInjector implements BatchInjector {
      *
      * @return um {@link TaskletContext}.
      */
-    private ChunkContext createContext() {
-        ChunkContext context = new ChunkContext();
-        context.setParameters(this.step.getParameters());
-        return context;
+    private ChunkContext createContext() throws Exception {
+        return ConstructorUtils.invokeConstructor(ChunkContext.class,
+                (StepParameters) PropertyUtils.getProperty(this.step, "parameters"));
     }
     
 }

@@ -18,7 +18,7 @@ import java.util.List;
  */
 public final class JobFactory implements Factory<Job> {
 
-    private String nome;
+    private String id;
     private List<Step> steps;
     private Job.Mode mode;
 
@@ -41,11 +41,11 @@ public final class JobFactory implements Factory<Job> {
     /**
      * Recebe o nome do Job.
      *
-     * @param nome Nome do Job.
+     * @param id Nome do Job.
      * @return um {@link JobFactory}.
      */
-    public JobFactory job(String nome) {
-        this.nome = nome;
+    public JobFactory id(String id) {
+        this.id = id;
         return this;
     }
 
@@ -78,7 +78,7 @@ public final class JobFactory implements Factory<Job> {
      */
     @Override
     public Job create() {
-        return new Job(this.nome, this.steps, this.mode);
+        return new Job(this.id, this.steps, this.mode);
     }
 
 }

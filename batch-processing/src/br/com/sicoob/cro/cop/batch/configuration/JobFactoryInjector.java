@@ -33,7 +33,7 @@ public class JobFactoryInjector implements BatchInjector {
         this.configuration = configuration;
     }
 
-    public void inject() throws IllegalArgumentException, IllegalAccessException {
+    public void inject() throws Exception {
         Field[] fields = this.configuration.getClass().getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(JobBuilderFactory.class)) {

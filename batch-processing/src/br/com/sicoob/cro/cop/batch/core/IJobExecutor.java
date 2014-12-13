@@ -28,4 +28,11 @@ public interface IJobExecutor {
      */
     Job.Status getStatus();
 
+    /**
+     * Verifica se o job falhou.
+     *
+     * @return se o job falhou.
+     */
+    Boolean fails();
+
 }

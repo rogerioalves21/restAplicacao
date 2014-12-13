@@ -43,4 +43,5 @@ public interface BatchExecution {
      * @return uma lista {@link List}.
      */
     ItemError getItemError();
+    
 }

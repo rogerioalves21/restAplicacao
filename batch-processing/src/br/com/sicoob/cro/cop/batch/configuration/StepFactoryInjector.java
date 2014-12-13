@@ -34,8 +34,7 @@ public class StepFactoryInjector implements BatchInjector {
     }
 
     @Override
-    public void inject() throws IllegalArgumentException, IllegalAccessException {
-        // obtem os campos do tasklet
+    public void inject() throws Exception {
         Field[] fields = this.configuration.getClass().getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(StepBuilderFactory.class)) {
