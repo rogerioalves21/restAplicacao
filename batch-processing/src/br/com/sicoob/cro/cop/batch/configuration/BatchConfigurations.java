@@ -61,7 +61,7 @@ public class BatchConfigurations {
             for (Method method : methods) {
                 if (Validation.isMethodAnnotatedWith(method, Jobs.class)) {
                     LOG.info(BatchPropertiesUtil.getInstance()
-                            .getMessage(BatchKeys.BATCH_CONFIGURATIONS_ANNOTATION.getKey(),
+                            .getMessage(BatchKeys.BATCH_CONFIGURATIONS_JOB.getKey(),
                                     method.getName()));
                     method.setAccessible(Boolean.TRUE);
                     jobs.addAll((List<Job>) MethodUtils.invokeExactMethod(this.configurationObject,

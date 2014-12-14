@@ -10,6 +10,8 @@ import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.step.StepParameters;
 import br.com.sicoob.cro.cop.batch.step.chunk.ChunkContext;
 import br.com.sicoob.cro.cop.batch.step.tasklet.TaskletContext;
+import br.com.sicoob.cro.cop.util.BatchKeys;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.BatchUtil;
 import br.com.sicoob.cro.cop.util.Validation;
 import java.lang.reflect.Field;
@@ -26,10 +28,10 @@ public class ItemWriterInjector implements BatchInjector {
 
     // log
     private static final Logger LOG = Logger.getLogger(ItemWriterInjector.class.getName());
-    
+
     // step
     private final Step step;
-    
+
     /**
      * Constroi o tasklet injecto.
      *
@@ -38,18 +40,20 @@ public class ItemWriterInjector implements BatchInjector {
     public ItemWriterInjector(Step step) {
         this.step = step;
     }
-    
+
     public void inject() throws Exception {
         Field[] fields = BatchUtil.getDeclaredFields(this.step.getWriter());
         for (Field field : fields) {
             if (Validation.isFieldAnnotatedWith(field, Context.class)) {
-                LOG.log(Level.INFO, "Injetando a dependêcia [@Context] para o atributo [".concat(field.getName()).concat("]"));
+                LOG.log(Level.INFO, BatchPropertiesUtil.getInstance().getMessage(
+                        BatchKeys.BATCH_INJECTOR_INFO.getKey(),
+                        new String[]{BatchKeys.CONTEXT.getKey(), field.getName()}));
                 field.setAccessible(Boolean.TRUE);
                 field.set(this.step.getWriter(), createContext());
             }
         }
     }
-    
+
     /**
      * Cria o contexto de dados para o tasklet.
      *
@@ -57,7 +61,8 @@ public class ItemWriterInjector implements BatchInjector {
      */
     private ChunkContext createContext() throws Exception {
         return ConstructorUtils.invokeConstructor(ChunkContext.class,
-                (StepParameters) PropertyUtils.getProperty(this.step, "parameters"));
+                (StepParameters) PropertyUtils.getProperty(this.step,
+                        BatchKeys.PARAMETERS.getKey()));
     }
-    
+
 }

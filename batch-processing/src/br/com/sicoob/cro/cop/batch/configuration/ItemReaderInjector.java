@@ -10,6 +10,8 @@ import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.step.StepParameters;
 import br.com.sicoob.cro.cop.batch.step.chunk.ChunkContext;
 import br.com.sicoob.cro.cop.batch.step.tasklet.TaskletContext;
+import br.com.sicoob.cro.cop.util.BatchKeys;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.BatchUtil;
 import br.com.sicoob.cro.cop.util.Validation;
 import java.lang.reflect.Field;
@@ -43,7 +45,9 @@ public class ItemReaderInjector implements BatchInjector {
         Field[] fields = BatchUtil.getDeclaredFields(this.step.getReader());
         for (Field field : fields) {
             if (Validation.isFieldAnnotatedWith(field, Context.class)) {
-                LOG.log(Level.INFO, "Injetando a dependêcia [@Context] para o atributo [".concat(field.getName()).concat("]"));
+                LOG.log(Level.INFO, BatchPropertiesUtil.getInstance().getMessage(
+                        BatchKeys.BATCH_INJECTOR_INFO.getKey(),
+                        new String[]{BatchKeys.CONTEXT.getKey(), field.getName()}));
                 field.setAccessible(Boolean.TRUE);
                 field.set(this.step.getReader(), createContext());
             }
@@ -57,7 +61,8 @@ public class ItemReaderInjector implements BatchInjector {
      */
     private ChunkContext createContext() throws Exception {
         return ConstructorUtils.invokeConstructor(ChunkContext.class,
-                (StepParameters) PropertyUtils.getProperty(this.step, "parameters"));
+                (StepParameters) PropertyUtils.getProperty(this.step,
+                        BatchKeys.PARAMETERS.getKey()));
     }
 
 }

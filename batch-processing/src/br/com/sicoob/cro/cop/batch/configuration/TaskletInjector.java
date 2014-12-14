@@ -9,6 +9,8 @@ import br.com.sicoob.cro.cop.batch.configuration.annotation.Context;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.step.StepParameters;
 import br.com.sicoob.cro.cop.batch.step.tasklet.TaskletContext;
+import br.com.sicoob.cro.cop.util.BatchKeys;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.BatchUtil;
 import br.com.sicoob.cro.cop.util.Validation;
 import java.lang.reflect.Field;
@@ -42,15 +44,15 @@ public class TaskletInjector implements BatchInjector {
     /**
      * Injeta a dependencia do contexto no takslet.
      *
-     * @throws IllegalArgumentException para argumento ilegal.
-     * @throws IllegalAccessException para acesso ilegal.
+     * @throws Exception para algum erro.
      */
-    @Override
     public void inject() throws Exception {
         Field[] fields = BatchUtil.getDeclaredFields(this.step.getTasklet());
         for (Field field : fields) {
             if (Validation.isFieldAnnotatedWith(field, Context.class)) {
-                LOG.log(Level.INFO, "Injetando a dependêcia [@Context] para o atributo [".concat(field.getName()).concat("]"));
+                LOG.log(Level.INFO, BatchPropertiesUtil.getInstance().getMessage(
+                        BatchKeys.BATCH_INJECTOR_INFO.getKey(),
+                        new String[]{BatchKeys.CONTEXT.getKey(), field.getName()}));
                 field.setAccessible(Boolean.TRUE);
                 field.set(this.step.getTasklet(), createContext());
             }
@@ -64,7 +66,8 @@ public class TaskletInjector implements BatchInjector {
      */
     private TaskletContext createContext() throws Exception {
         return ConstructorUtils.invokeConstructor(TaskletContext.class,
-                (StepParameters) PropertyUtils.getProperty(this.step, "parameters"));
+                (StepParameters) PropertyUtils.getProperty(this.step,
+                        BatchKeys.PARAMETERS.getKey()));
     }
 
 }

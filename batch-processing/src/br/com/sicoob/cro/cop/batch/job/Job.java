@@ -6,6 +6,8 @@
 package br.com.sicoob.cro.cop.batch.job;
 
 import br.com.sicoob.cro.cop.batch.step.Step;
+import br.com.sicoob.cro.cop.util.BatchKeys;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import static br.com.sicoob.cro.cop.util.Validation.checkNull;
 import java.util.List;
 
@@ -31,9 +33,12 @@ public class Job {
      * @param mode Modo de execucao do Job.
      */
     public Job(String id, List<Step> steps, Mode mode) {
-        checkNull(id, "Nome");
-        checkNull(steps, "Steps");
-        checkNull(mode, "Mode");
+        checkNull(id, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.ID.getKey()));
+        checkNull(steps, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.STEPS.getKey()));
+        checkNull(mode, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.MODE.getKey()));
         this.id = id;
         this.steps = steps;
         this.mode = mode;
@@ -109,6 +114,14 @@ public class Job {
     public static enum Status {
 
         TO_PROCESS, RUNNING, FAIL, FINISHED
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(BatchPropertiesUtil.getInstance().getMessage(BatchKeys.JOB_ID.getKey(), getId()));
+        sb.append(BatchPropertiesUtil.getInstance().getMessage(BatchKeys.JOB_LENGHT.getKey(), getSteps().size() + ""));
+        sb.append(BatchPropertiesUtil.getInstance().getMessage(BatchKeys.JOB_MODE.getKey(), getMode().name()));
+        return sb.toString();
     }
 
 }

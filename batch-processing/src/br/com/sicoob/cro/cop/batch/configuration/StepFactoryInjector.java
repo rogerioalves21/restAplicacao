@@ -7,6 +7,8 @@ package br.com.sicoob.cro.cop.batch.configuration;
 
 import br.com.sicoob.cro.cop.batch.configuration.annotation.StepBuilderFactory;
 import br.com.sicoob.cro.cop.batch.factory.StepFactory;
+import br.com.sicoob.cro.cop.util.BatchKeys;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.BatchUtil;
 import br.com.sicoob.cro.cop.util.Validation;
 import java.lang.reflect.Field;
@@ -35,13 +37,14 @@ public class StepFactoryInjector implements BatchInjector {
         this.configuration = configuration;
     }
 
-    @Override
     public void inject() throws Exception {
         Field[] fields = BatchUtil.getDeclaredFields(this.configuration);
         for (Field field : fields) {
             if (Validation.isFieldAnnotatedWith(field, StepBuilderFactory.class)) {
                 StepBuilderFactory annotation = field.getAnnotation(StepBuilderFactory.class);
-                LOG.log(Level.INFO, "Injetando a dependêcia [@StepBuilderFactory] para o atributo [".concat(field.getName()).concat("]"));
+                LOG.log(Level.INFO, BatchPropertiesUtil.getInstance().getMessage(
+                        BatchKeys.BATCH_INJECTOR_INFO.getKey(),
+                        new String[]{BatchKeys.JOB_BUILDER.getKey(), field.getName()}));
                 field.setAccessible(Boolean.TRUE);
                 field.set(this.configuration, StepFactory.get(annotation.type()));
             }

@@ -20,6 +20,7 @@ import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
 
 /**
+ * Configuração de bind's para o Google Guice.
  *
  * @author Rogerio Alves Rodrigues
  */

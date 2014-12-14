@@ -6,7 +6,7 @@
 package br.com.sicoob.cro.cop.batch.configuration;
 
 import br.com.sicoob.cro.cop.batch.core.ItemReader;
-import java.io.Serializable;
+import br.com.sicoob.cro.cop.batch.step.chunk.RecordNumber;
 
 /**
  * Classe abstrata para um {@link ItemReader}.
@@ -14,6 +14,14 @@ import java.io.Serializable;
  */
 public abstract class AbstractItemReader implements ItemReader {
 
-    public abstract Object readItem(Serializable recordNumber) throws Exception;
+    /**
+     * Metodo responsavel por receber um contador e obter um registro para este
+     * id.
+     *
+     * @param recordNumber Id do Incremento.
+     * @return um Objeto lido para o id.
+     * @throws Exception para algum erro.
+     */
+    public abstract Object readItem(RecordNumber recordNumber) throws Exception;
     
 }

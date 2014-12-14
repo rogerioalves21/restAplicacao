@@ -74,8 +74,8 @@ public final class Validation {
      * @throws br.com.sicoob.cro.cop.util.MandatoryFieldException ERro.
      */
     public static void checkNull(Object object, String message) throws MandatoryFieldException {
-        if (object == null) {
-            throw new MandatoryFieldException("the field " + message + " is mandatory");
+        if (isNull(object)) {
+            throw new MandatoryFieldException(message);
         }
     }
 

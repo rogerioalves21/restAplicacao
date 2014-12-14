@@ -11,6 +11,8 @@ import br.com.sicoob.cro.cop.batch.configuration.AbstractItemWriter;
 import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.step.tasklet.AbstractTasklet;
 import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
+import br.com.sicoob.cro.cop.util.BatchKeys;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import static br.com.sicoob.cro.cop.util.Validation.checkNull;
 
 /**
@@ -61,8 +63,10 @@ public class Step {
      * @param parameters Parametros do step.
      */
     public Step(AbstractTasklet tasklet, Type type, StepParameters parameters) {
-        checkNull(tasklet, "tasklet");
-        checkNull(type, "type");
+        checkNull(tasklet, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.TASKLET.getKey()));
+        checkNull(type, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.TYPE.getKey()));
         this.tasklet = tasklet;
         this.type = type;
         this.parameters = parameters;

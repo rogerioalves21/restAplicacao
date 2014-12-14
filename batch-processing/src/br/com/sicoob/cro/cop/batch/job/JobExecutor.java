@@ -10,10 +10,11 @@ import br.com.sicoob.cro.cop.batch.service.BatchExecutors;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.FactoryStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
-import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.factory.Factory;
 import br.com.sicoob.cro.cop.batch.factory.StepExecutorFactory;
 import br.com.sicoob.cro.cop.batch.step.Step;
+import br.com.sicoob.cro.cop.util.BatchKeys;
+import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.JobFailsException;
 import com.google.inject.Inject;
 import java.util.ArrayList;
@@ -59,18 +60,9 @@ public class JobExecutor implements IJobExecutor {
         return this;
     }
 
-    /**
-     * Printa os dados do log
-     */
-    private void logJobData() {
-        LOG.info("Job: ".concat(this.job.getId()));
-        LOG.info("Quantidade de steps: ".concat(String.valueOf(this.job.getSteps().size())));
-        LOG.info("Modo de execucao do Job: ".concat(this.job.getMode().name()));
-    }
-
     public void start() throws Exception {
         this.job.setStatus(Job.Status.RUNNING);
-        logJobData();
+        LOG.info(this.job.toString());
         List<FutureTask<Boolean>> asyncResults = new ArrayList();
         BatchExecutorService executor = BatchExecutors.newSingleThreadExecutor();
 
@@ -93,9 +85,14 @@ public class JobExecutor implements IJobExecutor {
             }
         } catch (Exception excecao) {
             this.job.setStatus(Job.Status.FAIL);
-            throw new JobFailsException("O Job [" + this.job.getId() + "] falhou em sua execucao", excecao);
+            throw new JobFailsException(
+                    BatchPropertiesUtil.getInstance().getMessage(
+                            BatchKeys.BATCH_LAUNCHER_JOB_ERROR_ENDING.getKey(),
+                            this.job.getId()), excecao);
         } finally {
-            LOG.info("Job ".concat(job.getId()).concat(" finalizado"));
+            LOG.info(BatchPropertiesUtil.getInstance().getMessage(
+                    BatchKeys.BATCH_JOB_EXECUTOR_FINALIZED.getKey(),
+                    this.job.getId()));
         }
     }
 

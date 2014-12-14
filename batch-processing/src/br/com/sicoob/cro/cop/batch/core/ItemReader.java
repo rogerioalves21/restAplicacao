@@ -5,7 +5,7 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
-import java.io.Serializable;
+import br.com.sicoob.cro.cop.batch.step.chunk.RecordNumber;
 
 /**
  * Define o comportamento de um Leitor de item.
@@ -14,6 +14,14 @@ import java.io.Serializable;
  */
 public interface ItemReader {
 
-    Object readItem(Serializable recordNumber) throws Exception;
+    /**
+     * Metodo responsavel por receber um contador e obter um registro para este
+     * id.
+     *
+     * @param recordNumber Id do Incremento.
+     * @return um Objeto lido para o id.
+     * @throws Exception para algum erro.
+     */
+    Object readItem(RecordNumber recordNumber) throws Exception;
 
 }

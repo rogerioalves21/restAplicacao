@@ -82,7 +82,8 @@ public class ChunkExecutor implements IChunkExecutor {
      * @throws Exception para algum erro.
      */
     private void runChunkProcess() throws Exception {
-        Integer recordNumber = 1;
+        // inicia com 1.
+        RecordNumber recordNumber = new RecordNumber(1);
         this.commitIntervalCounter = 0;
         Object item = getStep().getReader().readItem(recordNumber);
         if (Validation.notNull(item)) {
@@ -91,7 +92,7 @@ public class ChunkExecutor implements IChunkExecutor {
         Boolean keepRunning = Validation.notNull(item);
         while (keepRunning) {
             this.commitIntervalCounter++;
-            recordNumber++;
+            recordNumber.setId(recordNumber.next());
             Object itemId = getStep().getReader().readItem(recordNumber);
             keepRunning = Validation.notNull(itemId);
             if (keepRunning) {
