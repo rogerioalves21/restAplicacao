@@ -9,10 +9,14 @@ package br.com.sicoob.cro.cop.util;
  *
  * @author rogerioalves21
  */
-public class NoJobsFoundException extends Exception {
+public class BatchStartException extends Exception {
     
-    public NoJobsFoundException(String message) {
+    public BatchStartException(String message) {
         super(message);
+    }
+    
+    public BatchStartException(Throwable excecao) {
+        super(excecao);
     }
     
 }

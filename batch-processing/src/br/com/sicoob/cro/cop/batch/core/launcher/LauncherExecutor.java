@@ -7,10 +7,7 @@ package br.com.sicoob.cro.cop.batch.core.launcher;
 
 import static org.apache.commons.beanutils.PropertyUtils.setProperty;
 
-import br.com.sicoob.cro.cop.batch.configuration.BatchConfigurations;
 import br.com.sicoob.cro.cop.batch.configuration.BatchProcessModule;
-import br.com.sicoob.cro.cop.batch.configuration.JobFactoryInjector;
-import br.com.sicoob.cro.cop.batch.configuration.StepFactoryInjector;
 import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
 import br.com.sicoob.cro.cop.batch.core.BatchExecution;
 import br.com.sicoob.cro.cop.batch.core.JobDataExecution;
@@ -25,7 +22,6 @@ import br.com.sicoob.cro.cop.util.Validation;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import java.util.concurrent.Callable;
-import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,6 +39,8 @@ public class LauncherExecutor implements Callable<Boolean> {
     private final Object configurationObject;
     // Classe que contera os dados da execucao.
     private final BatchExecution execution;
+    // Job para execucao
+    private final Job job;
 
     /**
      * Construtor.
@@ -53,6 +51,19 @@ public class LauncherExecutor implements Callable<Boolean> {
     public LauncherExecutor(BatchExecution execution, Object configurationObject) {
         this.execution = execution;
         this.configurationObject = configurationObject;
+        this.job = null;
+    }
+
+    /**
+     * Construtor.
+     *
+     * @param execution Contexto de execucao.
+     * @param job Job para execucao.
+     */
+    public LauncherExecutor(BatchExecution execution, Job job) {
+        this.execution = execution;
+        this.job = job;
+        this.configurationObject = null;
     }
 
     /**
@@ -65,8 +76,7 @@ public class LauncherExecutor implements Callable<Boolean> {
                 BatchKeys.BATCH_LAUNCHER_INITIALIZING.getKey()));
         try {
             setProperty(this.execution, BatchKeys.STATUS.getKey(), Status.STARTED);
-            injectDependencies();
-            executeJobs();
+            executeJob();
             setProperty(this.execution, BatchKeys.RESULT.getKey(), Result.SUCCESS);
             LOG.info(BatchPropertiesUtil.getInstance().getMessage(
                     BatchKeys.BATCH_LAUNCHER_ENDING.getKey()));
@@ -91,40 +101,18 @@ public class LauncherExecutor implements Callable<Boolean> {
      *
      * @throws Exception quando houver algum erro.Ï
      */
-    private void executeJobs() throws Exception {
+    private void executeJob() throws Exception {
         Injector injector = Guice.createInjector(new BatchProcessModule());
-        for (Job job : getConfiguration().getJobs()) {
-            setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(),
-                    new JobDataExecution(job));
-            IJobExecutor jobExecutor = injector.getInstance(JobExecutor.class);
-            ((JobExecutor) jobExecutor).of(job).start();
-            // verifica o resultado do job
-            if (jobExecutor.fails()) {
-                throw new JobFailsException(
-                        BatchPropertiesUtil.getInstance().getMessage(
-                                BatchKeys.BATCH_LAUNCHER_JOB_ERROR_ENDING.getKey(),
-                                job.getId()));
-            }
+        setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(),
+                new JobDataExecution(this.job));
+        IJobExecutor jobExecutor = injector.getInstance(JobExecutor.class);
+        ((JobExecutor) jobExecutor).of(this.job).start();
+        if (jobExecutor.fails()) {
+            throw new JobFailsException(
+                    BatchPropertiesUtil.getInstance().getMessage(
+                            BatchKeys.BATCH_LAUNCHER_JOB_ERROR_ENDING.getKey(),
+                            this.job.getId()));
         }
-    }
-
-    /**
-     * Obtem a classe de configuracao.
-     *
-     * @return um {@link BatchConfigurations}.
-     */
-    private BatchConfigurations getConfiguration() {
-        return new BatchConfigurations(this.configurationObject);
-    }
-
-    /**
-     * Injeta as dependencias das factories.
-     *
-     * @throws Exception Erro.
-     */
-    private void injectDependencies() throws Exception {
-        ConstructorUtils.invokeConstructor(JobFactoryInjector.class, this.configurationObject).inject();
-        ConstructorUtils.invokeConstructor(StepFactoryInjector.class, this.configurationObject).inject();
     }
 
 }

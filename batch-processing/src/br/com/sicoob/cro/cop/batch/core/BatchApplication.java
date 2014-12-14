@@ -5,9 +5,9 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
-import br.com.sicoob.cro.cop.batch.configuration.annotation.BatchConfiguration;
 import br.com.sicoob.cro.cop.batch.core.launcher.Launchers;
-import java.lang.reflect.InvocationTargetException;
+import br.com.sicoob.cro.cop.util.BatchXmlReader;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.beanutils.ConstructorUtils;
@@ -45,16 +45,25 @@ public final class BatchApplication {
      */
     private BatchApplication() {
     }
-
+    
     /**
-     * Cria um contexto de execucao para o objeto de configuracao dado.
+     * Cria uma nova instancia de um Batch Process e iniciar sua primeira
+     * execução, que é executada assincronamente.
      *
-     * @param <T> Tipo do objeto de configuracao.
-     * @param type Objeto com os dados de configuracao.
-     * @return um {@link BatchProcess}.
+     * O {@code jobXmlName}, é o nome do arquivo XML que descreve o Job. O mesmo
+     * deverá estar na pasta META-INF/batch-jobs. O nome do arquivo deverá ser o
+     * mesmo do {@code jobXmlName} acrescido do .xml.
+     *
+     * @param jobXMLName especifica o nome do Job XML.
+     * @param jobParameters especifica os atributos que serão passados para a
+     * execução do job.
+     * @return Retorna um BatchProcess que dará os dados do job em execução.
      */
-    public static <T> BatchProcess createExecutionProcess(Class<T> type) {
-        return Launchers.get(createNewInstance(type)).create();
+    public static BatchProcess createExecutionProcess(String jobXMLName, Properties jobParameters) {
+        // carregar o arquivo em memoria.
+        BatchXmlReader reader = new BatchXmlReader(jobXMLName, jobParameters);
+        reader.loadFile();
+        return Launchers.get(reader.getJob()).create();
     }
 
     /**
@@ -67,16 +76,7 @@ public final class BatchApplication {
     private static <T> Object createNewInstance(Class<T> type) {
         try {
             return ConstructorUtils.invokeConstructor(type, new Object[0]);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex);
-        } catch (NoSuchMethodException ex) {
-            Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex);
-        } catch (InvocationTargetException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex);
         }

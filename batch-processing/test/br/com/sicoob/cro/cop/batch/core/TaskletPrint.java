@@ -8,15 +8,16 @@ package br.com.sicoob.cro.cop.batch.core;
 import br.com.sicoob.cro.cop.batch.configuration.annotation.Context;
 import br.com.sicoob.cro.cop.batch.step.tasklet.AbstractTasklet;
 import br.com.sicoob.cro.cop.batch.step.tasklet.TaskletContext;
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author rogerioalves21
  */
-public class ExemploTasklet extends AbstractTasklet {
+public class TaskletPrint extends AbstractTasklet {
 
-    private static final Logger LOG = Logger.getLogger(ExemploTasklet.class.getName());
+    private static final Log LOG = LogFactory.getLog(TaskletPrint.class.getName());
     
     @Context
     private TaskletContext context;

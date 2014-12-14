@@ -6,6 +6,7 @@
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
 import br.com.sicoob.cro.cop.batch.core.BatchExecution;
+import br.com.sicoob.cro.cop.batch.job.Job;
 
 /**
  * Define o comportamento de um launcher.
@@ -19,9 +20,9 @@ public interface Launcher {
     /**
      * Executa a logica de lancamento.
      *
-     * @param configurationObject Objeto de configuracao do batch.
+     * @param job Objeto job a ser executado.
      * @return um {@link BatchExecution}.
      */
-    BatchExecution run(Object configurationObject);
+    BatchExecution run(Job job);
 
 }

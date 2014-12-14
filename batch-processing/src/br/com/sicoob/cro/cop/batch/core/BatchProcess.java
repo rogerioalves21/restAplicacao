@@ -6,6 +6,8 @@
 package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.batch.core.launcher.Launcher;
+import br.com.sicoob.cro.cop.batch.job.Job;
+import br.com.sicoob.cro.cop.util.Validation;
 import com.google.inject.Inject;
 
 /**
@@ -19,6 +21,8 @@ public class BatchProcess {
     private final Launcher execution;
     // Objeto de configuracao do batch
     private Object configurationObject;
+    // Job a ser executado
+    private Job job;
 
     /**
      * Construtor.
@@ -28,6 +32,15 @@ public class BatchProcess {
     @Inject
     public BatchProcess(Launcher execution) {
         this.execution = execution;
+    }
+
+    /**
+     * Adiciona o job a ser executado.
+     *
+     * @param job Job.
+     */
+    public void addJob(Job job) {
+        this.job = job;
     }
 
     /**
@@ -45,7 +58,7 @@ public class BatchProcess {
      * @return um {@link BatchExecution}.
      */
     public BatchExecution start() {
-        return this.execution.run(this.configurationObject);
+        return this.execution.run(this.job);
     }
 
 }

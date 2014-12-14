@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<job id="Job chunk style">
+    <step>
+        <chunk
+            reader="batch.processing.usage.chunk.MyItemReader"
+            processor="batch.processing.usage.chunk.MyItemProcessor"
+            writer="batch.processing.usage.chunk.MyItemWriter"
+            commit-interval="2"
+        />
+    </step>
+</job>

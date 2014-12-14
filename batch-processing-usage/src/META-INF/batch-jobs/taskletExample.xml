@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<job id="Job tasklet style">
+    <step>
+        <tasklet ref="batch.processing.usage.tasklet.ProcessarArquivoTasklet"/>
+    </step>
+</job>

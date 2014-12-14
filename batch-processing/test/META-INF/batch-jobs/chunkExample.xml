@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<job id="Job chunk stype example">
+    <step>
+        <chunk
+            reader="br.com.sicoob.cro.cop.batch.core.MyItemReader"
+            processor="br.com.sicoob.cro.cop.batch.core.MyItemProcessor"
+            writer="br.com.sicoob.cro.cop.batch.core.MyItemWriter"
+            commit-interval="2"
+        />
+    </step>
+</job>

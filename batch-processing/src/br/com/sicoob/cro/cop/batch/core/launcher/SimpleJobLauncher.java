@@ -7,6 +7,7 @@ package br.com.sicoob.cro.cop.batch.core.launcher;
 
 import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.core.BatchExecution;
+import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.service.BatchExecutors;
 import com.google.inject.Inject;
@@ -46,12 +47,12 @@ public class SimpleJobLauncher implements Launcher {
         this.execution = execution;
     }
 
-    public BatchExecution run(Object configurationObject) {
+    public BatchExecution run(Job job) {
         BatchExecutorService executor = BatchExecutors.newFixedThreadPool(1);
-        Callable<Boolean> launcherExecutor = new LauncherExecutor(this.execution, configurationObject);
+        Callable<Boolean> launcherExecutor = new LauncherExecutor(this.execution, job);
 
         // cria uma thread para a execucao assincrona do processo
-        FutureTask<Boolean> processTask = new FutureTask<>(launcherExecutor);
+        FutureTask<Boolean> processTask = new FutureTask(launcherExecutor);
         executor.execute(processTask);
 
         // finaliza o executor

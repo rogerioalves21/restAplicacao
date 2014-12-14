@@ -7,6 +7,7 @@ package batch.processing.usage.chunk;
 
 import br.com.sicoob.cro.cop.batch.core.BatchApplication;
 import br.com.sicoob.cro.cop.batch.core.BatchProcess;
+import java.util.Properties;
 
 /**
  *
@@ -18,7 +19,9 @@ public class BatchChunkProcessingUsage {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        BatchProcess launcher = BatchApplication.createExecutionProcess(ProcessarArquivoChunkBatchConfig.class);
+        Properties jobParameters = new Properties();
+        jobParameters.put("nomeArquivo", "OpLm.csv");
+        BatchProcess launcher = BatchApplication.createExecutionProcess("chunkExample", jobParameters);
         launcher.start();
     }
 

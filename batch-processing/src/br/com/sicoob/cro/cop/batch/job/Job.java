@@ -25,6 +25,15 @@ public class Job {
     private Mode mode;
     private Status status = Status.TO_PROCESS;
 
+    public Job(String id, Mode mode) {
+        checkNull(id, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.ID.getKey()));
+        checkNull(mode, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.MODE.getKey()));
+        this.id = id;
+        this.mode = mode;
+    }
+
     /**
      * Constroi um Job.
      *
@@ -69,6 +78,8 @@ public class Job {
      * @param steps the steps to set
      */
     public void setSteps(List<Step> steps) {
+        checkNull(steps, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.STEPS.getKey()));
         this.steps = steps;
     }
 

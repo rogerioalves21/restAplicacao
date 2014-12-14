@@ -5,7 +5,6 @@
  */
 package br.com.sicoob.cro.cop.util;
 
-import br.com.sicoob.cro.cop.batch.configuration.annotation.BatchConfiguration;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
