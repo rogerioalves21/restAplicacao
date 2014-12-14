@@ -1,4 +1,0 @@
-<!ELEMENT job (step)>
-<!ELEMENT step (chunck, tasklet)>
-<!ELEMENT chunk (#PCDATA)>
-<!ELEMENT tasklet (#PCDATA)>
