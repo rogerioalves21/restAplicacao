@@ -23,7 +23,7 @@ public class ExecutorThreadPool implements BatchExecutorService {
         this.executorService.shutdown();
     }
 
-    public void execute(Runnable command) {
+    public void executeTask(Runnable command) {
         this.executorService.execute(command);
     }
     

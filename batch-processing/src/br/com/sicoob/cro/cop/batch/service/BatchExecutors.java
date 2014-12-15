@@ -14,12 +14,10 @@ import java.util.concurrent.Executors;
 public final class BatchExecutors {
     
     public static BatchExecutorService newSingleThreadExecutor() {
-        // .TODO obter a implementacao do Executors de outra forma
         return new ExecutorThreadPool(Executors.newSingleThreadExecutor());
     }
     
     public static BatchExecutorService newFixedThreadPool(int nThreads) {
-        // .TODO obter a implementacao do Executors de outra forma
         return new ExecutorThreadPool(Executors.newFixedThreadPool(nThreads));
     }
     

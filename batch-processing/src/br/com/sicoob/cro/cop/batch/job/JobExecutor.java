@@ -19,7 +19,6 @@ import br.com.sicoob.cro.cop.util.JobFailsException;
 import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,6 +35,9 @@ public class JobExecutor implements IJobExecutor {
 
     // Job
     private Job job;
+
+    @Inject
+    private JobExecutorHelper helper;
 
     // Executor do step (Fabrica)
     @Inject
@@ -59,43 +61,35 @@ public class JobExecutor implements IJobExecutor {
         this.job = job;
         return this;
     }
-
+    
     public void start() throws Exception {
-        this.job.setStatus(Job.Status.RUNNING);
-        LOG.info(this.job.toString());
+        job.setStatus(Job.Status.RUNNING);
+        LOG.info(job.toString());
         List<FutureTask<Boolean>> asyncResults = new ArrayList();
-        BatchExecutorService executor = BatchExecutors.newSingleThreadExecutor();
-
-        if (this.job.getMode().equals(Job.Mode.ASYNC)) {
-            executor = BatchExecutors.newFixedThreadPool(this.job.getSteps().size());
+        BatchExecutorService executor = null;
+        if (job.getMode().equals(Job.Mode.ASYNC)) {
+            executor = BatchExecutors.newFixedThreadPool(job.getSteps().size());
+        } else if (job.getMode().equals(Job.Mode.SYNC)) {
+            executor = BatchExecutors.newSingleThreadExecutor();
         }
-
-        // executa os steps e os adiciona na lista para verificacao posterior
         executeSteps(asyncResults, executor);
-
-        // finaliza o executor
         executor.shutdown();
 
         try {
-            // verifica o resultado dos steps rodados
-            if (successOnSteps(asyncResults)) {
-                this.job.setStatus(Job.Status.FINISHED);
-            } else {
-                this.job.setStatus(Job.Status.FAIL);
-            }
+            helper.handleJobStatus(helper.successOnSteps(asyncResults), job);
         } catch (Exception excecao) {
             this.job.setStatus(Job.Status.FAIL);
             throw new JobFailsException(
                     BatchPropertiesUtil.getInstance().getMessage(
                             BatchKeys.BATCH_LAUNCHER_JOB_ERROR_ENDING.getKey(),
-                            this.job.getId()), excecao);
+                            job.getId()), excecao);
         } finally {
             LOG.info(BatchPropertiesUtil.getInstance().getMessage(
                     BatchKeys.BATCH_JOB_EXECUTOR_FINALIZED.getKey(),
-                    this.job.getId()));
+                    job.getId()));
         }
     }
-
+    
     /**
      * Realiza a execucao dos steps.
      *
@@ -103,9 +97,10 @@ public class JobExecutor implements IJobExecutor {
      * @param executor Servico de execucao.
      * @throws Exception para algum erro.
      */
-    private void executeSteps(List<FutureTask<Boolean>> asyncResults, BatchExecutorService executor) throws Exception {
-        for (Step step : this.job.getSteps()) {
-            step.setJob(this.job);
+    private void executeSteps(List<FutureTask<Boolean>> asyncResults,
+            BatchExecutorService executor) throws Exception {
+        for (Step step : job.getSteps()) {
+            step.setJob(job);
             IStepExecutor stepExecutor = ((StepExecutorFactory) this.stepExecutorFactory)
                     .of(step)
                     .and(executor)
@@ -113,28 +108,6 @@ public class JobExecutor implements IJobExecutor {
             stepExecutor.start();
             asyncResults.add(stepExecutor.getResult());
         }
-    }
-
-    /**
-     * Verifica os resultados dos steps. Caso algum esteja com erro/falha
-     * retorna falso, caso contrario verdadeiro.Ï
-     *
-     * @param asyncResults Lista de resultados de steps assincronos.
-     * @return Resultado da verificacao.
-     * @throws InterruptedException Erro de interrupcao de thread.
-     * @throws ExecutionException Erro de execucao de thread.
-     */
-    private Boolean successOnSteps(List<FutureTask<Boolean>> asyncResults) throws InterruptedException, ExecutionException {
-        Boolean isRunning = Boolean.TRUE;
-        while (isRunning) {
-            isRunning = Boolean.FALSE;
-            for (FutureTask<Boolean> task : asyncResults) {
-                if (!task.isDone()) {
-                    isRunning = Boolean.TRUE;
-                }
-            }
-        }
-        return Boolean.TRUE;
     }
 
     /**
@@ -153,6 +126,10 @@ public class JobExecutor implements IJobExecutor {
      */
     public Boolean fails() {
         return this.getStatus().equals(Job.Status.FAIL);
+    }
+
+    public void notifyListeners() {
+        // .TODO implementar a notificacao dos listeners.
     }
 
 }

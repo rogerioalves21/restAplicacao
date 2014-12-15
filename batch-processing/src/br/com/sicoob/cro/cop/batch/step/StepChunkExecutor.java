@@ -38,7 +38,7 @@ public class StepChunkExecutor implements IStepExecutor {
     public void start() throws Exception {
         this.chunkExecutor.setStep(this.step);
         this.task = new FutureTask(this.chunkExecutor);
-        this.service.execute(task);
+        this.service.executeTask(task);
     }
 
     public FutureTask<Boolean> getResult() {

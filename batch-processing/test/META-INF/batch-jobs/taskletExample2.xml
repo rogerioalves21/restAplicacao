@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<job id="Job tasklet style example 2">
-    <step>
-        <tasklet ref="br.com.sicoob.cro.cop.batch.core.TaskletPrint"/>
-    </step>
-</job>

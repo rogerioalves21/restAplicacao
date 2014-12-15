@@ -8,6 +8,7 @@ package br.com.sicoob.cro.cop.util;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemProcessor;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemReader;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemWriter;
+import br.com.sicoob.cro.cop.batch.core.BatchStepListener;
 import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.step.StepParameters;
@@ -24,15 +25,17 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 /**
+ * Classe responsavel por ler um arquivo xml contendo os dados do processamento
+ * e retorna uma classe {@link Job}.
  *
- * @author rogerioalves21
+ * @author Rogerio Alves Rodrigues
  */
-public class BatchXmlReader {
+public class JobXMLLoader {
 
-    private static final Log LOG = LogFactory.getLog(BatchXmlReader.class.getName());
+    private static final Log LOG = LogFactory.getLog(JobXMLLoader.class.getName());
     private final String jobXMlName;
     private final Properties jobParameters;
-    private final static String JOB_REPOSITORY = "META-INF/batch-jobs/";
+    public static final String PREFIX = "META-INF/batch-jobs/";
     private Job job;
     private static final String ID = "id";
     private static final String STEP = "step";
@@ -41,11 +44,13 @@ public class BatchXmlReader {
     private static final String PROCESSOR = "processor";
     private static final String WRITER = "writer";
     private static final String TASKLET = "tasklet";
+    private static final String LISTENER = "listener";
     private static final String XML_SUFFIX = ".xml";
     private static final String COMMIT_INTERVAL = "commit-interval";
     private static final String REF = "ref";
+    private static final String FILENOTFOUND = "xml.reader.filenotfound";
 
-    public BatchXmlReader(String jobXMlName, Properties jobParameters) {
+    public JobXMLLoader(String jobXMlName, Properties jobParameters) {
         this.jobXMlName = jobXMlName;
         this.jobParameters = jobParameters;
     }
@@ -55,17 +60,22 @@ public class BatchXmlReader {
      *
      * @throws BatchStartException para algum erro de leitura e inicializacao.
      */
-    public void loadFile() throws BatchStartException {
+    public void loadJSL() throws BatchStartException {
         try {
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(
-                    JOB_REPOSITORY.concat(this.jobXMlName.concat(XML_SUFFIX)));
+            ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+            InputStream inputStream = tccl.getResourceAsStream(
+                    PREFIX.concat(this.jobXMlName.concat(XML_SUFFIX)));
+
+            if (Validation.isNull(inputStream)) {
+                throw new BatchStartException(BatchPropertiesUtil.getInstance().getMessage(FILENOTFOUND, this.jobXMlName));
+            }
 
             SAXBuilder builder = new SAXBuilder();
             Document document = (Document) builder.build(inputStream);
             Element rootNode = document.getRootElement();
 
             this.job = new Job(rootNode.getAttributeValue(ID), Job.Mode.ASYNC);
-            loadStep(rootNode);
+            loadSteps(rootNode);
         } catch (Exception excecao) {
             LOG.fatal(excecao);
             throw new BatchStartException(excecao);
@@ -78,24 +88,36 @@ public class BatchXmlReader {
      * @param rootNode Nodo princiapl
      * @throws Exception para algum erro.
      */
-    private void loadStep(Element rootNode) throws Exception {
-        Element stepNode = rootNode.getChild(STEP);
+    private void loadSteps(Element rootNode) throws Exception {
+        List steps = rootNode.getChildren(STEP);
         List<Step> jobSteps = new ArrayList();
-        StepParameters stepParameters = parseParameters();
-
-        Element taskletNode = stepNode.getChild(TASKLET);
-        Element chunkNode = stepNode.getChild(CHUNK);
-        if (Validation.notNull(taskletNode)) {
-            Step step = new Step(getTasklet(taskletNode), Step.Type.TASKLET, stepParameters);
-            jobSteps.add(step);
-        } else if (Validation.notNull(chunkNode)) {
-            Step step = new Step(getReader(chunkNode), getProcessor(chunkNode),
-                    getWriter(chunkNode), Step.Type.CHUNK, stepParameters,
-                    getCommitInterval(chunkNode));
-            jobSteps.add(step);
+        for (Object obj : steps) {
+            Element stepNode = (Element) obj;
+            StepParameters stepParameters = parseParameters();
+            Element taskletNode = stepNode.getChild(TASKLET);
+            Element chunkNode = stepNode.getChild(CHUNK);
+            if (Validation.notNull(taskletNode)) {
+                Step step = new Step(getTasklet(taskletNode), Step.Type.TASKLET, stepParameters);
+                step.setId(stepNode.getAttributeValue(ID));
+                getListener(stepNode, step);
+                jobSteps.add(step);
+            } else if (Validation.notNull(chunkNode)) {
+                Step step = new Step(getReader(chunkNode), getProcessor(chunkNode),
+                        getWriter(chunkNode), Step.Type.CHUNK, stepParameters,
+                        getCommitInterval(chunkNode));
+                step.setId(stepNode.getAttributeValue(ID));
+                getListener(stepNode, step);
+                jobSteps.add(step);
+            }
         }
-
         this.job.setSteps(jobSteps);
+    }
+
+    private void getListener(Element stepNode, Step step) throws Exception {
+        Element listenerNode = stepNode.getChild(LISTENER);
+        if (Validation.notNull(listenerNode)) {
+            step.setListener((BatchStepListener) Class.forName(listenerNode.getAttributeValue(REF)).newInstance());
+        }
     }
 
     /**

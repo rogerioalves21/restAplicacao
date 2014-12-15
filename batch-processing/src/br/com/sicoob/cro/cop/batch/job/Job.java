@@ -5,10 +5,13 @@
  */
 package br.com.sicoob.cro.cop.batch.job;
 
+import br.com.sicoob.cro.cop.batch.core.BatchStepListener;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.util.BatchKeys;
 import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
+import br.com.sicoob.cro.cop.util.Validation;
 import static br.com.sicoob.cro.cop.util.Validation.checkNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +25,7 @@ public class Job {
 
     private String id;
     private List<Step> steps;
+    private List<BatchStepListener> listeners;
     private Mode mode;
     private Status status = Status.TO_PROCESS;
 
@@ -109,6 +113,32 @@ public class Job {
      */
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    /**
+     * @return the listeners
+     */
+    public List<BatchStepListener> getListeners() {
+        return listeners;
+    }
+
+    /**
+     * @param listeners the listeners to set
+     */
+    public void setListeners(List<BatchStepListener> listeners) {
+        this.listeners = listeners;
+    }
+
+    /**
+     * Adiciona um listener ao job.
+     *
+     * @param listener Listener.
+     */
+    public void addListener(BatchStepListener listener) {
+        if (Validation.isNull(this.listeners)) {
+            this.listeners = new ArrayList();
+        }
+        this.listeners.add(listener);
     }
 
     /**

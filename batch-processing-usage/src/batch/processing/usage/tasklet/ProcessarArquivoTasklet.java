@@ -27,7 +27,7 @@ public class ProcessarArquivoTasklet extends AbstractTasklet {
     private TaskletContext context;
 
     @Override
-    public void execute() {
+    public void process() {
         List<OperacaoUsage> operacoes = new ArrayList<>();
         InputStream source = this.getClass().getResourceAsStream(this.context.getParameters().get("nomeArquivo").toString());
         try (Scanner scan = new Scanner(source)) {

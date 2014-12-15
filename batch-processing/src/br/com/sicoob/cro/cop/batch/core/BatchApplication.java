@@ -6,11 +6,9 @@
 package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.batch.core.launcher.Launchers;
-import br.com.sicoob.cro.cop.util.BatchXmlReader;
+import br.com.sicoob.cro.cop.util.BatchStartException;
+import br.com.sicoob.cro.cop.util.JobXMLLoader;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.beanutils.ConstructorUtils;
 
 /**
  * A porta de entrada para o processamento-batch. Cria um {@link DataExecution}
@@ -45,7 +43,7 @@ public final class BatchApplication {
      */
     private BatchApplication() {
     }
-    
+
     /**
      * Cria uma nova instancia de um Batch Process e iniciar sua primeira
      * execução, que é executada assincronamente.
@@ -58,28 +56,13 @@ public final class BatchApplication {
      * @param jobParameters especifica os atributos que serão passados para a
      * execução do job.
      * @return Retorna um BatchProcess que dará os dados do job em execução.
+     * @throws BatchStartException para os erros de inicio do processamento.
      */
-    public static BatchProcess createExecutionProcess(String jobXMLName, Properties jobParameters) {
-        // carregar o arquivo em memoria.
-        BatchXmlReader reader = new BatchXmlReader(jobXMLName, jobParameters);
-        reader.loadFile();
-        return Launchers.get(reader.getJob()).create();
-    }
-
-    /**
-     * Obtem uma nova instancia para o tipo dado.
-     *
-     * @param <T> Tipo.
-     * @param type Objeto.
-     * @return uma nova instancia.
-     */
-    private static <T> Object createNewInstance(Class<T> type) {
-        try {
-            return ConstructorUtils.invokeConstructor(type, new Object[0]);
-        } catch (Exception ex) {
-            Logger.getLogger(BatchApplication.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex);
-        }
+    public static BatchProcess createExecutionProcess(String jobXMLName,
+            Properties jobParameters) throws BatchStartException {
+        JobXMLLoader reader = new JobXMLLoader(jobXMLName, jobParameters);
+        reader.loadJSL();
+        return new Launchers(reader.getJob()).create();
     }
 
 }

@@ -34,5 +34,10 @@ public interface IJobExecutor {
      * @return se o job falhou.
      */
     Boolean fails();
+    
+    /**
+     * Metodo responsavel por notificar os listener.Ï
+     */
+    void notifyListeners();
 
 }

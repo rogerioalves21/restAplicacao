@@ -35,24 +35,10 @@ public class LauncherExecutor implements Callable<Boolean> {
 
     // Logger
     private static final Log LOG = LogFactory.getLog(LauncherExecutor.class.getName());
-    // Configuracao do Processamento Batch.
-    private final Object configurationObject;
     // Classe que contera os dados da execucao.
     private final BatchExecution execution;
     // Job para execucao
     private final Job job;
-
-    /**
-     * Construtor.
-     *
-     * @param execution Contexto de execucao.
-     * @param configurationObject Dados de configuracao.
-     */
-    public LauncherExecutor(BatchExecution execution, Object configurationObject) {
-        this.execution = execution;
-        this.configurationObject = configurationObject;
-        this.job = null;
-    }
 
     /**
      * Construtor.
@@ -63,7 +49,6 @@ public class LauncherExecutor implements Callable<Boolean> {
     public LauncherExecutor(BatchExecution execution, Job job) {
         this.execution = execution;
         this.job = job;
-        this.configurationObject = null;
     }
 
     /**

@@ -48,15 +48,15 @@ public class SimpleJobLauncher implements Launcher {
     }
 
     public BatchExecution run(Job job) {
-        BatchExecutorService executor = BatchExecutors.newFixedThreadPool(1);
+        BatchExecutorService executorService = BatchExecutors.newFixedThreadPool(1);
         Callable<Boolean> launcherExecutor = new LauncherExecutor(this.execution, job);
 
         // cria uma thread para a execucao assincrona do processo
         FutureTask<Boolean> processTask = new FutureTask(launcherExecutor);
-        executor.execute(processTask);
+        executorService.executeTask(processTask);
 
         // finaliza o executor
-        executor.shutdown();
+        executorService.shutdown();
         return this.execution;
     }
 

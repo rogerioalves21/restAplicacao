@@ -21,6 +21,7 @@ public enum BatchKeys {
     CONTEXT("@Context"),
     ID("id"),
     STEPS("steps"),
+    STEP("step"),
     MODE("mode"),
     TASKLET("tasklet"),
     TYPE("type"),

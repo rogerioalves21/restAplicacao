@@ -15,16 +15,16 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author rogerioalves21
  */
-public class TaskletPrint extends AbstractTasklet {
+public class PrintTasklet extends AbstractTasklet {
 
-    private static final Log LOG = LogFactory.getLog(TaskletPrint.class.getName());
-    
+    private static final Log LOG = LogFactory.getLog(PrintTasklet.class.getName());
+
     @Context
     private TaskletContext context;
     
-    public void execute() {
-        LOG.info("Tasklet");
-        LOG.info(context.getParameters().get("exemplo").toString());
+    @Override
+    public void process() throws Exception {
+        LOG.info("Dentro do tasklet");
     }
-
+    
 }

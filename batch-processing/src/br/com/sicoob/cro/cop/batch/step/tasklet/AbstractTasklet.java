@@ -6,6 +6,9 @@
 package br.com.sicoob.cro.cop.batch.step.tasklet;
 
 import br.com.sicoob.cro.cop.batch.core.Result;
+import br.com.sicoob.cro.cop.batch.step.Step;
+import br.com.sicoob.cro.cop.batch.step.StepExecutorHelper;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Classe abstrata para quando o cliente ano quiser implementar a interface
@@ -15,11 +18,37 @@ import br.com.sicoob.cro.cop.batch.core.Result;
  */
 public abstract class AbstractTasklet implements Tasklet {
 
+    private Step step;
+
+    public void setStep(Step step) {
+        this.step = step;
+    }
+
+    /**
+     * Implementa um callable de concorrencia.
+     *
+     * @return Não é utilizado.
+     * @throws Exception para algum erro.
+     */
     public Boolean call() throws Exception {
-        this.execute();
+        StepExecutorHelper.beforeStep(this.step);
+        Result result = Result.SUCCESS;
+        try {
+            process();
+        } catch (Exception excecao) {
+            LogFactory.getLog(AbstractTasklet.class).fatal(excecao);
+            result = Result.FAIL;
+        } finally {
+            StepExecutorHelper.afterStep(this.step, result);
+        }
         return Boolean.TRUE;
     }
-    
-    public abstract void execute() throws Exception;
+
+    /**
+     * Implementa o processamento do tasklet.
+     *
+     * @throws Exception para qualquer erro.
+     */
+    public abstract void process() throws Exception;
 
 }

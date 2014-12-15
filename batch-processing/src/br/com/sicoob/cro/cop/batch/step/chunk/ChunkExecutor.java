@@ -8,11 +8,16 @@ package br.com.sicoob.cro.cop.batch.step.chunk;
 import br.com.sicoob.cro.cop.batch.configuration.ItemProcessorInjector;
 import br.com.sicoob.cro.cop.batch.configuration.ItemReaderInjector;
 import br.com.sicoob.cro.cop.batch.configuration.ItemWriterInjector;
+import br.com.sicoob.cro.cop.batch.core.Result;
+import br.com.sicoob.cro.cop.batch.core.Status;
 import br.com.sicoob.cro.cop.batch.step.Step;
+import br.com.sicoob.cro.cop.batch.step.StepExecution;
+import br.com.sicoob.cro.cop.batch.step.StepExecutorHelper;
 import br.com.sicoob.cro.cop.util.Validation;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Esta classe eh reponsavel por executar no estilo chunk o processo.
@@ -70,10 +75,37 @@ public class ChunkExecutor implements IChunkExecutor {
      * @throws Exception ao ocorrer algum erro
      */
     public Boolean call() throws Exception {
+        Result result = Result.SUCCESS;
         injectDependencies();
-        runChunkProcess();
-        callWriter();
+        StepExecutorHelper.beforeStep(this.step);
+        try {
+            runChunkProcess();
+            callWriter();
+        } catch (Exception excecao) {
+            LogFactory.getLog(ChunkExecutor.class).fatal(excecao);
+            result = Result.FAIL;
+        } finally {
+            StepExecutorHelper.afterStep(this.step, result);
+        }
         return Boolean.TRUE;
+    }
+
+    private void notifyBeforeStep() {
+        if (Validation.notNull(this.step.getListener())) {
+            StepExecution stepExecution = new StepExecution(Status.STARTED,
+                    this.step.getId(), this.step.getJob().getId(),
+                    this.step.getParameters());
+            this.step.getListener().beforeStep(stepExecution);
+        }
+    }
+
+    private void notifyAfterStep() {
+        if (Validation.notNull(this.step.getListener())) {
+            StepExecution stepExecution = new StepExecution(Status.STARTED,
+                    this.step.getId(), this.step.getJob().getId(),
+                    this.step.getParameters());
+            this.step.getListener().beforeStep(stepExecution);
+        }
     }
 
     /**
@@ -82,7 +114,6 @@ public class ChunkExecutor implements IChunkExecutor {
      * @throws Exception para algum erro.
      */
     private void runChunkProcess() throws Exception {
-        // inicia com 1.
         RecordNumber recordNumber = new RecordNumber(1);
         this.commitIntervalCounter = 0;
         Object item = getStep().getReader().readItem(recordNumber);

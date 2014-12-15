@@ -8,12 +8,20 @@ package br.com.sicoob.cro.cop.batch.step.tasklet;
 import java.util.concurrent.Callable;
 
 /**
- * Define o comportamento de uma tarefa simples;
- *
- * Contem um metodo que executa e retorna o resultado da execucao.
+ * Um tasklet é um tipo de passo do batch que pode ser usado para qualquer tipo
+ * de processamento que um chunk não possa.
  *
  * @author Rogerio Alves Rodrigues
  */
 public interface Tasklet extends Callable<Boolean> {
-    
+
+    /**
+     *
+     * Faz o processamento dos dados de um job. Se algum erro ocorrer, deverá
+     * retornar a exceção para terminar o fluxo como FAIL.
+     *
+     * @throws Exception se ocorrer algum erro.
+     */
+    void process() throws Exception;
+
 }

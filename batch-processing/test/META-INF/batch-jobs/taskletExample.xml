@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <job id="Job tasklet style example 1">
-    <step>
+    
+    <step id="Read File Step">
         <tasklet ref="br.com.sicoob.cro.cop.batch.core.FileReadTasklet"/>
+        <listener ref="br.com.sicoob.cro.cop.batch.core.StepListenerImpl"/>
+    </step>
+    
+    <step id="PrintTasklet Step">
+        <tasklet ref="br.com.sicoob.cro.cop.batch.core.PrintTasklet"/>
     </step>
 </job>

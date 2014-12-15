@@ -8,8 +8,11 @@ package br.com.sicoob.cro.cop.batch.step;
 import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.configuration.TaskletInjector;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
+import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
+import br.com.sicoob.cro.cop.util.BatchKeys;
 import java.util.concurrent.FutureTask;
 import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * Classe responsavel por obter o tasklet do step e coloca-lo no contexto de
@@ -36,8 +39,10 @@ public class StepTaskletExecutor implements IStepExecutor {
 
     public void start() throws Exception {
         ConstructorUtils.invokeConstructor(TaskletInjector.class, this.step).inject();
-        this.task = new FutureTask(this.step.getTasklet());
-        this.service.execute(task);
+        Tasklet tasklet = this.step.getTasklet();
+        PropertyUtils.setProperty(tasklet, BatchKeys.STEP.getKey(), this.step);
+        this.task = new FutureTask(tasklet);
+        this.service.executeTask(task);
     }
 
     public FutureTask<Boolean> getResult() {

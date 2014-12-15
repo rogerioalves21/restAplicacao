@@ -8,6 +8,7 @@ package br.com.sicoob.cro.cop.batch.step;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemProcessor;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemReader;
 import br.com.sicoob.cro.cop.batch.configuration.AbstractItemWriter;
+import br.com.sicoob.cro.cop.batch.core.BatchStepListener;
 import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.step.tasklet.AbstractTasklet;
 import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
@@ -25,6 +26,7 @@ import static br.com.sicoob.cro.cop.util.Validation.checkNull;
  */
 public class Step {
 
+    private String id;
     private AbstractTasklet tasklet;
     private AbstractItemReader reader;
     private AbstractItemProcessor processor;
@@ -33,6 +35,7 @@ public class Step {
     private StepParameters parameters;
     private Integer commitInterval;
     private Job job;
+    private BatchStepListener listener;
 
     /**
      * Constroi uma instancia de step.
@@ -182,6 +185,34 @@ public class Step {
      */
     public void setJob(Job job) {
         this.job = job;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the listener
+     */
+    public BatchStepListener getListener() {
+        return listener;
+    }
+
+    /**
+     * @param listener the listener to set
+     */
+    public void setListener(BatchStepListener listener) {
+        this.listener = listener;
     }
 
     /**

@@ -13,6 +13,6 @@ public interface BatchExecutorService {
     
     void shutdown();
     
-    void execute(Runnable command);
+    void executeTask(Runnable command);
     
 }
