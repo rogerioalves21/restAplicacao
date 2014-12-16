@@ -9,9 +9,7 @@ import br.com.sicoob.cro.cop.batch.configuration.ItemProcessorInjector;
 import br.com.sicoob.cro.cop.batch.configuration.ItemReaderInjector;
 import br.com.sicoob.cro.cop.batch.configuration.ItemWriterInjector;
 import br.com.sicoob.cro.cop.batch.core.Result;
-import br.com.sicoob.cro.cop.batch.core.Status;
 import br.com.sicoob.cro.cop.batch.step.Step;
-import br.com.sicoob.cro.cop.batch.step.StepExecution;
 import br.com.sicoob.cro.cop.batch.step.StepExecutorHelper;
 import br.com.sicoob.cro.cop.util.Validation;
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class ChunkExecutor implements IChunkExecutor {
 
     private Step step;
     private List<Object> objectsToWrite;
-    private Integer commitIntervalCounter = 0;
+    private Integer commitIntervalCounter = 1;
 
     /**
      * Construtor.
@@ -90,24 +88,6 @@ public class ChunkExecutor implements IChunkExecutor {
         return Boolean.TRUE;
     }
 
-    private void notifyBeforeStep() {
-        if (Validation.notNull(this.step.getListener())) {
-            StepExecution stepExecution = new StepExecution(Status.STARTED,
-                    this.step.getId(), this.step.getJob().getId(),
-                    this.step.getParameters());
-            this.step.getListener().beforeStep(stepExecution);
-        }
-    }
-
-    private void notifyAfterStep() {
-        if (Validation.notNull(this.step.getListener())) {
-            StepExecution stepExecution = new StepExecution(Status.STARTED,
-                    this.step.getId(), this.step.getJob().getId(),
-                    this.step.getParameters());
-            this.step.getListener().beforeStep(stepExecution);
-        }
-    }
-
     /**
      * Faz o processo de execucao do modo chunk.
      *
@@ -115,7 +95,7 @@ public class ChunkExecutor implements IChunkExecutor {
      */
     private void runChunkProcess() throws Exception {
         RecordNumber recordNumber = new RecordNumber(1);
-        this.commitIntervalCounter = 0;
+        this.commitIntervalCounter = 1;
         Object item = getStep().getReader().readItem(recordNumber);
         if (Validation.notNull(item)) {
             addWritable(getStep().getProcessor().processItem(item));
@@ -140,9 +120,9 @@ public class ChunkExecutor implements IChunkExecutor {
      * @param commitIntervalCounter Contador de itens para commit.
      */
     private void checkCommitInterval(Integer commitIntervalCounter) {
-        if (Validation.notNullAndSameAs(commitIntervalCounter, getStep().getCommitInterval())) {
+        if (Validation.sameAs(commitIntervalCounter, getStep().getCommitInterval())) {
             callWriter();
-            this.commitIntervalCounter = 0;
+            this.commitIntervalCounter = 1;
         }
     }
 
@@ -150,8 +130,11 @@ public class ChunkExecutor implements IChunkExecutor {
      * Chama o writer e passa a lista para a escrita.
      */
     private void callWriter() {
-        getStep().getWriter().writeItems(this.objectsToWrite);
-        this.objectsToWrite.clear();
+        if (Validation.notNull(this.objectsToWrite)
+                && !this.objectsToWrite.isEmpty()) {
+            getStep().getWriter().writeItems(this.objectsToWrite);
+            this.objectsToWrite.clear();
+        }
     }
 
     /**

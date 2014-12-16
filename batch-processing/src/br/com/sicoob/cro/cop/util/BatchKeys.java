@@ -39,7 +39,8 @@ public enum BatchKeys {
     JOB_ID("job.id"),
     JOB_LENGHT("job.quantidade"),
     JOB_MODE("job.modo"),
-    MANDATORY_FIELD("campo.obrigatorio")
+    MANDATORY_FIELD("campo.obrigatorio"),
+    COMMIT_INTERVAL_DEFAULT("chunk.commit.interval.default")
     ;
     private String key;
 

@@ -21,7 +21,7 @@
             reader="batch.processing.usage.chunk.MyItemReader"
             processor="batch.processing.usage.chunk.MyItemProcessor"
             writer="batch.processing.usage.chunk.MyItemWriter"
-            commit-interval="2"
         />
+        <listener ref="batch.processing.usage.chunk.ChunkListenerImpl"/>
     </step>
 </job>

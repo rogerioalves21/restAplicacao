@@ -15,6 +15,7 @@ import br.com.sicoob.cro.cop.batch.step.tasklet.Tasklet;
 import br.com.sicoob.cro.cop.util.BatchKeys;
 import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import static br.com.sicoob.cro.cop.util.Validation.checkNull;
+import static br.com.sicoob.cro.cop.util.Validation.getOr;
 
 /**
  * Represnta o passo da tarefa {@link Job} que sera executado.
@@ -163,7 +164,9 @@ public class Step {
      * @return the commitInterval
      */
     public Integer getCommitInterval() {
-        return commitInterval;
+        return getOr(this.commitInterval,
+                Integer.valueOf(BatchPropertiesUtil.getInstance().getMessage(
+                                BatchKeys.COMMIT_INTERVAL_DEFAULT.getKey())));
     }
 
     /**

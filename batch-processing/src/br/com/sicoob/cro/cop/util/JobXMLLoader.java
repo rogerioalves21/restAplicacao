@@ -169,7 +169,10 @@ public class JobXMLLoader {
      * @throws Exception para algum erro.
      */
     private Integer getCommitInterval(Element chunk) throws Exception {
-        return Integer.valueOf(chunk.getAttributeValue(COMMIT_INTERVAL));
+        if (Validation.notNull(chunk.getAttributeValue(COMMIT_INTERVAL))) {
+            return Integer.valueOf(chunk.getAttributeValue(COMMIT_INTERVAL));
+        }
+        return null;
     }
 
     private StepParameters parseParameters() {
