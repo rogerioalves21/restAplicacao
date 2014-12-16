@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE job [
+  <!ELEMENT job (step+)>
+  <!ATTLIST job id ID #REQUIRED>
+  <!ELEMENT step ((tasklet, listener) | (chunk, listener))>
+  <!ATTLIST step id ID #REQUIRED>
+  <!ELEMENT tasklet (#PCDATA)>
+  <!ATTLIST tasklet ref CDATA #REQUIRED>
+  <!ELEMENT chunk (#PCDATA)>
+  <!ATTLIST chunk reader CDATA #REQUIRED>
+  <!ATTLIST chunk processor CDATA #REQUIRED>
+  <!ATTLIST chunk writer CDATA #REQUIRED>
+  <!ATTLIST chunk commit-interval CDATA #REQUIRED>
+  <!ELEMENT listener (#PCDATA)>
+  <!ATTLIST listener ref CDATA #REQUIRED>
+]>
+
+<job id="Job Hibernate chunk style">
+    <step id="Chunk Hibernate Step">
+        <chunk
+            reader="batch.processing.usage.chunk.hibernate.MyFileReader"
+            processor="batch.processing.usage.chunk.hibernate.MyFileProcessor"
+            writer="batch.processing.usage.chunk.hibernate.MyFileWriter"
+        />
+        <listener ref="batch.processing.usage.chunk.hibernate.ChunkHibernateStepListener"/>
+    </step>
+</job>

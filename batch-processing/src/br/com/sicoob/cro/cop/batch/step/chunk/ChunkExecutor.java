@@ -80,8 +80,9 @@ public class ChunkExecutor implements IChunkExecutor {
             runChunkProcess();
             callWriter();
         } catch (Exception excecao) {
-            LogFactory.getLog(ChunkExecutor.class).fatal(excecao);
+            LogFactory.getLog(ChunkExecutor.class).error(excecao);
             result = Result.FAIL;
+            //throw excecao;
         } finally {
             StepExecutorHelper.afterStep(this.step, result);
         }

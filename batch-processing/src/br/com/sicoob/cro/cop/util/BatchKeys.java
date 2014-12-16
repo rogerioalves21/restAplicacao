@@ -40,7 +40,9 @@ public enum BatchKeys {
     JOB_LENGHT("job.quantidade"),
     JOB_MODE("job.modo"),
     MANDATORY_FIELD("campo.obrigatorio"),
-    COMMIT_INTERVAL_DEFAULT("chunk.commit.interval.default")
+    COMMIT_INTERVAL_DEFAULT("chunk.commit.interval.default"),
+    BATCH_LOADER_SUCCESS("job.reader.criacao.sucesso"),
+    BATCH_LOADER_FAIL("job.reader.criacao.erro")
     ;
     private String key;
 

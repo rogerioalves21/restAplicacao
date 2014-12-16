@@ -76,6 +76,20 @@ public class JobXMLLoader {
 
             this.job = new Job(rootNode.getAttributeValue(ID), Job.Mode.ASYNC);
             loadSteps(rootNode);
+
+            // valida se o job pode está completo
+            if (Validation.notNull(this.job.getId())
+                    && Validation.notNull(this.job.getSteps())
+                    && this.job.getSteps().size() > 0) {
+                LOG.info(BatchPropertiesUtil.getInstance().getMessage(
+                        BatchKeys.BATCH_LOADER_SUCCESS.getKey(),
+                        this.job.getId()));
+            } else {
+                throw new BatchStartException(
+                        BatchPropertiesUtil.getInstance().getMessage(
+                                BatchKeys.BATCH_LOADER_FAIL.getKey(),
+                                this.job.getId()));
+            }
         } catch (Exception excecao) {
             LOG.fatal(excecao);
             throw new BatchStartException(excecao);

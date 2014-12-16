@@ -61,21 +61,22 @@ public class JobExecutor implements IJobExecutor {
         this.job = job;
         return this;
     }
-    
-    public void start() throws Exception {
-        job.setStatus(Job.Status.RUNNING);
-        LOG.info(job.toString());
-        List<FutureTask<Boolean>> asyncResults = new ArrayList();
-        BatchExecutorService executor = null;
-        if (job.getMode().equals(Job.Mode.ASYNC)) {
-            executor = BatchExecutors.newFixedThreadPool(job.getSteps().size());
-        } else if (job.getMode().equals(Job.Mode.SYNC)) {
-            executor = BatchExecutors.newSingleThreadExecutor();
-        }
-        executeSteps(asyncResults, executor);
-        executor.shutdown();
 
+    public void start() throws Exception {
         try {
+            job.setStatus(Job.Status.RUNNING);
+            LOG.info(job.toString());
+            List<FutureTask<Boolean>> asyncResults = new ArrayList();
+            BatchExecutorService executor = null;
+            if (job.getMode().equals(Job.Mode.ASYNC)) {
+                executor = BatchExecutors.newFixedThreadPool(job.getSteps().size());
+            } else if (job.getMode().equals(Job.Mode.SYNC)) {
+                executor = BatchExecutors.newSingleThreadExecutor();
+            }
+
+            executeSteps(asyncResults, executor);
+            executor.shutdown();
+
             helper.handleJobStatus(helper.successOnSteps(asyncResults), job);
         } catch (Exception excecao) {
             this.job.setStatus(Job.Status.FAIL);
@@ -89,7 +90,7 @@ public class JobExecutor implements IJobExecutor {
                     job.getId()));
         }
     }
-    
+
     /**
      * Realiza a execucao dos steps.
      *

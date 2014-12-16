@@ -5,7 +5,7 @@
  */
 package br.com.sicoob.cro.cop.batch.core;
 
-import br.com.sicoob.cro.cop.batch.step.StepExecution;
+import br.com.sicoob.cro.cop.batch.step.BatchStepContribution;
 
 /**
  * Define o comportamento para os listener de execucao.
@@ -19,13 +19,13 @@ public interface BatchStepListener {
      *
      * @param stepExecution Dados do step a ser executado.
      */
-    void beforeStep(StepExecution stepExecution);
+    void beforeStep(BatchStepContribution stepExecution);
 
     /**
      * Será acessado quando o processo estiver terminado.
      *
      * @param stepExecution Dados do step que foi executado.
      */
-    void afterStep(StepExecution stepExecution);
+    void afterStep(BatchStepContribution stepExecution);
 
 }

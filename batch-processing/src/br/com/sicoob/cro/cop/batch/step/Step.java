@@ -201,6 +201,8 @@ public class Step {
      * @param id the id to set
      */
     public void setId(String id) {
+        checkNull(id, BatchPropertiesUtil.getInstance().getMessage(
+                BatchKeys.MANDATORY_FIELD.getKey(), BatchKeys.ID.getKey()));
         this.id = id;
     }
 

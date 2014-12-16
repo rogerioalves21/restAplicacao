@@ -12,7 +12,7 @@ import br.com.sicoob.cro.cop.batch.core.Status;
  *
  * @author rogerioalves21
  */
-public class StepExecution {
+public class BatchStepContribution {
     
     private Status status;
     private Result result;
@@ -20,7 +20,7 @@ public class StepExecution {
     private String idJob;
     private StepParameters parameters;
     
-    public StepExecution(Status status, String idStep, String idJob, StepParameters parameters) {
+    public BatchStepContribution(Status status, String idStep, String idJob, StepParameters parameters) {
         this.status = status;
         this.idStep = idStep;
         this.idJob = idJob;

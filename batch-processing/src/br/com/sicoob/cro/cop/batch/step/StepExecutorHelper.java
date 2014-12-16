@@ -17,7 +17,7 @@ public final class StepExecutorHelper {
     
     public static void afterStep(Step step, Result result) {
         if (Validation.notNull(step.getListener())) {
-            StepExecution stepExecution = new StepExecution(Status.COMPLETED,
+            BatchStepContribution stepExecution = new BatchStepContribution(Status.COMPLETED,
                     step.getId(), step.getJob().getId(),
                     step.getParameters());
             stepExecution.setResult(result);
@@ -27,7 +27,7 @@ public final class StepExecutorHelper {
 
     public static void beforeStep(Step step) {
         if (Validation.notNull(step.getListener())) {
-            StepExecution stepExecution = new StepExecution(Status.STARTED,
+            BatchStepContribution stepExecution = new BatchStepContribution(Status.STARTED,
                     step.getId(), step.getJob().getId(),
                     step.getParameters());
             step.getListener().beforeStep(stepExecution);
