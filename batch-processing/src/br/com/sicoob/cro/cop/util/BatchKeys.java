@@ -12,7 +12,7 @@ package br.com.sicoob.cro.cop.util;
  */
 public enum BatchKeys {
 
-    RUNNING_JOB("runningJob"),
+    RUNNING_JOB("job"),
     RESULT("result"),
     STATUS("status"),
     PARAMETERS("parameters"),

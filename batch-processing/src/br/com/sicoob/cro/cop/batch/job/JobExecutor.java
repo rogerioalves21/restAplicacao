@@ -7,7 +7,6 @@ package br.com.sicoob.cro.cop.batch.job;
 
 import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.service.BatchExecutors;
-import br.com.sicoob.cro.cop.batch.configuration.annotation.FactoryStepExecutor;
 import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
 import br.com.sicoob.cro.cop.batch.factory.Factory;
@@ -16,7 +15,6 @@ import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.util.BatchKeys;
 import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.JobFailsException;
-import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.FutureTask;
@@ -36,19 +34,18 @@ public class JobExecutor implements IJobExecutor {
     // Job
     private Job job;
 
-    @Inject
-    private JobExecutorHelper helper;
+    // job helper
+    private final JobExecutorHelper helper;
 
     // Executor do step (Fabrica)
-    @Inject
-    @FactoryStepExecutor
-    private Factory<IStepExecutor> stepExecutorFactory;
+    private final Factory<IStepExecutor> stepExecutorFactory;
 
     /**
      * Construtor.
      */
     public JobExecutor() {
-
+        this.helper = new JobExecutorHelper();
+        this.stepExecutorFactory = new StepExecutorFactory();
     }
 
     /**
@@ -64,6 +61,7 @@ public class JobExecutor implements IJobExecutor {
 
     public void start() throws Exception {
         try {
+            job.setStartTime(System.currentTimeMillis());
             job.setStatus(Job.Status.RUNNING);
             LOG.info(job.toString());
             List<FutureTask<Boolean>> asyncResults = new ArrayList();
@@ -85,6 +83,7 @@ public class JobExecutor implements IJobExecutor {
                             BatchKeys.BATCH_LAUNCHER_JOB_ERROR_ENDING.getKey(),
                             job.getId()), excecao);
         } finally {
+            job.setEndTime(System.currentTimeMillis());
             LOG.info(BatchPropertiesUtil.getInstance().getMessage(
                     BatchKeys.BATCH_JOB_EXECUTOR_FINALIZED.getKey(),
                     job.getId()));

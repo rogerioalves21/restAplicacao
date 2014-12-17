@@ -35,5 +35,13 @@ public class JobDataExecution implements JobExecution {
     public Job.Mode getMode() {
         return this.job.getMode();
     }
+
+    public long getStartTime() {
+        return this.job.getStartTime();
+    }
+
+    public long getEndTime() {
+        return this.job.getEndTime();
+    }
     
 }

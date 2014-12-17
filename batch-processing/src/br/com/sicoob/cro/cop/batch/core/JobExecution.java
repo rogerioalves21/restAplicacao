@@ -39,4 +39,16 @@ public interface JobExecution {
      */
     Job.Mode getMode();
 
+    /**
+     *
+     * @return a data de inicio.
+     */
+    long getStartTime();
+
+    /**
+     *
+     * @return a data de fim.
+     */
+    long getEndTime();
+
 }

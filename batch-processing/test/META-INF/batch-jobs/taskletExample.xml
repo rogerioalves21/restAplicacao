@@ -25,4 +25,5 @@
         <tasklet ref="br.com.sicoob.cro.cop.batch.core.PrintTasklet"/>
         <listener ref="br.com.sicoob.cro.cop.batch.core.TaskletListenerImpl"/>
     </step>
+    
 </job>

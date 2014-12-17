@@ -7,6 +7,7 @@ package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.util.ItemError;
 import br.com.sicoob.cro.cop.util.Validation;
+import java.util.Date;
 
 /**
  * Implementacao da interface {@link BatchExecution}.
@@ -16,7 +17,7 @@ import br.com.sicoob.cro.cop.util.Validation;
 public class DataExecution implements BatchExecution {
 
     private Status status = Status.STARTING;
-    private JobExecution runningJob;
+    private JobExecution job;
     private Result result;
     private ItemError itemError;
 
@@ -36,17 +37,17 @@ public class DataExecution implements BatchExecution {
     }
 
     /**
-     * @return the runningJob
+     * @return the job
      */
-    public JobExecution getRunningJob() {
-        return runningJob;
+    public JobExecution getJob() {
+        return job;
     }
 
     /**
-     * @param runningJob the runningJob to set
+     * @param job the job to set
      */
-    public void setRunningJob(JobExecution runningJob) {
-        this.runningJob = runningJob;
+    public void setJob(JobExecution job) {
+        this.job = job;
     }
 
     public Result getResult() {
@@ -70,8 +71,10 @@ public class DataExecution implements BatchExecution {
         builder.append("\n#########################");
         builder.append("\nStatus: ".concat(this.status.name()));
         builder.append("\nResult: ".concat(this.result != null ? this.result.getType().name() : "Nenhum"));
-        builder.append("\nRunning Job: ".concat(this.runningJob != null ? this.runningJob.getId() : "Nenhum"));
-        builder.append("\nRunning Job Status: ".concat(this.runningJob != null ? this.runningJob.getStatus().name() : "Nenhum"));
+        builder.append("\nJob: ".concat(this.job != null ? this.job.getId() : "Nenhum"));
+        builder.append("\nJob Status: ".concat(this.job != null ? this.job.getStatus().name() : "Nenhum"));
+        builder.append("\nJob start time: ".concat(this.job != null ? new Date(this.job.getStartTime()).toString() : "Nenhum"));
+        builder.append("\nJob end time: ".concat(this.job != null ? new Date(this.job.getEndTime()).toString() : "Nenhum"));
         builder.append("\nError: ".concat(this.itemError != null ? this.itemError.getMessage() : "Nenhum"));
         return builder.toString();
     }

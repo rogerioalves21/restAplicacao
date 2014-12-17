@@ -33,7 +33,7 @@ public class FileReadTasklet extends AbstractTasklet {
     @Override
     public void process() {
         try {
-            List<Operation> operacoes = new ArrayList<>();
+            List<Operation> operacoes = new ArrayList();
             InputStream source = this.getClass().getResourceAsStream(this.context.getParameters().get("nomeArquivo").toString());
             Scanner scan = new Scanner(source);
             while (scan.hasNext()) {

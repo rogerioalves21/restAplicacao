@@ -5,11 +5,6 @@
  */
 package br.com.sicoob.cro.cop.batch.step.tasklet;
 
-import br.com.sicoob.cro.cop.batch.core.Result;
-import br.com.sicoob.cro.cop.batch.step.Step;
-import br.com.sicoob.cro.cop.batch.step.StepExecutorHelper;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * Classe abstrata para quando o cliente ano quiser implementar a interface
  * tasklet.

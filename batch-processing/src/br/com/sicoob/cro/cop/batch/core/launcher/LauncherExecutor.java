@@ -5,9 +5,9 @@
  */
 package br.com.sicoob.cro.cop.batch.core.launcher;
 
+import br.com.sicoob.cro.cop.batch.core.BatchCallable;
 import static org.apache.commons.beanutils.PropertyUtils.setProperty;
 
-import br.com.sicoob.cro.cop.batch.configuration.BatchProcessModule;
 import br.com.sicoob.cro.cop.batch.core.IJobExecutor;
 import br.com.sicoob.cro.cop.batch.core.BatchExecution;
 import br.com.sicoob.cro.cop.batch.core.JobDataExecution;
@@ -19,9 +19,6 @@ import br.com.sicoob.cro.cop.util.BatchKeys;
 import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.JobFailsException;
 import br.com.sicoob.cro.cop.util.Validation;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import java.util.concurrent.Callable;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Rogerio Alves Rodrigues
  */
-public class LauncherExecutor implements Callable<Boolean> {
+public class LauncherExecutor implements BatchCallable {
 
     // Logger
     private static final Log LOG = LogFactory.getLog(LauncherExecutor.class.getName());
@@ -55,6 +52,7 @@ public class LauncherExecutor implements Callable<Boolean> {
      * Executa o processamento.
      *
      * @return TRUE - para compilacao.
+     * @throws java.lang.Exception par algum erro.
      */
     public Boolean call() throws Exception {
         LOG.info(BatchPropertiesUtil.getInstance().getMessage(
@@ -87,10 +85,9 @@ public class LauncherExecutor implements Callable<Boolean> {
      * @throws Exception quando houver algum erro.Ï
      */
     private void executeJob() throws Exception {
-        Injector injector = Guice.createInjector(new BatchProcessModule());
         setProperty(this.execution, BatchKeys.RUNNING_JOB.getKey(),
                 new JobDataExecution(this.job));
-        IJobExecutor jobExecutor = injector.getInstance(JobExecutor.class);
+        IJobExecutor jobExecutor = new JobExecutor();
         ((JobExecutor) jobExecutor).of(this.job).start();
         if (jobExecutor.fails()) {
             throw new JobFailsException(

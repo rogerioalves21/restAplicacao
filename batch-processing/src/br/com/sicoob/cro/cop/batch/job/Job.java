@@ -12,6 +12,7 @@ import br.com.sicoob.cro.cop.util.BatchPropertiesUtil;
 import br.com.sicoob.cro.cop.util.Validation;
 import static br.com.sicoob.cro.cop.util.Validation.checkNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +29,8 @@ public class Job {
     private List<BatchStepListener> listeners;
     private Mode mode;
     private Status status = Status.TO_PROCESS;
+    private long startTime;
+    private long endTime;
 
     public Job(String id, Mode mode) {
         checkNull(id, BatchPropertiesUtil.getInstance().getMessage(
@@ -142,6 +145,34 @@ public class Job {
     }
 
     /**
+     * @return the startTime
+     */
+    public long getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * @param startTime the startTime to set
+     */
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    /**
+     * @return the endTime
+     */
+    public long getEndTime() {
+        return endTime;
+    }
+
+    /**
+     * @param endTime the endTime to set
+     */
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    /**
      * Modos do Step.
      */
     public static enum Mode {
@@ -157,6 +188,7 @@ public class Job {
         TO_PROCESS, RUNNING, FAIL, FINISHED
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(BatchPropertiesUtil.getInstance().getMessage(BatchKeys.JOB_ID.getKey(), getId()));

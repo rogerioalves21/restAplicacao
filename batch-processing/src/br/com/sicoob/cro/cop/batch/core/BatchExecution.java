@@ -35,7 +35,7 @@ public interface BatchExecution {
      *
      * @return um {@link Job},
      */
-    JobExecution getRunningJob();
+    JobExecution getJob();
 
     /**
      * Retorna todos os erros que ocorreram na execucao.

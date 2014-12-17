@@ -5,12 +5,12 @@
  */
 package br.com.sicoob.cro.cop.batch.step.tasklet;
 
+import br.com.sicoob.cro.cop.batch.core.BatchCallable;
 import br.com.sicoob.cro.cop.batch.core.Result;
 import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.step.StepExecutorHelper;
 import br.com.sicoob.cro.cop.util.BatchKeys;
-import java.util.concurrent.Callable;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author rogerioalves21
  */
-public class TaskletExecutor implements Callable<Boolean> {
+public class TaskletExecutor implements BatchCallable {
 
     private static final Log LOG = LogFactory.getLog(TaskletExecutor.class);
     private final Step step;
@@ -44,9 +44,7 @@ public class TaskletExecutor implements Callable<Boolean> {
     }
 
     private void execute() throws Exception {
-        Tasklet tasklet = this.step.getTasklet();
-        PropertyUtils.setProperty(tasklet, BatchKeys.STEP.getKey(), this.step);
-        tasklet.process();
+        this.step.getTasklet().process();
     }
 
 }

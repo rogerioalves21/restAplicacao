@@ -26,12 +26,11 @@ public class MyItemWriter extends AbstractItemWriter {
     @Override
     public void writeItems(List<Object> items) {
         LOG.info("Writer chamado");
-        throw new RuntimeException("teste");
-        /*
+        
         for (Object operacao : items) {
             LOG.info(((Operation)operacao).toString());
         }
-        */
+        
     }
     
 }
