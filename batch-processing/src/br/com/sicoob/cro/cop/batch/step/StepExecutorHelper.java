@@ -11,10 +11,18 @@ import br.com.sicoob.cro.cop.util.Validation;
 
 /**
  *
- * @author rogerioalves21
+ * Métodos utilitários para a execução dos steps.
+ *
+ * @author Rogerio Alves Rodrigues
  */
 public final class StepExecutorHelper {
-    
+
+    /**
+     * Chama o método afterStep do listener registrado para o step.
+     *
+     * @param step Objeto Step.
+     * @param result Resultado do processamento.
+     */
     public static void afterStep(Step step, Result result) {
         if (Validation.notNull(step.getListener())) {
             BatchStepContribution stepExecution = new BatchStepContribution(Status.COMPLETED,
@@ -25,6 +33,11 @@ public final class StepExecutorHelper {
         }
     }
 
+    /**
+     * Chama o método beforeStep do listener registrado para o step.
+     *
+     * @param step Objeto Step.
+     */
     public static void beforeStep(Step step) {
         if (Validation.notNull(step.getListener())) {
             BatchStepContribution stepExecution = new BatchStepContribution(Status.STARTED,
@@ -33,5 +46,5 @@ public final class StepExecutorHelper {
             step.getListener().beforeStep(stepExecution);
         }
     }
-    
+
 }

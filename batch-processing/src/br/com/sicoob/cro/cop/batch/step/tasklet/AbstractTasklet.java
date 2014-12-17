@@ -18,32 +18,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class AbstractTasklet implements Tasklet {
 
-    private Step step;
-
-    public void setStep(Step step) {
-        this.step = step;
-    }
-
-    /**
-     * Implementa um callable de concorrencia.
-     *
-     * @return Não é utilizado.
-     * @throws Exception para algum erro.
-     */
-    public Boolean call() throws Exception {
-        StepExecutorHelper.beforeStep(this.step);
-        Result result = Result.SUCCESS;
-        try {
-            process();
-        } catch (Exception excecao) {
-            LogFactory.getLog(AbstractTasklet.class).fatal(excecao);
-            result = Result.FAIL;
-        } finally {
-            StepExecutorHelper.afterStep(this.step, result);
-        }
-        return Boolean.TRUE;
-    }
-
     /**
      * Implementa o processamento do tasklet.
      *

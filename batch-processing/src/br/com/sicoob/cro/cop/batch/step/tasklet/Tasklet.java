@@ -5,15 +5,13 @@
  */
 package br.com.sicoob.cro.cop.batch.step.tasklet;
 
-import java.util.concurrent.Callable;
-
 /**
  * Um tasklet é um tipo de passo do batch que pode ser usado para qualquer tipo
  * de processamento que um chunk não possa.
  *
  * @author Rogerio Alves Rodrigues
  */
-public interface Tasklet extends Callable<Boolean> {
+public interface Tasklet {
 
     /**
      *

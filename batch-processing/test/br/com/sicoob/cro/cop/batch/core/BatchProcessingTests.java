@@ -26,7 +26,7 @@ public class BatchProcessingTests {
 
     public BatchProcessingTests() {
     }
-
+    /*
     @Test
     public void withNoFileName() {
         try {
@@ -35,7 +35,7 @@ public class BatchProcessingTests {
             LOG.error(excecao);
             assertEquals("br.com.sicoob.cro.cop.util.BatchStartException: Nenhum arquivo com o nome fileNotFound foi encontrado.", excecao.getMessage());
         }
-    }
+    }*/
 
     @Test
     public void taskletExample() {
@@ -56,7 +56,7 @@ public class BatchProcessingTests {
             Logger.getLogger(BatchProcessingTests.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/*
     @Test
     public void chunkExample() {
         try {
@@ -73,8 +73,9 @@ public class BatchProcessingTests {
         } catch (BatchStartException excecao) {
             Assert.fail(excecao.getMessage());
         } catch (InterruptedException ex) {
+            Assert.fail(ex.getMessage());
             Logger.getLogger(BatchProcessingTests.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+*/
 }

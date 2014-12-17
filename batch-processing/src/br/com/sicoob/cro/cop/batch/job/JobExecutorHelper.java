@@ -45,7 +45,7 @@ public class JobExecutorHelper {
      * @param job Job para alteracao.
      */
     public void handleJobStatus(Boolean jobSuccess, Job job) {
-        if (jobSuccess) {
+        if (jobSuccess && !job.getStatus().equals(Job.Status.FAIL)) {
             job.setStatus(Job.Status.FINISHED);
         } else {
             job.setStatus(Job.Status.FAIL);

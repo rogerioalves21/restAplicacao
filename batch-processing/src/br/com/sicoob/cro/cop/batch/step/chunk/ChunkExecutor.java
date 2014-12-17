@@ -9,6 +9,7 @@ import br.com.sicoob.cro.cop.batch.configuration.ItemProcessorInjector;
 import br.com.sicoob.cro.cop.batch.configuration.ItemReaderInjector;
 import br.com.sicoob.cro.cop.batch.configuration.ItemWriterInjector;
 import br.com.sicoob.cro.cop.batch.core.Result;
+import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.step.Step;
 import br.com.sicoob.cro.cop.batch.step.StepExecutorHelper;
 import br.com.sicoob.cro.cop.util.Validation;
@@ -82,7 +83,7 @@ public class ChunkExecutor implements IChunkExecutor {
         } catch (Exception excecao) {
             LogFactory.getLog(ChunkExecutor.class).error(excecao);
             result = Result.FAIL;
-            //throw excecao;
+            this.step.getJob().setStatus(Job.Status.FAIL);
         } finally {
             StepExecutorHelper.afterStep(this.step, result);
         }
