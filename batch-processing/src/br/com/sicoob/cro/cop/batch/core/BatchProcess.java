@@ -7,7 +7,6 @@ package br.com.sicoob.cro.cop.batch.core;
 
 import br.com.sicoob.cro.cop.batch.core.launcher.Launcher;
 import br.com.sicoob.cro.cop.batch.job.Job;
-import com.google.inject.Inject;
 
 /**
  * Classe que sera retornada para o cliente.
@@ -26,7 +25,6 @@ public class BatchProcess {
      *
      * @param execution Classe o lancamento da execucao.
      */
-    @Inject
     public BatchProcess(Launcher execution) {
         this.execution = execution;
     }

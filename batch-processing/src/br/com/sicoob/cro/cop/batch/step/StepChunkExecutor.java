@@ -8,7 +8,6 @@ package br.com.sicoob.cro.cop.batch.step;
 import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.core.IStepExecutor;
 import br.com.sicoob.cro.cop.batch.step.chunk.IChunkExecutor;
-import com.google.inject.Inject;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -21,8 +20,7 @@ public class StepChunkExecutor implements IStepExecutor {
     private final Step step;
     private final BatchExecutorService service;
     private FutureTask<Boolean> task;
-    @Inject
-    private IChunkExecutor chunkExecutor;
+    private final IChunkExecutor chunkExecutor;
 
     /**
      * Constri um StepExecutor.
@@ -30,9 +28,10 @@ public class StepChunkExecutor implements IStepExecutor {
      * @param step Step a ser executado.
      * @param service Servico de execucao.
      */
-    public StepChunkExecutor(Step step, BatchExecutorService service) {
+    public StepChunkExecutor(Step step, BatchExecutorService service, IChunkExecutor chunkExecutor) {
         this.step = step;
         this.service = service;
+        this.chunkExecutor = chunkExecutor;
     }
 
     public void start() throws Exception {

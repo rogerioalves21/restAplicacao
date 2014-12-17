@@ -10,7 +10,6 @@ import br.com.sicoob.cro.cop.batch.core.BatchExecution;
 import br.com.sicoob.cro.cop.batch.job.Job;
 import br.com.sicoob.cro.cop.batch.service.BatchExecutorService;
 import br.com.sicoob.cro.cop.batch.service.BatchExecutors;
-import com.google.inject.Inject;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
@@ -42,7 +41,6 @@ public class SimpleJobLauncher implements Launcher {
      *
      * @param execution Retorno da execucao do Batch.
      */
-    @Inject
     public SimpleJobLauncher(BatchExecution execution) {
         this.execution = execution;
     }
