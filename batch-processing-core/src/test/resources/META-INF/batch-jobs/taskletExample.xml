@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE job [
+  <!ELEMENT job (step+)>
+  <!ATTLIST job id ID #REQUIRED>
+  <!ELEMENT step ((tasklet, listener) | (chunk, listener))>
+  <!ATTLIST step id ID #REQUIRED>
+  <!ELEMENT tasklet (#PCDATA)>
+  <!ATTLIST tasklet ref CDATA #REQUIRED>
+  <!ELEMENT chunk (#PCDATA)>
+  <!ATTLIST chunk reader CDATA #REQUIRED>
+  <!ATTLIST chunk processor CDATA #REQUIRED>
+  <!ATTLIST chunk writer CDATA #REQUIRED>
+  <!ATTLIST chunk commit-interval CDATA #REQUIRED>
+  <!ELEMENT listener (#PCDATA)>
+  <!ATTLIST listener ref CDATA #REQUIRED>
+]>
+
+<job id="Job tasklet style example 1">
+    <step id="Read File Step">
+        <tasklet ref="br.com.sicoob.cro.cop.batch.core.FileReadTasklet"/>
+        <listener ref="br.com.sicoob.cro.cop.batch.core.StepListenerImpl"/>
+    </step>
+    
+    <step id="PrintTasklet Step">
+        <tasklet ref="br.com.sicoob.cro.cop.batch.core.PrintTasklet"/>
+        <listener ref="br.com.sicoob.cro.cop.batch.core.TaskletListenerImpl"/>
+    </step>
+    
+</job>
