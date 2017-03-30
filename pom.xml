@@ -12,7 +12,7 @@
   
   <groupId>br.com.sicoob</groupId>
   <artifactId>sicoob-parent</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>Sicoob Parent</name>
   <url>https://github.com/rogerioalves21/restAplicacao/new/Development</url>
@@ -32,7 +32,7 @@
       <name>Rogério Alves Rodrigues</name>
       <email>rogerio.rodrigues@sicoob.com.br</email>
       <organization>Sicoob</organization>
-      <organizationUrl>http://www.sicoob.com</organizationUrl>
+      <organizationUrl>http://www.sicoob.com.br</organizationUrl>
       <roles>
         <role>owner</role>
         <role>developer</role>
@@ -42,7 +42,7 @@
   </developers>
   <ciManagement>
     <system>Travis CI</system>
-    <url>https://travis-ci.org/google/guava</url>
+    <url>https://travis-ci.org/rogerioalves21/restAplicacao</url>
   </ciManagement>
   <modules>
     <module>rest-web-app</module>
