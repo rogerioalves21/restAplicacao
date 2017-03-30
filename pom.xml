@@ -46,5 +46,6 @@
   </ciManagement>
   <modules>
     <module>rest-web-app</module>
+    <module>batch-processing-core</module>
   </modules>
 </project> 
