@@ -26,6 +26,7 @@ public class OlaMundoRs {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Login getLogin() {
+        System.out.println("Passei aqui");
         Login login = new Login();
         login.setLogin("rogerio.rodrigues");
         login.setSenha("@Loureiro3");
