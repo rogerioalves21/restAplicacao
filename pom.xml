@@ -27,9 +27,6 @@
   <prerequisites>
     <maven>3.0.3</maven>
   </prerequisites>
-         
-         
-         
   <developers>
     <developer>
       <id>rogerio.rodrigues</id>
@@ -51,7 +48,7 @@
   <modules>
     <module>rest-web-app</module>
     <module>batch-processing-core</module>
-    <module>batch-processing-web</module>
+    <!--<module>batch-processing-web</module>-->
   </modules>
          
     
