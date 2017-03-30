@@ -5,8 +5,14 @@
   <groupId>batch-processing</groupId>
   <artifactId>batch-processing-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
+  <parent>
+         <groupId>br.com.sicoob</groupId>
+         <artifactId>sicoob-parent</artifactId>
+         <version>1.0.0</version>
+    </parent>
+  
   <name>batch-processing-web</name>
   <url>http://maven.apache.org</url>
 
