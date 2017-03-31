@@ -1,1 +1,2 @@
-web: sh target/bin/webapp
+heroku local
+#web: sh target/bin/webapp
