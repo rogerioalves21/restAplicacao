@@ -47,7 +47,7 @@
   </ciManagement>
   <modules>
     <module>rest-web-app</module>
-    <module>batch-processing-core</module>
+    <!--<module>batch-processing-core</module>-->
     <!--<module>batch-processing-web</module>-->
   </modules>
          
