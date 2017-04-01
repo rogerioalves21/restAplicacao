@@ -14,14 +14,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author rogerioalves21
  */
-@Path("/ola")
+@Path("/docker")
 public class OlaMundoRs {
-    
-    /*@GET
-    @Produces("text/plain")
-    public String olaMundo() {
-        return "Ola Mundo Rest!";
-    }*/
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})
