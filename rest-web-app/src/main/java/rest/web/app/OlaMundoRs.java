@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author rogerioalves21
  */
-@Path("/docker")
+@Path("/hello")
 public class OlaMundoRs {
     
     @GET
