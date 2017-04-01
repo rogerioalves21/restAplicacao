@@ -1,3 +1,5 @@
-# Let's use the official Passenger container.
-FROM rogerioalves21/rest_aplicacao2
+FROM jboss/wildfly
 MAINTAINER Rogerio Alves Rodrigues "rogerioalves21@gmail"
+ 
+ADD rest-web-app/target/rest-web-app.1.0.0.war /opt/jboss/wildfly/standalone/deployments/
+
