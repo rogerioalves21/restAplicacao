@@ -1,4 +1,4 @@
-FROM java:openjdk-8-jdk
+FROM maven:3.3.9-jdk-8
 
 RUN mvn package
 
