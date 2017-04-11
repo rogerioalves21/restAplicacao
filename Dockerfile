@@ -1,4 +1,4 @@
-FROM maven:3.3.9-jdk-8:jenkins
+FROM maven:3.3.9-jdk-8
 ADD rest-web-app / 
 RUN mvn package
 RUN -p 8080:8080 -p 50000:50000 jenkins
