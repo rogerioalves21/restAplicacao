@@ -1,0 +1,891 @@
+[33mcommit eb61a99119817cf2e807ccfe5295fa92d35cf624[m[33m ([m[1;36mHEAD -> [m[1;32mDevelopment[m[33m)[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Sep 19 22:06:35 2017 +0000
+
+    Primeiro commit
+
+[33mcommit 223b70566139069a651f6a4b0bee6a4c7f2fd253[m[33m ([m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Development[m[33m)[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Apr 12 21:38:19 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 21968aeb2d4cf0966be432bf4707764edbb67bde[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 10 22:59:27 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit c44f4f7fbec657b266c08a27eb36c25b01811523[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 21:38:06 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 7929171ebebd6d641f71ad212746d3820dabe9f9[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 19:17:49 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 0cefca01a208d160b3944c22e2f6ece7892f47cf[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 18:51:25 2017 -0300
+
+    Update pom.xml
+
+[33mcommit ab6a79b3bc25a7d7022690015c725261d1d84229[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 18:36:06 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 2337cf7865d4ec30d9d1c8359f06b474aac7437a[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 15:54:29 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 81cd21858ad662e528117edda6ecb3afab2d2133[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 15:41:35 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 6d6f5276947d08d8d97cccdb5305a24e5c5b736a[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 15:11:40 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 4695ebe1a56f661d9724f2caf4c3b1c8c6ab02ee[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 15:03:46 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 84eb02c302e06a2376858a155d963f02309c81f6[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 10:43:33 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 5627b87cb840f503b446367032cf70e15dd2d221[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 10:18:52 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 2bb75983ddac78227ef3cb8dab1faac55d04fdbe[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Tue Apr 4 10:05:52 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit ba070cfd68bd96bf89ffaac651b41b5588e72698[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 23:45:46 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit fc87f9e4b4588857d511f52e9c7efb999efec374[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 23:42:14 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 8c9a852371e6ce7c8949bde011e70d21ee37c26c[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 23:11:29 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit de6e3466973955161e2ce350530ccc9afb89faaa[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 22:54:19 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 8b7922edc724875f428e4b40954afc151dc525f4[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 22:34:23 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 0fc338f67b0b5bb0f5d77d9fc1d954499a8f189e[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 22:26:12 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit c7307361e660f7066b6ef248fa880b5ade9ed257[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 22:25:47 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit a7e2eba413469306150534e67a18a597e8a4076f[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 22:19:01 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit a0452a77548ad04b67bc8eee237945602be560ea[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 22:12:01 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 06d70b2fcc38464d9954f43f88e69ae3623ec8b8[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 21:58:47 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 8abb430b1a8183726e85b654ace77b20c405d618[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 21:57:13 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit b370eff0d24f0318c9c41c4631b913a98dd7743e[m
+Merge: 8676ef9 e2d6456
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 21:29:07 2017 -0300
+
+    Merge pull request #4 from rogerioalves21/rogerioalves21-patch-4
+    
+    Update Dockerfile
+
+[33mcommit e2d6456315838ef652c463e51b7e13dc8a78d4aa[m[33m ([m[1;31morigin/rogerioalves21-patch-4[m[33m)[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 21:23:47 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 8676ef9103212712dae69cfb96d7bca42fad088a[m[33m ([m[1;33mtag: 1.0[m[33m)[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Mon Apr 3 10:09:16 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 0aa26431aa3699e38ee276f8608e826c4d9cd4c1[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 13:03:49 2017 -0300
+
+    Update README.md
+
+[33mcommit 845be471a70f2c55a9a6f1e213e1869ba57b873c[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 12:14:55 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit d0df9954adfe6f4a2160bbe04321067ebcb74b42[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 12:11:51 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 47c582a54e427fdb856e5c2c4a7597f8487bb8c7[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 12:06:28 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit fe09065cf1cbfa28157ceed00a0fc955785c0e21[m
+Merge: 9e6a209 b870008
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 12:02:10 2017 -0300
+
+    Merge pull request #3 from rogerioalves21/rogerioalves21-patch-3
+    
+    Update Dockerfile
+
+[33mcommit b870008db09a7251fda79c05a26f8fbffd3be5a5[m[33m ([m[1;31morigin/rogerioalves21-patch-3[m[33m)[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 11:58:34 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 9e6a209c055ffd8c9686bafb29d33a84972b1b17[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 11:54:55 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 9809bfc9f712ae98be5ff4d4088d265f9ac96124[m
+Merge: b69b978 4c1319f
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 11:51:25 2017 -0300
+
+    Merge pull request #2 from rogerioalves21/rogerioalves21-patch-2
+    
+    Update Dockerfile
+
+[33mcommit 4c1319f5102679a01673b10bbbb87b9f30f28373[m[33m ([m[1;31morigin/rogerioalves21-patch-2[m[33m)[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 11:49:52 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit b69b978e5e49bbc7e154a298ff5f08fb74ac2639[m
+Merge: d6266ca e56aa8f
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 11:19:53 2017 -0300
+
+    Merge pull request #1 from rogerioalves21/rogerioalves21-patch-1
+    
+    Update OlaMundoRs.java
+
+[33mcommit e56aa8f3998bab01db6b0518a35d5ba06f97868d[m[33m ([m[1;31morigin/rogerioalves21-patch-1[m[33m)[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 11:18:25 2017 -0300
+
+    Update OlaMundoRs.java
+
+[33mcommit d6266ca6d5719377239e39f5f93150af95a7301d[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 10:57:08 2017 -0300
+
+    Update Dockerfile
+
+[33mcommit 6bafe5876db3ec9c604f320403ac83e9e453f0f6[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 10:53:11 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 1021103660616d30df52cdbd9a08dac1f59a04c7[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 10:51:45 2017 -0300
+
+    Update pom.xml
+
+[33mcommit e87462d730be87c098c356ca98a42730a9c29724[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 10:50:44 2017 -0300
+
+    Delete Procfile
+
+[33mcommit 0eb35c329344a20b58d0b6ed2a2db1ae6e5c105e[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 10:46:56 2017 -0300
+
+    Create run
+
+[33mcommit 94bdb465f51f3f75af11328fc9d53f14245319a2[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 10:32:19 2017 -0300
+
+    Update Procfile
+
+[33mcommit 50c45be40e3929e5e44548a5adfc055d372e8b26[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 10:13:47 2017 -0300
+
+    Update README.md
+
+[33mcommit 70397b660b7065379582c7bbde5b29c892421a03[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 10:07:53 2017 -0300
+
+    Update Procfile
+
+[33mcommit 37ceeb194695b62656550d17282f0e079a353532[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 01:31:54 2017 -0300
+
+    Create Dockerfile
+
+[33mcommit 2d8af4d23aefdebd6fd8616f2fbf29f083c290bf[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 01:05:22 2017 -0300
+
+    Update OlaMundoRs.java
+
+[33mcommit e9d213717d8066023dde7710d8c60a7ce5f64447[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Sat Apr 1 00:27:27 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 0b23237ce9160a1397c93002a151fab38ffe09a0[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Fri Mar 31 10:20:33 2017 -0300
+
+    Update pom.xml
+
+[33mcommit aaafb9d5a9f293d204f716186b2c6a58aa899507[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 23:42:58 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 641fd667242f17d7384fad06f33ee51e4eeb67c4[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 23:42:29 2017 -0300
+
+    Delete Main.java
+
+[33mcommit 77c7208c924fcb0976cbf13fca307ae873a00f7d[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 23:34:14 2017 -0300
+
+    Update Procfile
+
+[33mcommit 8f43e8ddfff4fa1fde147ca69ef5eb460d05b49b[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 23:17:48 2017 -0300
+
+    Update Procfile
+
+[33mcommit 999831cd73ba00444e6c659b4b69fc500a3bdb65[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 23:03:41 2017 -0300
+
+    Update Procfile
+
+[33mcommit fa2ceccac5e8e3eebbf673d7a8b6d063e279ce34[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 22:59:16 2017 -0300
+
+    Add Heroku generated app.json
+
+[33mcommit b06ce7ac957868739b2dbab49be6df0f3bb322a6[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 22:44:05 2017 -0300
+
+    Update Procfile
+
+[33mcommit 6f4d7de80c0d83cda285a683216c71e08b189a02[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 22:05:38 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 0f39427a93430b962b7f3925cff609f54ba17671[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 21:54:27 2017 -0300
+
+    Update pom.xml
+
+[33mcommit ce54f8b6e3330ecf30d7447635fc8145f9476b51[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 21:46:31 2017 -0300
+
+    Update pom.xml
+
+[33mcommit b3459fd8a6b4bd444864dad14a5a1df7db631012[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 21:39:39 2017 -0300
+
+    Update Procfile
+
+[33mcommit cef7284804ba0dbf48090f554d698bbaa5cfdbc1[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 21:31:12 2017 -0300
+
+    Update Procfile
+
+[33mcommit e436964da8fbde08dc44e5153508a468921d7374[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 21:04:06 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit b0ad3bba56e761a032cafaa383450e870f500e66[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 19:01:59 2017 -0300
+
+    Update README.md
+
+[33mcommit 0a39cb7e0897ef6001058a874b9387babd7a758e[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 19:01:32 2017 -0300
+
+    Update README.md
+
+[33mcommit 030fe17c6f39bdd0958304130a244274d43fdaee[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 18:51:15 2017 -0300
+
+    Update OlaMundoRs.java
+
+[33mcommit 6534d7a944fe9606ad13af3f7206f6602fa8e844[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 09:28:47 2017 -0300
+
+    Update pom.xml
+    
+    Retirando um projeto web do deploy.
+
+[33mcommit 5e3e46c772238ff82901d7dce09801d588d3ec15[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 00:25:23 2017 -0300
+
+    Update Procfile
+
+[33mcommit 443908427cdf90bf6e5a6be417f7b9099901bdce[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 00:19:46 2017 -0300
+
+    Create Procfile
+
+[33mcommit 99a0c51f4262916dd840f42bbbe2944128601920[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 00:14:35 2017 -0300
+
+    Update Procfile
+
+[33mcommit dfd11811a960c5ca6179b073c094385d8ef4401e[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 30 00:04:12 2017 -0300
+
+    Update index.jsp
+
+[33mcommit 55284bf0cf0a9bfdcd7426f9346f03986eb4743c[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 23:27:30 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 40d78e8f659ed1f949e79e69e05c7b3d7ea6358e[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 23:22:42 2017 -0300
+
+    Update pom.xml
+
+[33mcommit cb21d158f989d50c8d73966a2be006a5f2a8aa25[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 23:17:57 2017 -0300
+
+    Create Main.java
+
+[33mcommit e69fc4fd7322ed62e1a71db0d9d9166ba2941ddc[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 23:09:35 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 63fda8c8364a46c11aa623a1d3250f93b717d2dc[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:49:59 2017 -0300
+
+    Create Procfile
+
+[33mcommit 521a2d55a8c5d07517a47cab717ec9b72f723e9a[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:49:25 2017 -0300
+
+    Delete Procfile
+
+[33mcommit dcc47434f2fd37f095cfddf117fd90f11b709516[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:46:51 2017 -0300
+
+    Create Procfile
+
+[33mcommit 901ce100c1667d56ba8c481df79edf77d82d25f3[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:32:01 2017 -0300
+
+    Update pom.xml
+
+[33mcommit a670db5d7c0cdb74164d5e13f2cf1c8da5e5b99b[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:31:32 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 8fbdc71703555a105749aa166598363485cc108b[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:14:00 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 18a671c6f79ac61a8109d499630670251d319f8b[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:13:13 2017 -0300
+
+    Update pom.xml
+
+[33mcommit b92459bd7d078a9d65c69e86110c769dab025c16[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:12:32 2017 -0300
+
+    Update pom.xml
+
+[33mcommit e18895cdaae25a85a9635161bf8d77107ebbd740[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 22:10:24 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 3a02a33df01aa12069ed31cf199026bf7582d245[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 19:32:49 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit 0e3f63fe813737dfe3aa5fcfe1af424fcc5ba10a[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 19:17:31 2017 -0300
+
+    Update pom.xml
+
+[33mcommit 91c72fd32b465aba9a47043141cea2870375f4d3[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 19:08:19 2017 -0300
+
+    Update pom.xml
+
+[33mcommit d20f2129a954dc8279a486b02e60d80cf1bf8391[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 18:55:39 2017 -0300
+
+    Update pom.xml
+
+[33mcommit ecac168f30f7560512db3de793c890ec5b41c0dc[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 18:28:26 2017 -0300
+
+    Update pom.xml
+
+[33mcommit e2f0d822f35dcd833fbffa296d54c858ccf7881e[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 18:24:10 2017 -0300
+
+    Create pom.xml
+
+[33mcommit b28d42d00ce82bc3cdbdd7cb35e0662f7ba1116f[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 18:03:07 2017 -0300
+
+    Delete .travis.yml
+
+[33mcommit 5de029c5c0ec4f1e2dffa43e75eedcdd99f36636[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 14:00:55 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit 29f788ff0af5d422404dd71948fc0c69156b37dd[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 14:00:35 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit 3952b600533c34aa0f6973ca624010bfcfe119da[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:54:05 2017 -0300
+
+    Create .travis.yml
+
+[33mcommit 3c51ed4ad0fe5eef7b525dc805c11982b4f2d216[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:52:30 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit 261165d78b6d1eccefb622e8aa429ac550dacd4a[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:51:16 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit 3d327773a43cdfcc4be47305076800442632dfc4[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:47:03 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit 83636676bac1b690101361f347c6e2a9afca4e3d[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:37:38 2017 -0300
+
+    Delete .travis.yml
+
+[33mcommit 7d4c6cf398207030e67a93db92f5f576657ce4f6[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:36:55 2017 -0300
+
+    Create .travis.yml
+
+[33mcommit beedc0985207a9bff1a437064a4c097e4db47f00[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:35:57 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit 0c35552b9c73f803e3f31e5666e5d9f8c06bc0f4[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:34:53 2017 -0300
+
+    Update .travis.yml
+
+[33mcommit d5da93091bafbe0cbca8e5c5d7a1d331a90ea13f[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Wed Mar 29 13:33:53 2017 -0300
+
+    Create  .travis.yml
+
+[33mcommit b4d3324d9302ababdeeda2e561a458dddb142fe2[m
+Author: Rogerio Alves Rodrigues <rogerioalves21@gmail.com>
+Date:   Thu Mar 23 23:56:09 2017 -0300
+
+    Create system.properties
+
+[33mcommit 44a2fac57e811857d034f85ea2237d71d0c89151[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Mon Mar 13 23:08:13 2017 -0300
+
+    Projeto Rest. Com Json.
+
+[33mcommit 8966092cd99732ba9df24ab550b4a2a37154be87[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Wed Dec 17 22:38:22 2014 -0200
+
+[33mcommit 8e29ae04104ae28438345c588236e124ebcc9449[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Wed Dec 17 22:37:35 2014 -0200
+
+    Testes.
+
+[33mcommit ab33a9f0f6f1674421de679a35518d4c5d5609c8[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Wed Dec 17 22:07:15 2014 -0200
+
+    Projeto Maven.
+
+[33mcommit c83ed96719cb72ccb5138130fe5322ba510ba6a6[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Wed Dec 17 14:42:20 2014 -0200
+
+    Criação do projeto web para uso do batch-processing
+
+[33mcommit 104d94579533b50e39ae9b59f866d35fa65b09aa[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Wed Dec 17 14:32:11 2014 -0200
+
+    Retirando imports não utilizados.
+
+[33mcommit 842a65e126150ee0561f78e657c073423a38ffa1[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Wed Dec 17 13:09:40 2014 -0200
+
+    Retirando o Google Guice.
+
+[33mcommit f800c519f2c90f40de8428e0752bf3067dab60cd[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Wed Dec 17 12:58:19 2014 -0200
+
+    Adicionando o startTime e endTime para o Job.
+
+[33mcommit cfc11b1036ace6e1e1283d08c55018ad5121270b[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 16 23:54:02 2014 -0200
+
+    Correção no gerenciamento de erros de execução dos steps.
+
+[33mcommit 98694b0eed992c31b34afd3ffbecaef0e326f687[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 16 17:45:02 2014 -0200
+
+    Implementação de exemplos com Hibernate.
+
+[33mcommit eb5b8339659e9d5197af0a3dc937f15251a1e2dc[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 16 17:44:37 2014 -0200
+
+    Implementação de exemplos com Hibernate.
+
+[33mcommit c7a9f5d98fea71b0e0f1d7a0a4335ee8e3bcaff3[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 16 17:44:10 2014 -0200
+
+    Implementação de exemplos com Hibernate.
+
+[33mcommit 643e3ce3910836cbddc84d00e55100f0a068ebaa[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 16 14:41:39 2014 -0200
+
+    Implementação do commit-interval default para o tipo Chunk.
+
+[33mcommit 517d1ad7ff813d36cdaaf19564ddc7ca8b755523[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Mon Dec 15 20:33:48 2014 -0200
+
+    Adicionando o DTD.
+
+[33mcommit 8424300585542c8d3520b4170e29df1e68207c97[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Mon Dec 15 20:12:11 2014 -0200
+
+    Implementaçã do step listener.
+
+[33mcommit 81c405d1ca8b336ef31f3fcd094ad8ee9d2cedf4[m
+Author: rogerioalves21 <rogerioalves21@localhost>
+Date:   Sun Dec 14 14:45:38 2014 -0200
+
+    Implementação da leitura do arquivo de configuração no meta-inf.
+
+[33mcommit 4e9591789b9c2fdebdac4b3b79267273f0e2507b[m
+Author: rogerioalves21 <rogerioalves21@localhost>
+Date:   Sun Dec 14 11:52:05 2014 -0200
+
+[33mcommit 636a440e6ddc85278fa566b3a9bec51bf55d9327[m
+Author: rogerioalves21 <rogerioalves21@localhost>
+Date:   Sun Dec 14 11:43:31 2014 -0200
+
+    Arquivo DTD.
+
+[33mcommit 3276562b6a3657c169af99206c729c3d4a94cb7f[m
+Author: rogerioalves21 <rogerioalves21@localhost>
+Date:   Sun Dec 14 11:35:54 2014 -0200
+
+    Arquivo XSD.
+
+[33mcommit 3e7199318b54871a7e9b3e9501a5b20cd5a32d8b[m
+Author: rogerioalves21 <rogerioalves21@localhost>
+Date:   Sun Dec 14 11:19:15 2014 -0200
+
+    Adicionando mensagens aos properties.
+
+[33mcommit 91ac3dc02c63baa624d636aeb3e3c8f9708ca9ff[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sat Dec 13 17:25:30 2014 -0200
+
+    Adicionando bibliotecas externas ao projeto.
+
+[33mcommit 157875421ec89ccac8060c1e488f97e4b58c2d93[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sat Dec 13 13:31:30 2014 -0200
+
+    Refactoring
+
+[33mcommit b0c38a0f0af8cdb0d8ef77bbb55e6e8b55929024[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sat Dec 13 13:31:12 2014 -0200
+
+    Refactoring
+
+[33mcommit 0a7efc46af24b5297ee9794f179b2296a0b50223[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Fri Dec 12 00:08:37 2014 -0200
+
+    Criação do processamento do tipo Chunk
+
+[33mcommit 9c05f309885425e6b3e019b154de473c5e8181ce[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Thu Dec 11 00:49:40 2014 -0200
+
+    Alteração nos pacotes de serviços.
+
+[33mcommit b128d0353a14a3af9694504051c98a1af92c9af0[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Thu Dec 11 00:48:18 2014 -0200
+
+    Criação dos serviços e inclusão de mais injeções de dependência.
+
+[33mcommit 4130f3dc4773f3f6c3a07bbb1d5cb2e009202bfc[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 9 22:22:41 2014 -0200
+
+    Diferenciacao de execucao de steps.
+
+[33mcommit 1485af3a2e5d20044591551322702419b6575bce[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 9 21:54:51 2014 -0200
+
+    Refactoring
+
+[33mcommit efe08a6a4bd04dd421e5d18f0b7fe83ce9ad6f39[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 9 00:23:45 2014 -0200
+
+    Refactoring
+
+[33mcommit 1a297e7562f056abd9b3c57b4659118dd87c5b51[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Tue Dec 9 00:08:25 2014 -0200
+
+    Refactoring
+
+[33mcommit 79ebab7e62a59f92dfc8e773ecb99a7fa8cd5492[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Mon Dec 8 23:57:36 2014 -0200
+
+    Refactoring
+
+[33mcommit 43883984fdaa1f31f60389e663f5c4ef1b4b1efd[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Mon Dec 8 23:46:55 2014 -0200
+
+    Projeto de uso
+
+[33mcommit eaafadac1bd9d7972a5a59a939f80e2916ebfe63[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Mon Dec 8 23:46:39 2014 -0200
+
+    Refactoring
+
+[33mcommit eb401563742ac94247461ea6aba1e4cca8f619f3[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 23:20:43 2014 -0200
+
+    Refactoring
+
+[33mcommit c7722c785bb0e039d968dff7e2e2f20d478b4b0a[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 23:17:33 2014 -0200
+
+    Refactoring
+
+[33mcommit 599a0e4ba6c874935d029b33ea1ba23cb6cc67ee[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 23:13:27 2014 -0200
+
+    Pacote de testes
+
+[33mcommit d4a9def4eb314c0caf03d7c5ac6119896ec77f16[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 23:12:44 2014 -0200
+
+    Pacote de testes
+
+[33mcommit bc7414d99bcab1f30d2b3522dc03c49ae0761cd7[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 23:10:48 2014 -0200
+
+    Pacote de testes
+
+[33mcommit 44782c738371501280cc343ce0bdd8d609eef1e7[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 22:36:37 2014 -0200
+
+    Commit inicial
+
+[33mcommit caf39190e1556eceada54a35a6d3a56ae39a7f81[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 22:34:01 2014 -0200
+
+    Commit inicial
+
+[33mcommit 1688ccdb90d7be7a1b909d6734ddcbf404330073[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 22:32:10 2014 -0200
+
+    Commit inicial
+
+[33mcommit b9ef5a24d202066dbb7071868e0ffcbf1455adf4[m
+Author: rogerioalves21 <rogerioalves21@10.0.2.7>
+Date:   Sun Dec 7 22:28:15 2014 -0200
+
+    Commit inicial
+
+[33mcommit 978321ea3432d07bc82306f11393bfac84ccc570[m
+Author: rogerioalves21 <rogerioalves21@gmail.com>
+Date:   Sun Dec 7 21:52:26 2014 -0200
+
+    Initial commit
