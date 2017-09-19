@@ -11,7 +11,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 /**
- *
+ * Alteracao para o git.2.3.4
  * @author rogerioalves21
  */
 @ApplicationPath("servicos")
