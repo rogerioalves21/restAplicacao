@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.sicoob.cro.cop.util;
 
 /**
@@ -12,6 +7,7 @@ package br.com.sicoob.cro.cop.util;
  */
 public enum BatchKeys {
 
+    CABANOVO("NOVO"),
     RUNNING_JOB("job"),
     RESULT("result"),
     STATUS("status"),
